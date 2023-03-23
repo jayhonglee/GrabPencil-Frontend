@@ -1,24 +1,22 @@
-import logo from "./logo.svg";
+import { Route, Routes } from "react-router-dom";
+import TestPage from "pages/TestPage/TestPage";
 import "./App.css";
+import HomePage from "pages/HomePage/HomePage";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+    faCircleQuestion,
+    faComment,
+    faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
+    library.add(faCircleQuestion, faComment, faUser);
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/testPage" element={<TestPage />} />
+        </Routes>
     );
 }
 
