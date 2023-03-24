@@ -1,12 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import HomePage from "pages/HomePage/HomePage";
 import TestPage from "pages/TestPage/TestPage";
 import getIcons from "config/getIcons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import useFetchColorTheme from "hooks/useFetchColorTheme";
 
 function App() {
+    // add icons
     library.add(getIcons());
+    // set body background & font color
+    const fetchColorTheme = useFetchColorTheme("lightMode");
+    document.body.style.background = fetchColorTheme.secondary;
+    document.body.style.color = fetchColorTheme.font;
 
     return (
         <Routes>

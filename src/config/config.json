@@ -1,4 +1,7 @@
 {
+    "colorTheme" : [{ "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black"},
+{"name": "darkMode", "primary": "black", "secondary": "black", "font": "white"}
+],
     "navbar" : [
         {
             "name": "StudentTutor",
@@ -6,9 +9,9 @@
         },
         {
             "buttons" : [
-                { "name": "about", "icon": "circle-question", "color": "black", "link": "TestPage", "key": "navbarBtn1" },
-                { "name": "messages", "icon": "comment", "color": "black", "link": "TestPage", "key": "navbarBtn2" },
-                { "name": "profile", "icon": "user", "color": "black", "link": "TestPage", "key": "navbarBtn3" }
+                { "name": "about", "icon": "circle-question", "link": "TestPage", "key": "navbarBtn1" },
+                { "name": "messages", "icon": "comment", "link": "TestPage", "key": "navbarBtn2" },
+                { "name": "profile", "icon": "user", "link": "TestPage", "key": "navbarBtn3" }
             ]
         }
     ]
