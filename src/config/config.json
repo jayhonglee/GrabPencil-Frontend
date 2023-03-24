@@ -1,0 +1,15 @@
+{
+    "navbar" : [
+        {
+            "name": "StudentTutor",
+            "logo": ""
+        },
+        {
+            "buttons" : [
+                { "name": "about", "icon": "circle-question", "color": "black", "link": "TestPage", "key": "navbarBtn1" },
+                { "name": "messages", "icon": "comment", "color": "black", "link": "TestPage", "key": "navbarBtn2" },
+                { "name": "profile", "icon": "user", "color": "black", "link": "TestPage", "key": "navbarBtn3" }
+            ]
+        }
+    ]
+}

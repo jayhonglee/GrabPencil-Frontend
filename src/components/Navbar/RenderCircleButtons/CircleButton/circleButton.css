@@ -1,0 +1,6 @@
+@media (hover: hover) {
+    /* when hover is supported */
+    .circle-button:hover {
+        filter: brightness(90%)
+    }
+}

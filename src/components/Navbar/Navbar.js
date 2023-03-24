@@ -1,7 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CircleButton from "./CircleButton/CircleButton";
+import useFetch from "hooks/useFetch";
+import CircleButtonsRender from "./RenderCircleButtons/CircleButtonsRender";
 
 function Navbar() {
+    const fetchNavbar = useFetch("navbar");
+
     const buttonsContainer = {
         width: "150px",
         paddingRight: "16px",
@@ -11,29 +13,23 @@ function Navbar() {
         paddingLeft: "16px",
     };
 
+    const navBar = {
+        background: "var(--primary)",
+    };
+
     return (
-        <nav className="navbar bg-white container-fluid d-flex justify-content-between">
+        <nav
+            className="navbar container-fluid d-flex justify-content-between"
+            style={navBar}
+        >
             <div className="navbar-brand" style={navbarBrand}>
-                StudentTutor
+                {fetchNavbar[0].name}
             </div>
             <div
                 className="d-flex justify-content-between"
                 style={buttonsContainer}
             >
-                <CircleButton
-                    icon={
-                        <FontAwesomeIcon icon="circle-question" color="black" />
-                    }
-                    link={"TestPage"}
-                />
-                <CircleButton
-                    icon={<FontAwesomeIcon icon="comment" color="black" />}
-                    link={"TestPage"}
-                />
-                <CircleButton
-                    icon={<FontAwesomeIcon icon="user" color="black" />}
-                    link={"TestPage"}
-                />
+                <CircleButtonsRender />
             </div>
         </nav>
     );

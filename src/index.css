@@ -1,8 +1,11 @@
 /* Custom CSS variables */
 :root {
     --grey: #f1f2f6;
+
+    --primary: #fff;
+    --secondary: var(--grey);
 }
 
 body {
-    background: var(--grey);
+    background: var(--secondary);
 }
