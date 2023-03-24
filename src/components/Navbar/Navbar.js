@@ -1,18 +1,15 @@
 import useFetch from "hooks/useFetch";
-import CircleButtonsRender from "./RenderCircleButtons/CircleButtonsRender";
+import CircleButtonsRender from "./CircleButtonsRender/CircleButtonsRender";
 
 function Navbar() {
     const fetchNavbar = useFetch("navbar");
 
     const buttonsContainer = {
-        width: "150px",
         paddingRight: "16px",
     };
-
     const navbarBrand = {
         paddingLeft: "16px",
     };
-
     const navBar = {
         background: "var(--primary)",
     };

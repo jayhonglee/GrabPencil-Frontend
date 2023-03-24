@@ -1,16 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import TestPage from "pages/TestPage/TestPage";
 import "./App.css";
 import HomePage from "pages/HomePage/HomePage";
+import TestPage from "pages/TestPage/TestPage";
+import getIcons from "config/getIcons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-    faCircleQuestion,
-    faComment,
-    faUser,
-} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
-    library.add(faCircleQuestion, faComment, faUser);
+    library.add(getIcons());
 
     return (
         <Routes>

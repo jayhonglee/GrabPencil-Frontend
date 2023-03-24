@@ -26,6 +26,7 @@ function CircleButton({ icon, link }) {
     };
 
     const button = {
+        marginRight: "5px",
         width: "40px",
         height: "40px",
         background: "var(--secondary)",

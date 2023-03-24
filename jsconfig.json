@@ -1,4 +1,5 @@
 {
+  // set base url as src for easier import path
   "compilerOptions": {
     "baseUrl": "src"
   },
