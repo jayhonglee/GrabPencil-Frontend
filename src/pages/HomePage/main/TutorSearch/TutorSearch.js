@@ -1,12 +1,17 @@
 import SearchbarsRender from "./SearchbarsRender/SearchbarsRender";
+import useFetchColorTheme from "hooks/useFetchColorTheme";
+import useFetch from "hooks/useFetch";
 
 function TutorSearch() {
+    const colorTheme = useFetchColorTheme();
+    const fetchButtonText = useFetch("searchbar")[2].buttons[0].text;
+
     const form = {
         height: "44px",
     };
 
     const button = {
-        background: "#1B74E4",
+        background: colorTheme.point,
         textAlign: "center",
         border: "none",
         fontWeight: "600",
@@ -21,7 +26,7 @@ function TutorSearch() {
                     className="btn btn-primary"
                     style={button}
                 >
-                    Find tutors
+                    {fetchButtonText}
                 </button>
             </form>
             <div className="col">filter</div>

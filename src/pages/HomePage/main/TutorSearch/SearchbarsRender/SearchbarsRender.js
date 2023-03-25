@@ -11,6 +11,8 @@ function SearchbarsRender() {
     };
 
     const searchbarsRender = fetchSearchbars.map((searchbar) => {
+        if (searchbar.buttons) return;
+
         return (
             <div key={searchbar.key} style={div}>
                 <Searchbar

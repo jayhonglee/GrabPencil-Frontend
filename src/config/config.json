@@ -28,6 +28,11 @@
             "placeholder": "City, province, or `remote`",
             "icon": "comment",
             "key": "searchbar2"
+        },
+        {
+            "buttons": [
+                {"text": "Find tutors"}
+            ]
         }
     ]
 }
