@@ -4,7 +4,7 @@ import "./circleButton.css";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 
 function CircleButton({ icon, link }) {
-    const fetchColorTheme = useFetchColorTheme("lightMode");
+    const fetchColorTheme = useFetchColorTheme();
     const [isClicked, setIsClicked] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
 

@@ -1,7 +1,12 @@
-function useFetchColorTheme(value) {
+import { useSelector } from "react-redux";
+
+function useFetchColorTheme() {
+    const currentColorTheme = useSelector((state) => state.colorTheme.theme);
+    console.log(currentColorTheme);
+
     const data = require("../config/config.json");
     const colorTheme = data.colorTheme.filter((theme) => {
-        return theme.name === value;
+        return theme.name === currentColorTheme;
     });
 
     return colorTheme[0];

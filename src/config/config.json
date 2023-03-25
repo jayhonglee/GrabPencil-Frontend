@@ -1,7 +1,8 @@
 {
-    "colorTheme" : [{ "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black"},
-{"name": "darkMode", "primary": "black", "secondary": "black", "font": "white"}
-],
+    "colorTheme" : [
+        { "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black"},
+        {"name": "darkMode", "primary": "#252525", "secondary": "#18191A", "font": "white"}
+    ],
     "navbar" : [
         {
             "name": "StudentTutor",

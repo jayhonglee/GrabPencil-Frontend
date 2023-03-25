@@ -4,7 +4,7 @@ import CircleButtonsRender from "./CircleButtonsRender/CircleButtonsRender";
 
 function Navbar() {
     const fetchNavbar = useFetch("navbar");
-    const fetchColorTheme = useFetchColorTheme("lightMode");
+    const fetchColorTheme = useFetchColorTheme();
 
     const buttonsContainer = {
         paddingRight: "16px",

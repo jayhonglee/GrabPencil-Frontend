@@ -9,7 +9,7 @@ function App() {
     // add icons
     library.add(getIcons());
     // set body background & font color
-    const fetchColorTheme = useFetchColorTheme("lightMode");
+    const fetchColorTheme = useFetchColorTheme();
     document.body.style.background = fetchColorTheme.secondary;
     document.body.style.color = fetchColorTheme.font;
 

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CircleButtonsRender() {
     const fetchNavbar = useFetch("navbar");
-    const fetchColorTheme = useFetchColorTheme("lightMode");
+    const fetchColorTheme = useFetchColorTheme();
     const buttonsConfig = fetchNavbar[1].buttons;
 
     const circleButtonsRender = buttonsConfig.map((button) => {
