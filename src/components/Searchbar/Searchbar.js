@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Searchbar({ colorTheme, label, placeholder, icon }) {
+function Searchbar({ colorTheme, label, placeholder, icon, name }) {
     const searchBar = {
         border: `1px solid ${colorTheme.font}`,
         borderRadius: "0.5rem",
@@ -22,7 +22,7 @@ function Searchbar({ colorTheme, label, placeholder, icon }) {
     return (
         <div className="d-flex container-fluid p-3" style={searchBar}>
             <div>
-                <label htmlFor="whatSearch" style={labelStyle}>
+                <label htmlFor={name} style={labelStyle}>
                     {label}
                 </label>
             </div>
@@ -30,7 +30,7 @@ function Searchbar({ colorTheme, label, placeholder, icon }) {
                 <input
                     className="container-fluid"
                     placeholder={placeholder}
-                    id="whatSearch"
+                    id={name}
                     style={input}
                 />
                 <span>

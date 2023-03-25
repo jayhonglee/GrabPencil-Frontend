@@ -20,6 +20,7 @@ function SearchbarsRender() {
                     label={searchbar.name}
                     placeholder={searchbar.placeholder}
                     icon={searchbar.icon}
+                    name={searchbar.name}
                 />
             </div>
         );
