@@ -1,23 +1,18 @@
-import useFetch from "hooks/useFetch";
-import useFetchColorTheme from "hooks/useFetchColorTheme";
 import CircleButton from "./CircleButton/CircleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function CircleButtonsRender() {
-    const fetchNavbar = useFetch("navbar");
-    const fetchColorTheme = useFetchColorTheme();
-    const buttonsConfig = fetchNavbar[1].buttons;
-
+function CircleButtonsRender({ buttonsConfig, colorTheme }) {
     const circleButtonsRender = buttonsConfig.map((button) => {
         return (
             <CircleButton
                 icon={
                     <FontAwesomeIcon
                         icon={button.icon}
-                        color={fetchColorTheme.font}
+                        color={colorTheme.font}
                     />
                 }
                 link={button.link}
+                colorTheme={colorTheme}
                 key={button.key}
             />
         );

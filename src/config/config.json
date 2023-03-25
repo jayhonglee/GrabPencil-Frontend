@@ -1,7 +1,7 @@
 {
     "colorTheme" : [
-        { "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black"},
-        {"name": "darkMode", "primary": "#252525", "secondary": "#18191A", "font": "white"}
+        { "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black", "point": "#1B74E4"},
+        {"name": "darkMode", "primary": "#252525", "secondary": "#18191A", "font": "white", "point": "#1B74E4"}
     ],
     "navbar" : [
         {
@@ -14,6 +14,20 @@
                 { "name": "messages", "icon": "comment", "link": "TestPage", "key": "navbarBtn2" },
                 { "name": "profile", "icon": "user", "link": "TestPage", "key": "navbarBtn3" }
             ]
+        }
+    ],
+    "searchbar" : [
+        {
+            "name": "What",
+            "placeholder": "Subject, keywords, or education",
+            "icon": "user",
+            "key": "searchbar1"
+        },
+        {
+            "name": "Where",
+            "placeholder": "City, province, or `remote`",
+            "icon": "comment",
+            "key": "searchbar2"
         }
     ]
 }

@@ -1,11 +1,6 @@
-import useFetch from "hooks/useFetch";
-import useFetchColorTheme from "hooks/useFetchColorTheme";
 import CircleButtonsRender from "./CircleButtonsRender/CircleButtonsRender";
 
-function Navbar() {
-    const fetchNavbar = useFetch("navbar");
-    const fetchColorTheme = useFetchColorTheme();
-
+function Navbar({ name, colorTheme, buttonsConfig }) {
     const buttonsContainer = {
         paddingRight: "16px",
     };
@@ -14,7 +9,8 @@ function Navbar() {
         fontSize: "22px",
     };
     const navBar = {
-        background: fetchColorTheme.primary,
+        background: colorTheme.primary,
+        boxShadow: `0 0px 2px 0 rgba(0, 0, 0, 0.2)`,
     };
 
     return (
@@ -22,12 +18,15 @@ function Navbar() {
             className="navbar container-fluid d-flex justify-content-between"
             style={navBar}
         >
-            <div style={navbarBrand}>{fetchNavbar[0].name}</div>
+            <div style={navbarBrand}>{name}</div>
             <div
                 className="d-flex justify-content-between"
                 style={buttonsContainer}
             >
-                <CircleButtonsRender />
+                <CircleButtonsRender
+                    buttonsConfig={buttonsConfig}
+                    colorTheme={colorTheme}
+                />
             </div>
         </nav>
     );

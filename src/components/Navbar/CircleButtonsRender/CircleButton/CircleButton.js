@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./circleButton.css";
-import useFetchColorTheme from "hooks/useFetchColorTheme";
 
-function CircleButton({ icon, link }) {
-    const fetchColorTheme = useFetchColorTheme();
+function CircleButton({ icon, link, colorTheme }) {
     const [isClicked, setIsClicked] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
 
@@ -31,7 +29,7 @@ function CircleButton({ icon, link }) {
         marginRight: "5px",
         width: "40px",
         height: "40px",
-        background: fetchColorTheme.secondary,
+        background: colorTheme.secondary,
     };
 
     const buttonPressed = {
