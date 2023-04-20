@@ -7,11 +7,11 @@ function SearchbarsRender() {
     const fetchColorTheme = useFetchColorTheme();
 
     const div = {
-        width: "41%",
+        width: "44%",
     };
 
     const searchbarsRender = fetchSearchbars.map((searchbar) => {
-        if (searchbar.buttons) return;
+        if (searchbar.buttons) return null;
 
         return (
             <div key={searchbar.key} style={div}>

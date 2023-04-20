@@ -1,4 +1,5 @@
 import SearchbarsRender from "./SearchbarsRender/SearchbarsRender";
+import FiltersRender from "./FiltersRender/FiltersRender";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 import useFetch from "hooks/useFetch";
 
@@ -18,8 +19,11 @@ function TutorSearch() {
     };
 
     return (
-        <div className="text-center container-fluid w-75">
-            <form className="col d-flex justify-content-between" style={form}>
+        <div className="text-center container-fluid p-0">
+            <form
+                className="col d-flex justify-content-between mb-4"
+                style={form}
+            >
                 <SearchbarsRender />
                 <button
                     type="button"
@@ -29,7 +33,9 @@ function TutorSearch() {
                     {fetchButtonText}
                 </button>
             </form>
-            <div className="col">filter</div>
+            <div className="col mb-3">
+                <FiltersRender />
+            </div>
         </div>
     );
 }

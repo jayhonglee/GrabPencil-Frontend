@@ -2,6 +2,8 @@ import {
     faCircleQuestion,
     faComment,
     faUser,
+    faMagnifyingGlass,
+    faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -9,5 +11,7 @@ export default function getIcons() {
         faCircleQuestion,
         faComment,
         faUser,
+        faMagnifyingGlass,
+        faLocationDot,
     };
 }

@@ -20,19 +20,93 @@
         {
             "name": "What",
             "placeholder": "Subject, keywords, or education",
-            "icon": "user",
+            "icon": "magnifying-glass",
             "key": "searchbar1"
         },
         {
             "name": "Where",
             "placeholder": "City, province, or `remote`",
-            "icon": "comment",
+            "icon": "location-dot",
             "key": "searchbar2"
         },
         {
             "buttons": [
                 {"text": "Find tutors"}
             ]
+        }
+    ],
+    "filters" : [
+        {
+            "name": "School",
+            "list": [
+                {"name": "Simon Fraser University", "key": "school1"},
+                {"name": "University of British Columbia", "key": "school2"}
+            ],
+            "key": "filter1"
+        },
+        {
+            "name": "Language Spoken",
+            "list": [
+                {"name": "Korean", "key": "school1"},
+                {"name": "English", "key": "school2"}
+            ],
+            "key": "filter2"
+        },
+        {
+            "name": "Sex",
+            "list": [
+                {"name": "Male", "key": "sex1"},
+                {"name": "Female", "key": "sex2"}
+            ],
+            "key": "filter3"
+        },
+        {
+            "name": "Availability",
+            "list": [
+                {"name": "monday", "key": "availability1"},
+                {"name": "tuesday", "key": "availability2"}
+            ],
+            "key": "filter4"
+        },
+        {
+            "name": "Major",
+            "list": [
+                {"name": "Engineering", "key": "major1"},
+                {"name": "Math", "key": "major2"}
+            ],
+            "key": "filter5"
+        },
+        {
+            "name": "GPA",
+            "list": [
+                {"name": "2.0", "key": "gpa1"},
+                {"name": "3.0", "key": "gpa2"}
+            ],
+            "key": "filter6"
+        },
+        {
+            "name": "Subject",
+            "list": [
+                {"name": "Math", "key": "subject1"},
+                {"name": "Science", "key": "subject2"}
+            ],
+            "key": "filter7"
+        },
+                {
+            "name": "Location",
+            "list": [
+                {"name": "Coquitlam", "key": "location1"},
+                {"name": "Vancouver", "key": "locatoin2"}
+            ],
+            "key": "filter8"
+        },
+        {
+            "name": "Remote/In-person",
+            "list": [
+                {"name": "Remote", "key": "remote1"},
+                {"name": "In-person", "key": "inperson1"}
+            ],
+            "key": "filter9"
         }
     ]
 }
