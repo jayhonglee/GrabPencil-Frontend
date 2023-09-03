@@ -7,7 +7,6 @@ function FiltersRender() {
 
     const buttonStyle = {
         border: `1px solid ${colorTheme.point}`,
-        // background: "#FFBA49",
         color: colorTheme.point,
     };
     const listStyle = {

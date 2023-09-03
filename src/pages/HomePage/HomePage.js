@@ -1,6 +1,7 @@
 import MainLayout from "components/Layout/MainLayout";
 import Navbar from "components/Navbar/Navbar";
 import Main from "./Main/Main";
+import Footer from "components/Footer/Footer";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 import useFetch from "hooks/useFetch";
 
@@ -18,7 +19,7 @@ function HomePage() {
                 />
             }
             content={<Main />}
-            footer={<div>footer</div>}
+            footer={<Footer />}
         />
     );
 }

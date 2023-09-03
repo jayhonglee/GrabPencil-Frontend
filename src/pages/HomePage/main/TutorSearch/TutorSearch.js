@@ -33,7 +33,7 @@ function TutorSearch() {
                     {fetchButtonText}
                 </button>
             </form>
-            <div className="col mb-3">
+            <div className="col">
                 <FiltersRender />
             </div>
         </div>

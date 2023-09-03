@@ -10,7 +10,7 @@ function Navbar({ name, colorTheme, buttonsConfig }) {
     };
     const navBar = {
         background: colorTheme.primary,
-        boxShadow: `0 0px 2px 0 rgba(0, 0, 0, 0.2)`,
+        boxShadow: `0 1px 1px 0 rgba(0, 0, 0, 0.2)`,
     };
 
     return (

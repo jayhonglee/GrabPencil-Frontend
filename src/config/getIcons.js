@@ -4,6 +4,14 @@ import {
     faUser,
     faMagnifyingGlass,
     faLocationDot,
+    faBook,
+    faChalkboardTeacher,
+    faGlobe,
+    faLocation,
+    faLanguage,
+    faMale,
+    faQuestion,
+    faDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -13,5 +21,13 @@ export default function getIcons() {
         faUser,
         faMagnifyingGlass,
         faLocationDot,
+        faBook,
+        faChalkboardTeacher,
+        faGlobe,
+        faLocation,
+        faLanguage,
+        faMale,
+        faQuestion,
+        faDollar,
     };
 }

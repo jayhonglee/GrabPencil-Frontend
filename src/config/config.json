@@ -1,6 +1,6 @@
 {
     "colorTheme" : [
-        { "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black", "point": "#1B74E4"},
+        { "name": "lightMode", "primary": "#fff", "secondary": "#f1f2f6", "font": "black", "point": "#35b234"},
         {"name": "darkMode", "primary": "#252525", "secondary": "#18191A", "font": "white", "point": "#1B74E4"}
     ],
     "navbar" : [
