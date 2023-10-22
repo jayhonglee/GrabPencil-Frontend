@@ -15,7 +15,7 @@ function Main() {
         async function getTutorProfiles() {
             try {
                 const response = await axios.get(
-                    "http://localhost:5000/tutorProfiles?pageSize=5&pageNumber=1&maxPageIndex=5"
+                    "http://localhost:5000/tutorProfiles?sortBy=createdAt:desc&pageSize=10&pageNumber=1&maxPageIndex=5"
                 );
                 setTutorProfilesArray(response.data.tutorProfiles);
             } catch (error) {

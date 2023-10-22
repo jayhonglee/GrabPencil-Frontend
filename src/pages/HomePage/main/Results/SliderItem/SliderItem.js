@@ -38,7 +38,9 @@ function SliderItem({ data }) {
                             >
                                 {renderInfo(
                                     "graduation-cap",
-                                    `${data.major} (${data.gpa})`
+                                    `${data.major} ${
+                                        data.gpa ? `(${data.gpa})` : ""
+                                    }`
                                 )}
                                 {renderInfo("book", data.subjects)}
                                 {renderInfo(
