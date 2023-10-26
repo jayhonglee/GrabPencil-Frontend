@@ -1,22 +1,48 @@
-import portrait from "./sampleData/portrait.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 function SliderItem({ data }) {
+    const [sliderItemOnMouseOver, setSliderItemOnMouseOver] = useState(false);
+    const [sliderItemOnMouseDown, setSliderItemOnMouseDown] = useState(false);
+
     const profileStyle = {
-        background: `url(${portrait}) no-repeat`,
+        backgroundImage: data.avatarURL
+            ? `url(${data.avatarURL})`
+            : `url(/images/no_avatar.png)`,
         backgroundPosition: "center",
-        backgroundSize: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
         width: "60px",
         height: "60px",
         borderRadius: "50%",
     };
 
     const cardStyle = {
-        boxShadow: "0 1px 1px rgba(0, 0, 0, 0.2)",
+        boxShadow: sliderItemOnMouseOver
+            ? "0 1px 3px rgba(0, 0, 0, 0.2)"
+            : "0 1px 1px rgba(0, 0, 0, 0.2)",
+        cursor: sliderItemOnMouseOver ? "pointer" : "default",
+        border: sliderItemOnMouseDown
+            ? "1px solid grey"
+            : "1px solid transparent",
+    };
+
+    const nameStyle = {
+        textDecoration: sliderItemOnMouseOver ? "underline" : "",
     };
 
     return (
-        <div className="card border-0 mt-3" style={cardStyle}>
+        <div
+            className="card mt-3"
+            style={cardStyle}
+            onMouseEnter={() => setSliderItemOnMouseOver(true)}
+            onMouseLeave={() => {
+                setSliderItemOnMouseOver(false);
+                setSliderItemOnMouseDown(false);
+            }}
+            onMouseDown={() => setSliderItemOnMouseDown(true)}
+            onMouseUp={() => setSliderItemOnMouseDown(false)}
+        >
             <div className="card-body ps-0 pe-0">
                 <div className="container-fluid">
                     <div className="row">
@@ -25,7 +51,9 @@ function SliderItem({ data }) {
                         </div>
                         <div className="col-9">
                             <div className="text-start">
-                                <b>{`${data.firstName} ${data.lastName}`}</b>
+                                <b
+                                    style={nameStyle}
+                                >{`${data.firstName} ${data.lastName}`}</b>
                                 <span style={{ color: "grey" }}>
                                     <i>{` @`}</i>
                                     {`${data.school} · ${data.timeElapsed}`}

@@ -1,55 +1,97 @@
 import useFetchColorTheme from "hooks/useFetchColorTheme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Pagination() {
+function Pagination({ paginationObject }) {
+    console.log(paginationObject);
+
     const colorTheme = useFetchColorTheme();
 
-    const listStyle = {
+    const divStyle = {
         background: colorTheme.primary,
+        width: "66.89px",
+        height: "68.85px",
+        borderRadius: "8px",
+    };
+
+    const aStyle = {
+        textDecoration: "none",
+        display: "block",
+        textAlign: "center",
+        width: "100%",
+        height: "100%",
         color: colorTheme.font,
+        fontSize: "20px",
     };
 
     return (
-        <nav
-            className="d-flex justify-content-center align-items-center mt-3"
-            aria-label="Page navigation example"
-        >
-            <ul className="pagination pagination-lg m-0">
-                <li className="page-item">
-                    <a
-                        className="page-link"
-                        href="#"
-                        aria-label="Previous"
-                        style={listStyle}
-                    >
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li className="page-item">
-                    <a className="page-link" href="#" style={listStyle}>
-                        1
-                    </a>
-                </li>
-                <li className="page-item">
-                    <a className="page-link" href="#" style={listStyle}>
-                        2
-                    </a>
-                </li>
-                <li className="page-item">
-                    <a className="page-link" href="#" style={listStyle}>
-                        3
-                    </a>
-                </li>
-                <li className="page-item">
-                    <a
-                        className="page-link"
-                        href="#"
-                        aria-label="Next"
-                        style={listStyle}
-                    >
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+        <nav className="d-flex justify-content-between align-items-center mt-4 px-1">
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">
+                        <FontAwesomeIcon icon={"angle-left"} />
+                    </span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">1</span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">2</span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">3</span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">4</span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">5</span>
+                </a>
+            </div>
+            <div style={divStyle}>
+                <a
+                    href="#"
+                    style={aStyle}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <span aria-hidden="true">
+                        <FontAwesomeIcon icon={"angle-right"} />
+                    </span>
+                </a>
+            </div>
         </nav>
     );
 }

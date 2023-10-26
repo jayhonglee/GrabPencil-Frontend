@@ -13,6 +13,8 @@ import {
     faQuestion,
     faDollarSign,
     faGraduationCap,
+    faAngleRight,
+    faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -31,5 +33,7 @@ export default function getIcons() {
         faQuestion,
         faDollarSign,
         faGraduationCap,
+        faAngleRight,
+        faAngleLeft,
     };
 }
