@@ -53,12 +53,11 @@ function Main() {
                 {tutorProfilesIsLoading ? (
                     <ResultsLoading />
                 ) : (
-                    <>
-                        <Results
-                            tutorProfilesArray={tutorProfilesArray}
-                            paginationObject={paginationObject}
-                        />
-                    </>
+                    <Results
+                        tutorProfilesArray={tutorProfilesArray}
+                        paginationObject={paginationObject}
+                        setTutorProfilesIsLoading={setTutorProfilesIsLoading}
+                    />
                 )}
             </div>
         </div>

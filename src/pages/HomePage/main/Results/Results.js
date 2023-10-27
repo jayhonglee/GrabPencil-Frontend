@@ -9,31 +9,32 @@ function Results({ tutorProfilesArray, paginationObject }) {
     const [avatarURLs, setAvatarURLs] = useState({});
 
     useEffect(() => {
-        tutorProfilesArray.forEach((tutorProfile) => {
-            if (tutorProfile) {
-                axios
-                    .get(
+        const avatarObject = {};
+        const fetchAvatar = async (tutorProfile) => {
+            try {
+                if (tutorProfile) {
+                    const response = await axios.get(
                         `${process.env.REACT_APP_BASE_URL}/users/${tutorProfile.owner}/avatar`,
-                        {
-                            responseType: "arraybuffer",
-                        }
-                    )
-                    .then((response) => {
-                        const blob = new Blob([response.data], {
-                            type: "image/png",
-                        });
-                        const imageUrl = URL.createObjectURL(blob);
-
-                        setAvatarURLs((prevAvatarURLs) => ({
-                            ...prevAvatarURLs,
-                            [tutorProfile.owner]: imageUrl,
-                        }));
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching user avatar:", error);
+                        { responseType: "arraybuffer" }
+                    );
+                    const blob = new Blob([response.data], {
+                        type: "image/png",
                     });
+                    const imageUrl = URL.createObjectURL(blob);
+
+                    avatarObject[tutorProfile.owner] = imageUrl;
+                }
+                setAvatarURLs(avatarObject);
+                // console.log("set avatar urls!");
+            } catch (error) {
+                console.error("Error fetching user avatar:", error);
             }
-        });
+        };
+
+        tutorProfilesArray.forEach(fetchAvatar);
+        // setAvatarURLs(avatarObject);
+        // console.log(avatarObject);
+        // console.log(avatarURLs);
     }, [tutorProfilesArray]);
 
     const sliderItemsRender = tutorProfilesArray.map((tutorProfile) => {
@@ -42,39 +43,39 @@ function Results({ tutorProfilesArray, paginationObject }) {
         const currentEducation = tutorProfile.education.find(
             (education) => education.currentlyAttending === true
         );
-        const firstName = tutorProfile.firstName;
-        const lastName = tutorProfile.lastName;
-        const school = currentEducation.school;
+
+        const {
+            firstName,
+            lastName,
+            aboutMe,
+            subjects,
+            lessonMethod,
+            languages,
+            sex,
+            hourlyRate,
+        } = tutorProfile;
+
+        const { school, major, gpa } = currentEducation;
+
         const timeElapsed = format(tutorProfile.createdAt);
-        const aboutMe = tutorProfile.aboutMe;
-        const major = currentEducation.major;
-        const gpa = currentEducation.gpa;
-        const subjects = tutorProfile.subjects
-            .map((subject) => subject.subject)
-            .join(", ");
-        const lessonMethod = tutorProfile.lessonMethod;
-        const lessonLocation = tutorProfile.lessonLocation;
-        const languages = tutorProfile.languages
-            .map((language) => language.language)
-            .join(", ");
-        const sex = tutorProfile.sex;
-        const hourlyRate = tutorProfile.hourlyRate;
         const avatarURL = avatarURLs[tutorProfile.owner];
 
         const sliderItemData = {
-            firstName, //required
-            lastName, //required
-            school, //required
-            timeElapsed, // required
-            aboutMe, //required
-            major, //required
+            firstName,
+            lastName,
+            school,
+            timeElapsed,
+            aboutMe,
+            major,
             gpa,
-            subjects, //required
-            lessonMethod, //required
-            lessonLocation,
-            languages, //required
-            sex, //required
-            hourlyRate, //required
+            subjects: subjects.map((subject) => subject.subject).join(", "),
+            lessonMethod,
+            lessonLocation: tutorProfile.lessonLocation,
+            languages: languages
+                .map((language) => language.language)
+                .join(", "),
+            sex,
+            hourlyRate,
             avatarURL,
         };
 

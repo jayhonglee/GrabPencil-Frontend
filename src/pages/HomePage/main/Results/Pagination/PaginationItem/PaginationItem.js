@@ -30,7 +30,6 @@ function PaginationItem({ item, currentPage, onClick }) {
     };
 
     function scrollToTop() {
-        console.log(Window.pageYOffset);
         window.scrollTo({
             top: 0,
         });
