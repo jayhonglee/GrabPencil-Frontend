@@ -1,97 +1,47 @@
-import useFetchColorTheme from "hooks/useFetchColorTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PaginationItem from "./PaginationItem/PaginationItem";
 
 function Pagination({ paginationObject }) {
-    console.log(paginationObject);
-
-    const colorTheme = useFetchColorTheme();
-
-    const divStyle = {
-        background: colorTheme.primary,
-        width: "66.89px",
-        height: "68.85px",
-        borderRadius: "8px",
+    const { currentPage, pageIndexes, onPageChange } = paginationObject;
+    const nextPage = currentPage + 1;
+    const previousPage = currentPage - 1;
+    const pageExists = (page) => {
+        if (pageIndexes?.includes(page)) return true;
+        return false;
     };
 
-    const aStyle = {
-        textDecoration: "none",
-        display: "block",
-        textAlign: "center",
-        width: "100%",
-        height: "100%",
-        color: colorTheme.font,
-        fontSize: "20px",
-    };
+    const paginationListRender = pageIndexes?.map((index, num) => {
+        return (
+            <PaginationItem
+                item={index}
+                key={num + 1}
+                currentPage={currentPage}
+                onClick={() => onPageChange(index)}
+            />
+        );
+    });
 
     return (
-        <nav className="d-flex justify-content-between align-items-center mt-4 px-1">
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">
-                        <FontAwesomeIcon icon={"angle-left"} />
-                    </span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">1</span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">2</span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">3</span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">4</span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">5</span>
-                </a>
-            </div>
-            <div style={divStyle}>
-                <a
-                    href="#"
-                    style={aStyle}
-                    className="d-flex justify-content-center align-items-center"
-                >
-                    <span aria-hidden="true">
-                        <FontAwesomeIcon icon={"angle-right"} />
-                    </span>
-                </a>
-            </div>
+        <nav className="d-flex justify-content-center align-items-center mt-4 px-5">
+            {pageExists(previousPage) ? (
+                <PaginationItem
+                    item={<FontAwesomeIcon icon={"angle-left"} />}
+                    key={-1}
+                    onClick={() => onPageChange(currentPage - 1)}
+                />
+            ) : (
+                ""
+            )}
+            {paginationListRender}
+            {pageExists(nextPage) ? (
+                <PaginationItem
+                    item={<FontAwesomeIcon icon={"angle-right"} />}
+                    key={0}
+                    onClick={() => onPageChange(currentPage + 1)}
+                />
+            ) : (
+                ""
+            )}
         </nav>
     );
 }
