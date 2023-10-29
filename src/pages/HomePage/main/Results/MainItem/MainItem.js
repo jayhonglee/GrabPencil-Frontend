@@ -94,41 +94,13 @@ function MainItem({ currentTutorProfile }) {
                         <p style={{ color: "grey" }}>
                             <img
                                 className="me-2"
-                                src={SFULogo}
+                                src={SFULogo} //needs to be updated
                                 alt="profile"
                                 width="48px"
                                 height="auto"
                             />
                             {currentEducation?.school}
                         </p>
-                    </div>
-                    <div style={{ color: "grey" }} className="d-flex flex-wrap">
-                        <span className="me-3">
-                            <FontAwesomeIcon icon={"dollar"} className="me-1" />
-                            {currentTutorProfile?.hourlyRate}
-                        </span>
-                        <span className="me-3">
-                            <FontAwesomeIcon
-                                icon={"location"}
-                                className="me-1"
-                            />
-                            Coquitlam
-                        </span>
-                        <span className="me-3">
-                            <FontAwesomeIcon icon={"male"} className="me-1" />
-                            Male
-                        </span>
-                        <span className="me-3">
-                            <FontAwesomeIcon
-                                icon={"question"}
-                                className="me-1"
-                            />
-                            21
-                        </span>
-                        <span className="me-3">
-                            <FontAwesomeIcon icon={"globe"} className="me-1" />
-                            Online or In-person
-                        </span>
                     </div>
                 </div>
                 <div
@@ -160,6 +132,119 @@ function MainItem({ currentTutorProfile }) {
                         boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
                     }}
                 >
+                    <div className="pb-0">
+                        <p className="m-0 text-start fs-5">
+                            <b>Tutor Subjects</b>
+                        </p>
+                    </div>
+                    <div className="d-flex flex-column">
+                        {currentTutorProfile?.subjects?.map(
+                            (subject, n, currentTutorProfile) => {
+                                return (
+                                    <div
+                                        key={n}
+                                        className={`py-2 ${
+                                            n + 1 === currentTutorProfile.length
+                                                ? ""
+                                                : "border-bottom"
+                                        }`}
+                                    >
+                                        <p className="text-start m-0">
+                                            {subject?.subject}
+                                        </p>
+                                        <p
+                                            className="text-start m-0"
+                                            style={{
+                                                color: "grey",
+                                                lineHeight: "1",
+                                            }}
+                                        >
+                                            {subject?.teachingLevels
+                                                ? subject?.teachingLevels
+                                                : ""}
+                                        </p>
+                                    </div>
+                                );
+                            }
+                        )}
+                    </div>
+                </div>
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
+                    <p className="m-0 text-start fs-5 d-flex justify-content-between">
+                        <b>Lesson method</b>
+                        <span>{currentTutorProfile?.lessonMethod}</span>
+                    </p>
+                </div>
+                {currentTutorProfile?.lessonLocation ? (
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <p className="m-0 text-start fs-5 d-flex justify-content-between">
+                            <b>Lesson location</b>
+                            <span>{currentTutorProfile?.lessonLocation}</span>
+                        </p>
+                    </div>
+                ) : (
+                    ""
+                )}
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
+                    <div className="pb-2">
+                        <p className="m-0 text-start fs-5">
+                            <b>About {currentTutorProfile?.firstName}</b>
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-start m-0">
+                            {currentTutorProfile?.aboutMe}
+                        </p>
+                    </div>
+                </div>
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
+                    <div className="pb-2">
+                        <p className="m-0 text-start fs-5">
+                            <b>About the lesson</b>
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-start m-0">
+                            {currentTutorProfile?.aboutLesson}
+                        </p>
+                    </div>
+                </div>
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
                     <div className="pb-2">
                         <p className="m-0 text-start fs-5">
                             <b>Education</b>
@@ -168,7 +253,7 @@ function MainItem({ currentTutorProfile }) {
                     <div className="d-flex">
                         <div className="me-2">
                             <img
-                                src={SFULogo}
+                                src={SFULogo} // needs to be updated
                                 alt="profile"
                                 width="48px"
                                 height="48px"
@@ -180,18 +265,23 @@ function MainItem({ currentTutorProfile }) {
                                     className="m-0 text-start"
                                     style={{ fontWeight: "500" }}
                                 >
-                                    Simon Fraser University
+                                    {currentEducation?.school}
                                 </p>
                             </div>
                             <div>
                                 <p className="m-0 text-start lh-sm">
-                                    Bachelor of Applied Science - BASc, Computer
-                                    Engineering
+                                    {currentEducation?.degree
+                                        ? `${currentEducation?.degree}, `
+                                        : ""}
+                                    {currentEducation?.major}
                                 </p>
                             </div>
                             <div>
-                                <p className="m-0 text-start lh-sm">
-                                    2019 - 2025
+                                <p
+                                    className="m-0 text-start lh-sm"
+                                    style={{ color: "grey", fontSize: "14px" }}
+                                >
+                                    {`${currentEducation?.startDateMonth} ${currentEducation?.startDateYear} - ${currentEducation?.endDateMonth} ${currentEducation?.endDateYear}`}
                                 </p>
                             </div>
                         </div>
@@ -205,30 +295,39 @@ function MainItem({ currentTutorProfile }) {
                         boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
                     }}
                 >
-                    <div className="pb-2">
+                    <div className="pb-0">
                         <p className="m-0 text-start fs-5">
-                            <b>Language(s)</b>
+                            <b>Languages</b>
                         </p>
                     </div>
                     <div className="d-flex flex-column">
-                        <div className="py-2 border-bottom">
-                            <p className="text-start m-0">English</p>
-                            <p
-                                className="text-start m-0"
-                                style={{ color: "grey" }}
-                            >
-                                Native or bilingual proficiency
-                            </p>
-                        </div>
-                        <div className="py-2 border-bottom">
-                            <p className="text-start m-0">Korean</p>
-                            <p
-                                className="text-start m-0"
-                                style={{ color: "grey" }}
-                            >
-                                Native or bilingual proficiency
-                            </p>
-                        </div>
+                        {currentTutorProfile?.languages?.map(
+                            (language, n, currentTutorProfile) => {
+                                return (
+                                    <div
+                                        key={n}
+                                        className={`py-2 ${
+                                            n + 1 === currentTutorProfile.length
+                                                ? ""
+                                                : "border-bottom"
+                                        }`}
+                                    >
+                                        <p className="text-start m-0">
+                                            {language?.language}
+                                        </p>
+                                        <p
+                                            className="text-start m-0"
+                                            style={{
+                                                color: "grey",
+                                                lineHeight: "1",
+                                            }}
+                                        >
+                                            {language?.proficiency || ""}
+                                        </p>
+                                    </div>
+                                );
+                            }
+                        )}
                     </div>
                 </div>
                 <div
@@ -239,76 +338,10 @@ function MainItem({ currentTutorProfile }) {
                         boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
                     }}
                 >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>Tutor Subject(s)</b>
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-start m-0">
-                            PreCalculus • Calculus • Programming • Physics
-                        </p>
-                    </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>About Me</b>
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-start m-0">
-                            I am a LICENSED teacher in multiple provinces in
-                            Canada, teaching for 7+ years in both private and
-                            public schools. I have taught more than 1500
-                            students in the last 7 years. And most of them have
-                            LOVED my teaching style. have degrees in Electronic
-                            Engineering and Bachelor of Education. So I am super
-                            qualified. But who cares! What’s important is that I
-                            AM A GREAT TEACHER. Thats not me, those are my
-                            students and teachers and principals who have said
-                            this so many times about me, year after year.
-                        </p>
-                    </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>About the Lesson</b>
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-start m-0">
-                            My classes are engaging and fun where I let YOU do
-                            work so you learn the best. I use tons of technology
-                            - videos, games, puzzles, online manipulative,
-                            Geogebra & Desmos etc. My examples are meaningful
-                            and relevant to your life If you Play hockey or
-                            basketball. if you work and earn income. Whatever
-                            you do in your extra time ? that’s what I would like
-                            to use in my examples I have degrees in Electronic
-                            Engineering and Bachelor of Education. So I am super
-                            qualified. But who cares! What’s important is that I
-                            AM A GREAT TEACHER. Thats not me, those are my
-                            students and teachers and principals who have said
-                            this so many times about me, year after year. Please
-                            check out these reviews in my listing
-                        </p>
-                    </div>
+                    <p className="m-0 text-start fs-5 d-flex justify-content-between">
+                        <b>Hourly rate</b>
+                        <span>${currentTutorProfile?.hourlyRate}</span>
+                    </p>
                 </div>
             </div>
         </div>
