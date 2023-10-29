@@ -1,9 +1,12 @@
-// import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import portrait from "../SliderItem/sampleData/portrait.jpg";
 import SFULogo from "../SliderItem/sampleData/SFULogo.png";
+import UBCLogo from "../SliderItem/sampleData/UBCLogo.png";
 
-function MainItem() {
+function MainItem({ currentTutorProfile }) {
+    const currentEducation = currentTutorProfile?.education?.find(
+        (education) => education.currentlyAttending === true
+    );
+
     const cardStyle = {
         width: "100%",
         height: "95vh",
@@ -14,7 +17,6 @@ function MainItem() {
     };
 
     const headerStyle = {
-        // height: "35%",
         position: "relative",
         boxShadow: "0 1px 1px rgba(0, 0, 0, 0.2)",
         zIndex: "1",
@@ -78,20 +80,32 @@ function MainItem() {
                                 }}
                                 className="m-0"
                             >
-                                <b>Jaehong Lee</b>
+                                <b>
+                                    {`${currentTutorProfile?.firstName} ${currentTutorProfile?.lastName} `}
+                                </b>
                             </span>
+                            <span
+                                style={{ color: "grey" }}
+                            >{`(${currentTutorProfile?.sex})`}</span>
+                            <p className="m-0 pb-3">
+                                {currentTutorProfile?.headline}
+                            </p>
                         </div>
+                        <p style={{ color: "grey" }}>
+                            <img
+                                className="me-2"
+                                src={SFULogo}
+                                alt="profile"
+                                width="48px"
+                                height="auto"
+                            />
+                            {currentEducation?.school}
+                        </p>
                     </div>
-                    <p
-                        style={{ color: "grey", lineHeight: "1.2" }}
-                        className="m-0 pb-3"
-                    >
-                        <i>from SFU</i>
-                    </p>
                     <div style={{ color: "grey" }} className="d-flex flex-wrap">
                         <span className="me-3">
                             <FontAwesomeIcon icon={"dollar"} className="me-1" />
-                            25
+                            {currentTutorProfile?.hourlyRate}
                         </span>
                         <span className="me-3">
                             <FontAwesomeIcon
@@ -121,12 +135,19 @@ function MainItem() {
                     className="d-flex justify-content-center align-items-center"
                     style={inHeaderCircleStyle}
                 >
-                    <img
-                        src={portrait}
+                    <div
                         alt="profile"
-                        width="93%"
-                        height="93%"
-                        style={{ borderRadius: "100%" }}
+                        style={{
+                            width: "93%",
+                            height: "93%",
+                            backgroundImage: currentTutorProfile?.avatarURL
+                                ? `url(${currentTutorProfile?.avatarURL})`
+                                : `url(/images/no_avatar.png)`,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            borderRadius: "50%",
+                        }}
                     />
                 </div>
             </div>

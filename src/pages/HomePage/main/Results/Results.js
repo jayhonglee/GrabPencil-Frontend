@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 function Results({ tutorProfilesArray, paginationObject }) {
     const [avatarURLs, setAvatarURLs] = useState({});
+    const [currentTutorProfile, setCurrentTutorProfile] = useState({});
 
     useEffect(() => {
         const avatarObject = {};
@@ -25,16 +26,12 @@ function Results({ tutorProfilesArray, paginationObject }) {
                     avatarObject[tutorProfile.owner] = imageUrl;
                 }
                 setAvatarURLs(avatarObject);
-                // console.log("set avatar urls!");
             } catch (error) {
-                console.error("Error fetching user avatar:", error);
+                // console.error("Error fetching user avatar:", error);
             }
         };
 
         tutorProfilesArray.forEach(fetchAvatar);
-        // setAvatarURLs(avatarObject);
-        // console.log(avatarObject);
-        // console.log(avatarURLs);
     }, [tutorProfilesArray]);
 
     const sliderItemsRender = tutorProfilesArray.map((tutorProfile) => {
@@ -53,6 +50,7 @@ function Results({ tutorProfilesArray, paginationObject }) {
             languages,
             sex,
             hourlyRate,
+            _id,
         } = tutorProfile;
 
         const { school, major, gpa } = currentEducation;
@@ -77,9 +75,21 @@ function Results({ tutorProfilesArray, paginationObject }) {
             sex,
             hourlyRate,
             avatarURL,
+            _id,
         };
 
-        return <SliderItem key={tutorProfile._id} data={sliderItemData} />;
+        const onClick = () => {
+            setCurrentTutorProfile({ ...tutorProfile, avatarURL });
+        };
+
+        return (
+            <SliderItem
+                key={tutorProfile._id}
+                data={sliderItemData}
+                onClick={onClick}
+                currentTutorProfile={currentTutorProfile}
+            />
+        );
     });
 
     return (
@@ -94,7 +104,7 @@ function Results({ tutorProfilesArray, paginationObject }) {
                     <Pagination paginationObject={paginationObject} />
                 </div>
                 <div className="col-7">
-                    <MainItem />
+                    <MainItem currentTutorProfile={currentTutorProfile} />
                 </div>
             </div>
         </div>

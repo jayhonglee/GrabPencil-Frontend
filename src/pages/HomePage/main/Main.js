@@ -56,7 +56,6 @@ function Main() {
                     <Results
                         tutorProfilesArray={tutorProfilesArray}
                         paginationObject={paginationObject}
-                        setTutorProfilesIsLoading={setTutorProfilesIsLoading}
                     />
                 )}
             </div>

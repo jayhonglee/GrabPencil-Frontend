@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-function SliderItem({ data }) {
+function SliderItem({ data, onClick, currentTutorProfile }) {
     const [sliderItemOnMouseOver, setSliderItemOnMouseOver] = useState(false);
     const [sliderItemOnMouseDown, setSliderItemOnMouseDown] = useState(false);
+
+    const isCurrentTutorProfile = currentTutorProfile._id == data._id;
 
     const profileStyle = {
         backgroundImage: data.avatarURL
@@ -24,6 +26,8 @@ function SliderItem({ data }) {
         cursor: sliderItemOnMouseOver ? "pointer" : "default",
         border: sliderItemOnMouseDown
             ? "1px solid grey"
+            : isCurrentTutorProfile
+            ? "1px solid #35b234"
             : "1px solid transparent",
     };
 
@@ -42,6 +46,7 @@ function SliderItem({ data }) {
             }}
             onMouseDown={() => setSliderItemOnMouseDown(true)}
             onMouseUp={() => setSliderItemOnMouseDown(false)}
+            onClick={onClick}
         >
             <div className="card-body ps-0 pe-0">
                 <div className="container-fluid">
