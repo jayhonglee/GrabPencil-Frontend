@@ -1,6 +1,6 @@
 import TutorSearch from "./TutorSearch/TutorSearch";
 import Results from "./Results/Results";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import ResultsLoading from "./ResultsLoading/ResultsLoading";
 
@@ -9,14 +9,34 @@ function Main() {
     const [tutorProfilesArray, setTutorProfilesArray] = useState([]);
     const [paginationObject, setPaginationObject] = useState({});
     const [currentTutorProfile, setCurrentTutorProfile] = useState({});
+    const [avatarURLs, setAvatarURLs] = useState({});
 
-    const isInitialRender = useRef(true);
+    const avatarObject = {};
 
     const getTutorProfiles = async (pageNumber) => {
         try {
+            // Get tutor profiles
             const response = await axios.get(
                 `${process.env.REACT_APP_BASE_URL}/tutorProfiles?sortBy=createdAt:desc&pageSize=${process.env.REACT_APP_PAGE_SIZE}&pageNumber=${pageNumber}&maxPageIndex=${process.env.REACT_APP_MAX_PAGE_INDEX}`
             );
+            // Get avatars and save to avatarObject
+            for (const tutorProfile of response.data.tutorProfiles) {
+                await axios
+                    .get(
+                        `${process.env.REACT_APP_BASE_URL}/users/${tutorProfile.owner}/avatar`,
+                        { responseType: "arraybuffer" }
+                    )
+                    .then((response) => {
+                        const blob = new Blob([response.data], {
+                            type: "image/png",
+                        });
+                        const imageUrl = URL.createObjectURL(blob);
+                        avatarObject[tutorProfile.owner] = imageUrl;
+                    })
+                    .catch((e) => {
+                        console.log("Error: ", e);
+                    });
+            }
             setTutorProfilesArray(response.data.tutorProfiles);
             setPaginationObject({
                 totalPages: response.data.totalPages,
@@ -26,6 +46,7 @@ function Main() {
             });
             setCurrentTutorProfile(response.data.tutorProfiles?.[0]);
             setTutorProfilesIsLoading(false);
+            setAvatarURLs(avatarObject);
         } catch (error) {
             console.error(error);
         }
@@ -37,11 +58,6 @@ function Main() {
     };
 
     useEffect(() => {
-        if (isInitialRender.current) {
-            isInitialRender.current = false;
-            return; // Skip the initial render
-        }
-
         getTutorProfiles(process.env.REACT_APP_PAGE_NUMBER);
     }, []);
 
@@ -67,6 +83,9 @@ function Main() {
                         paginationObject={paginationObject}
                         currentTutorProfile={currentTutorProfile}
                         setCurrentTutorProfile={setCurrentTutorProfile}
+                        avatarURLs={avatarURLs}
+                        setTutorProfilesIsLoading={setTutorProfilesIsLoading}
+                        tutorProfilesIsLoading={tutorProfilesIsLoading}
                     />
                 )}
             </div>
