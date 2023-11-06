@@ -3,35 +3,49 @@ import MainItem from "./MainItem/MainItem";
 import Pagination from "./Pagination/Pagination";
 import { format } from "timeago.js";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function Results({ tutorProfilesArray, paginationObject }) {
     const [avatarURLs, setAvatarURLs] = useState({});
     const [currentTutorProfile, setCurrentTutorProfile] = useState({});
+    const [avatarURLsLoaded, setAvatarURLsLoaded] = useState(false); // New state
+
+    const isInitialRender = useRef(true);
 
     useEffect(() => {
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            return; // Skip the initial render
+        }
+
+        setCurrentTutorProfile(tutorProfilesArray?.[0]);
         const avatarObject = {};
-        const fetchAvatar = async (tutorProfile) => {
-            try {
-                if (tutorProfile) {
-                    const response = await axios.get(
-                        `${process.env.REACT_APP_BASE_URL}/users/${tutorProfile.owner}/avatar`,
-                        { responseType: "arraybuffer" }
-                    );
-                    const blob = new Blob([response.data], {
-                        type: "image/png",
-                    });
-                    const imageUrl = URL.createObjectURL(blob);
-
-                    avatarObject[tutorProfile.owner] = imageUrl;
+        async function fetchAvatar() {
+            if (tutorProfilesArray) {
+                for (const tutorProfile of tutorProfilesArray) {
+                    await axios
+                        .get(
+                            `${process.env.REACT_APP_BASE_URL}/users/${tutorProfile.owner}/avatar`,
+                            { responseType: "arraybuffer" }
+                        )
+                        .then((response) => {
+                            const blob = new Blob([response.data], {
+                                type: "image/png",
+                            });
+                            const imageUrl = URL.createObjectURL(blob);
+                            avatarObject[tutorProfile.owner] = imageUrl;
+                        })
+                        .catch((e) => {
+                            console.log("Error: ", e);
+                        });
                 }
-                setAvatarURLs(avatarObject);
-            } catch (error) {
-                // console.error("Error fetching user avatar:", error);
             }
-        };
+        }
 
-        tutorProfilesArray.forEach(fetchAvatar);
+        fetchAvatar().then(() => {
+            setAvatarURLs(avatarObject);
+            setAvatarURLsLoaded(true); // Mark that avatarURLs are loaded
+        });
     }, [tutorProfilesArray]);
 
     const sliderItemsRender = tutorProfilesArray.map((tutorProfile) => {
@@ -88,6 +102,7 @@ function Results({ tutorProfilesArray, paginationObject }) {
                 data={sliderItemData}
                 onClick={onClick}
                 currentTutorProfile={currentTutorProfile}
+                avatarURLsLoaded={avatarURLsLoaded}
             />
         );
     });

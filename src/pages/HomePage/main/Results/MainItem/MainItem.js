@@ -3,6 +3,46 @@ import SFULogo from "../SliderItem/sampleData/SFULogo.png";
 import UBCLogo from "../SliderItem/sampleData/UBCLogo.png";
 
 function MainItem({ currentTutorProfile }) {
+    const sortArray = (array) => {
+        const sortedArray = array?.sort((a, b) => {
+            // Compare start date years in reverse order (latest first)
+            if (a.startDateYear !== b.startDateYear) {
+                return b.startDateYear - a.startDateYear;
+            }
+
+            // If the start date years are the same, compare start date months in reverse order (latest first)
+            if (a.startDateMonth !== b.startDateMonth) {
+                // Define a mapping of month names to their corresponding numerical values
+                const monthOrder = {
+                    January: 1,
+                    February: 2,
+                    March: 3,
+                    April: 4,
+                    May: 5,
+                    June: 6,
+                    July: 7,
+                    August: 8,
+                    September: 9,
+                    October: 10,
+                    November: 11,
+                    December: 12,
+                };
+
+                return (
+                    b.startDateYear - a.startDateYear ||
+                    monthOrder[b.startDateMonth] - monthOrder[a.startDateMonth]
+                );
+            }
+
+            // If both start date years and months are the same, the entries are considered equal
+            return 0;
+        });
+        return sortedArray;
+    };
+
+    const sortedEducation = sortArray(currentTutorProfile?.education);
+    const sortedExperiences = sortArray(currentTutorProfile?.experiences);
+
     const currentEducation = currentTutorProfile?.education?.find(
         (education) => education.currentlyAttending === true
     );
@@ -245,47 +285,130 @@ function MainItem({ currentTutorProfile }) {
                         boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
                     }}
                 >
-                    <div className="pb-2">
+                    <div>
                         <p className="m-0 text-start fs-5">
                             <b>Education</b>
                         </p>
                     </div>
-                    <div className="d-flex">
-                        <div className="me-2">
-                            <img
-                                src={SFULogo} // needs to be updated
-                                alt="profile"
-                                width="48px"
-                                height="48px"
-                            />
-                        </div>
-                        <div className="d-flex flex-column">
-                            <div>
-                                <p
-                                    className="m-0 text-start"
-                                    style={{ fontWeight: "500" }}
-                                >
-                                    {currentEducation?.school}
-                                </p>
+                    {sortedEducation?.map((education, n, eductaions) => {
+                        return (
+                            <div
+                                className={`d-flex py-3 ${
+                                    n + 1 === eductaions.length
+                                        ? ""
+                                        : "border-bottom"
+                                }`}
+                                key={n}
+                            >
+                                <div className="me-2">
+                                    <img
+                                        src={SFULogo} // needs to be updated
+                                        alt="profile"
+                                        width="48px"
+                                        height="48px"
+                                    />
+                                </div>
+                                <div className="d-flex flex-column">
+                                    <div>
+                                        <p
+                                            className="m-0 text-start"
+                                            style={{ fontWeight: "500" }}
+                                        >
+                                            {education?.school}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="m-0 text-start lh-sm">
+                                            {education?.degree
+                                                ? `${education?.degree}, `
+                                                : ""}
+                                            {education?.major}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            className="m-0 text-start lh-sm"
+                                            style={{
+                                                color: "grey",
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            {`${education?.startDateMonth} ${education?.startDateYear} - ${education?.endDateMonth} ${education?.endDateYear}`}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p className="m-0 text-start lh-sm">
-                                    {currentEducation?.degree
-                                        ? `${currentEducation?.degree}, `
-                                        : ""}
-                                    {currentEducation?.major}
-                                </p>
-                            </div>
-                            <div>
-                                <p
-                                    className="m-0 text-start lh-sm"
-                                    style={{ color: "grey", fontSize: "14px" }}
-                                >
-                                    {`${currentEducation?.startDateMonth} ${currentEducation?.startDateYear} - ${currentEducation?.endDateMonth} ${currentEducation?.endDateYear}`}
-                                </p>
-                            </div>
-                        </div>
+                        );
+                    })}
+                </div>
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
+                    <div>
+                        <p className="m-0 text-start fs-5">
+                            <b>Experience</b>
+                        </p>
                     </div>
+                    {sortedExperiences?.map((experience, n, experiences) => {
+                        return (
+                            <div
+                                className={`d-flex py-3 ${
+                                    n + 1 === experiences.length
+                                        ? ""
+                                        : "border-bottom"
+                                }`}
+                                key={n}
+                            >
+                                <div className="d-flex flex-column">
+                                    <div>
+                                        <p
+                                            className="m-0 text-start"
+                                            style={{ fontWeight: "500" }}
+                                        >
+                                            {experience?.title}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="m-0 text-start lh-sm">
+                                            {experience?.employmentType
+                                                ? `${experience?.companyName} · ${experience?.employmentType}`
+                                                : experience?.companyName}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            className="m-0 text-start lh-sm"
+                                            style={{
+                                                color: "grey",
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            {experience?.currentlyWorking
+                                                ? `${experience?.startDateMonth} ${experience?.startDateYear} - Present`
+                                                : `${experience?.startDateMonth} ${experience?.startDateYear} - ${experience?.endDateMonth} ${experience?.endDateYear}`}
+                                        </p>
+                                        <p
+                                            className="m-0 text-start lh-sm"
+                                            style={{
+                                                color: "grey",
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            {(experience?.location &&
+                                                `${experience?.location}, `) ||
+                                                ""}
+                                            {experience?.locationType || ""}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
                 <div
                     className="card mb-3 px-4 py-3"
@@ -302,12 +425,12 @@ function MainItem({ currentTutorProfile }) {
                     </div>
                     <div className="d-flex flex-column">
                         {currentTutorProfile?.languages?.map(
-                            (language, n, currentTutorProfile) => {
+                            (language, n, languages) => {
                                 return (
                                     <div
                                         key={n}
                                         className={`py-2 ${
-                                            n + 1 === currentTutorProfile.length
+                                            n + 1 === languages.length
                                                 ? ""
                                                 : "border-bottom"
                                         }`}
@@ -328,6 +451,27 @@ function MainItem({ currentTutorProfile }) {
                                 );
                             }
                         )}
+                    </div>
+                </div>
+                <div
+                    className="card mb-3 px-4 py-3"
+                    style={{
+                        border: "none",
+                        background: "#fff",
+                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                    }}
+                >
+                    <div className="pb-2">
+                        <p className="m-0 text-start fs-5">
+                            <b>Skills</b>
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-start m-0">
+                            {currentTutorProfile?.skills
+                                ?.map((skill) => skill.skill)
+                                ?.join(" · ")}
+                        </p>
                     </div>
                 </div>
                 <div

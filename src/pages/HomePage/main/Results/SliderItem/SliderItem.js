@@ -1,14 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-function SliderItem({ data, onClick, currentTutorProfile }) {
+function SliderItem({ data, onClick, currentTutorProfile, avatarURLsLoaded }) {
     const [sliderItemOnMouseOver, setSliderItemOnMouseOver] = useState(false);
     const [sliderItemOnMouseDown, setSliderItemOnMouseDown] = useState(false);
 
     const isCurrentTutorProfile = currentTutorProfile._id == data._id;
 
     const profileStyle = {
-        backgroundImage: data.avatarURL
+        backgroundImage: !avatarURLsLoaded
+            ? `url(/images/no_avatar.png)`
+            : data.avatarURL
             ? `url(${data.avatarURL})`
             : `url(/images/no_avatar.png)`,
         backgroundPosition: "center",

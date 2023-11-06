@@ -1,5 +1,5 @@
-import MainItem from "../Results/MainItem/MainItem";
 import CardLoading from "./CardLoading/CardLoading";
+import MainItemLoading from "./MainItemLoading/MainItemLoading";
 
 function ResultsLoading() {
     return (
@@ -12,7 +12,7 @@ function ResultsLoading() {
                     <CardLoading />
                 </div>
                 <div className="col-7">
-                    <MainItem />
+                    <MainItemLoading />
                 </div>
             </div>
         </div>

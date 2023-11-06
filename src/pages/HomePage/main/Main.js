@@ -1,6 +1,6 @@
 import TutorSearch from "./TutorSearch/TutorSearch";
 import Results from "./Results/Results";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ResultsLoading from "./ResultsLoading/ResultsLoading";
 
@@ -8,6 +8,8 @@ function Main() {
     const [tutorProfilesIsLoading, setTutorProfilesIsLoading] = useState(true);
     const [tutorProfilesArray, setTutorProfilesArray] = useState([]);
     const [paginationObject, setPaginationObject] = useState({});
+
+    const isInitialRender = useRef(true);
 
     const getTutorProfiles = async (pageNumber) => {
         try {
@@ -21,7 +23,7 @@ function Main() {
                 pageIndexes: response.data.pageIndexes,
                 onPageChange,
             });
-            setTutorProfilesIsLoading(false);
+            // setTutorProfilesIsLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -33,6 +35,11 @@ function Main() {
     };
 
     useEffect(() => {
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            return; // Skip the initial render
+        }
+
         getTutorProfiles(process.env.REACT_APP_PAGE_NUMBER);
     }, []);
 
