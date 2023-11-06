@@ -88,7 +88,7 @@ function Results({
                 <div className="col-7">
                     <MainItem
                         currentTutorProfile={currentTutorProfile}
-                        // avatarURLsLoaded={avatarURLsLoaded}
+                        avatarURLs={avatarURLs}
                     />
                 </div>
             </div>

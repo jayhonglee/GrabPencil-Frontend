@@ -1,31 +1,6 @@
 import SFULogo from "../SliderItem/sampleData/SFULogo.png";
 
-function MainItem({ currentTutorProfile }) {
-    // // Use a useEffect to watch for changes in avatarURLsLoaded
-    // useEffect(() => {
-    //     setAvatarURLsLoadedState(avatarURLsLoaded);
-    // }, [avatarURLsLoaded]);
-
-    // // Create a function to update the component based on new prop values
-    // const updateComponent = () => {
-    //     console.log(currentTutorProfile?.avatarURL);
-    //     // Update profile picture, or any other component updates
-    //     const profileMain = document.getElementById("profileMain");
-    //     if (profileMain) {
-    //         profileMain.style.backgroundImage = currentTutorProfile?.avatarURL
-    //             ? `url(${currentTutorProfile?.avatarURL})`
-    //             : `url(/images/no_avatar.png)`;
-    //     }
-    // };
-
-    // // Call the updateComponent function when avatarURLsLoadedState changes
-    // useEffect(() => {
-    //     if (avatarURLsLoadedState) {
-    //         console.log("update");
-    //         updateComponent();
-    //     }
-    // }, [avatarURLsLoadedState]);
-
+function MainItem({ currentTutorProfile, avatarURLs }) {
     const sortArray = (array) => {
         const sortedArray = array?.sort((a, b) => {
             // Compare start date years in reverse order (latest first)
@@ -176,8 +151,12 @@ function MainItem({ currentTutorProfile }) {
                         style={{
                             width: "93%",
                             height: "93%",
-                            backgroundImage: currentTutorProfile?.avatarURL
-                                ? `url(${currentTutorProfile?.avatarURL})`
+                            backgroundImage: avatarURLs[
+                                currentTutorProfile?.owner
+                            ]
+                                ? `url(${
+                                      avatarURLs[currentTutorProfile?.owner]
+                                  })`
                                 : `url(/images/no_avatar.png)`,
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
