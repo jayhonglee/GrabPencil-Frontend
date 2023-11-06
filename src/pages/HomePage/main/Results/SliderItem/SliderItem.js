@@ -5,7 +5,7 @@ function SliderItem({ data, onClick, currentTutorProfile, avatarURLsLoaded }) {
     const [sliderItemOnMouseOver, setSliderItemOnMouseOver] = useState(false);
     const [sliderItemOnMouseDown, setSliderItemOnMouseDown] = useState(false);
 
-    const isCurrentTutorProfile = currentTutorProfile._id == data._id;
+    const isCurrentTutorProfile = currentTutorProfile?._id == data._id;
 
     const profileStyle = {
         backgroundImage: !avatarURLsLoaded

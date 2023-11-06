@@ -5,9 +5,14 @@ import { format } from "timeago.js";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 
-function Results({ tutorProfilesArray, paginationObject }) {
+function Results({
+    tutorProfilesArray,
+    paginationObject,
+    currentTutorProfile,
+    setCurrentTutorProfile,
+}) {
     const [avatarURLs, setAvatarURLs] = useState({});
-    const [currentTutorProfile, setCurrentTutorProfile] = useState({});
+    // const [currentTutorProfile, setCurrentTutorProfile] = useState({});
     const [avatarURLsLoaded, setAvatarURLsLoaded] = useState(false); // New state
 
     const isInitialRender = useRef(true);
@@ -18,7 +23,6 @@ function Results({ tutorProfilesArray, paginationObject }) {
             return; // Skip the initial render
         }
 
-        setCurrentTutorProfile(tutorProfilesArray?.[0]);
         const avatarObject = {};
         async function fetchAvatar() {
             if (tutorProfilesArray) {
@@ -119,7 +123,10 @@ function Results({ tutorProfilesArray, paginationObject }) {
                     <Pagination paginationObject={paginationObject} />
                 </div>
                 <div className="col-7">
-                    <MainItem currentTutorProfile={currentTutorProfile} />
+                    <MainItem
+                        currentTutorProfile={currentTutorProfile}
+                        avatarURLsLoaded={avatarURLsLoaded}
+                    />
                 </div>
             </div>
         </div>

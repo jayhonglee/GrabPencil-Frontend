@@ -1,8 +1,37 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SFULogo from "../SliderItem/sampleData/SFULogo.png";
 import UBCLogo from "../SliderItem/sampleData/UBCLogo.png";
+import { useEffect, useState } from "react";
 
-function MainItem({ currentTutorProfile }) {
+function MainItem({ currentTutorProfile, avatarURLsLoaded }) {
+    const [avatarURLsLoadedState, setAvatarURLsLoadedState] =
+        useState(avatarURLsLoaded);
+    const [rerenderCounter, setRerenderCounter] = useState(0);
+
+    // Use a useEffect to watch for changes in avatarURLsLoaded
+    useEffect(() => {
+        setAvatarURLsLoadedState(avatarURLsLoaded);
+    }, [avatarURLsLoaded]);
+
+    // Create a function to update the component based on new prop values
+    const updateComponent = () => {
+        console.log(currentTutorProfile?.avatarURL);
+        // Update profile picture, or any other component updates
+        const profileMain = document.getElementById("profileMain");
+        if (profileMain) {
+            profileMain.style.backgroundImage = currentTutorProfile?.avatarURL
+                ? `url(${currentTutorProfile?.avatarURL})`
+                : `url(/images/no_avatar.png)`;
+        }
+    };
+
+    // Call the updateComponent function when avatarURLsLoadedState changes
+    useEffect(() => {
+        if (avatarURLsLoadedState) {
+            console.log("update");
+            updateComponent();
+        }
+    }, [avatarURLsLoadedState]);
+
     const sortArray = (array) => {
         const sortedArray = array?.sort((a, b) => {
             // Compare start date years in reverse order (latest first)
@@ -149,6 +178,7 @@ function MainItem({ currentTutorProfile }) {
                 >
                     <div
                         alt="profile"
+                        id="profileMain"
                         style={{
                             width: "93%",
                             height: "93%",

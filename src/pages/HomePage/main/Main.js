@@ -8,6 +8,7 @@ function Main() {
     const [tutorProfilesIsLoading, setTutorProfilesIsLoading] = useState(true);
     const [tutorProfilesArray, setTutorProfilesArray] = useState([]);
     const [paginationObject, setPaginationObject] = useState({});
+    const [currentTutorProfile, setCurrentTutorProfile] = useState({});
 
     const isInitialRender = useRef(true);
 
@@ -23,7 +24,8 @@ function Main() {
                 pageIndexes: response.data.pageIndexes,
                 onPageChange,
             });
-            // setTutorProfilesIsLoading(false);
+            setCurrentTutorProfile(response.data.tutorProfiles?.[0]);
+            setTutorProfilesIsLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -63,6 +65,8 @@ function Main() {
                     <Results
                         tutorProfilesArray={tutorProfilesArray}
                         paginationObject={paginationObject}
+                        currentTutorProfile={currentTutorProfile}
+                        setCurrentTutorProfile={setCurrentTutorProfile}
                     />
                 )}
             </div>
