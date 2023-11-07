@@ -38,15 +38,15 @@ function Main() {
                     });
             }
             setTutorProfilesArray(response.data.tutorProfiles);
+            setCurrentTutorProfile(response.data.tutorProfiles?.[0]);
+            setAvatarURLs(avatarObject);
             setPaginationObject({
                 totalPages: response.data.totalPages,
                 currentPage: response.data.currentPage,
                 pageIndexes: response.data.pageIndexes,
                 onPageChange,
             });
-            setCurrentTutorProfile(response.data.tutorProfiles?.[0]);
             setTutorProfilesIsLoading(false);
-            setAvatarURLs(avatarObject);
         } catch (error) {
             console.error(error);
         }
@@ -69,7 +69,13 @@ function Main() {
     return (
         <div className="text-center container-fluid p-3 ps-0 pe-0">
             <div className="mb-3" style={divStyle}>
-                <TutorSearch />
+                <TutorSearch
+                    setTutorProfilesArray={setTutorProfilesArray}
+                    setPaginationObject={setPaginationObject}
+                    setCurrentTutorProfile={setCurrentTutorProfile}
+                    setAvatarURLs={setAvatarURLs}
+                    setTutorProfilesIsLoading={setTutorProfilesIsLoading}
+                />
             </div>
             <div>
                 <hr className="m-0" />

@@ -2,7 +2,7 @@ import Searchbar from "components/Searchbar/Searchbar";
 import useFetch from "hooks/useFetch";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 
-function SearchbarsRender() {
+function SearchbarsRender({ onChange }) {
     const fetchSearchbars = useFetch("searchbar");
     const fetchColorTheme = useFetchColorTheme();
 
@@ -21,6 +21,7 @@ function SearchbarsRender() {
                     placeholder={searchbar.placeholder}
                     icon={searchbar.icon}
                     name={searchbar.name}
+                    onChange={onChange}
                 />
             </div>
         );

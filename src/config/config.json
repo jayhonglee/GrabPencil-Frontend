@@ -37,7 +37,7 @@
     ],
     "filters" : [
         {
-            "name": "School",
+            "name": "Sort By",
             "list": [
                 {"name": "Simon Fraser University", "key": "school1"},
                 {"name": "University of British Columbia", "key": "school2"}
@@ -45,7 +45,7 @@
             "key": "filter1"
         },
         {
-            "name": "Language Spoken",
+            "name": "School",
             "list": [
                 {"name": "Korean", "key": "school1"},
                 {"name": "English", "key": "school2"}
@@ -53,7 +53,7 @@
             "key": "filter2"
         },
         {
-            "name": "Sex",
+            "name": "Language",
             "list": [
                 {"name": "Male", "key": "sex1"},
                 {"name": "Female", "key": "sex2"}
@@ -61,7 +61,7 @@
             "key": "filter3"
         },
         {
-            "name": "Availability",
+            "name": "Sex",
             "list": [
                 {"name": "monday", "key": "availability1"},
                 {"name": "tuesday", "key": "availability2"}
@@ -69,7 +69,7 @@
             "key": "filter4"
         },
         {
-            "name": "Major",
+            "name": "Lesson Method",
             "list": [
                 {"name": "Engineering", "key": "major1"},
                 {"name": "Math", "key": "major2"}
@@ -77,36 +77,12 @@
             "key": "filter5"
         },
         {
-            "name": "GPA",
+            "name": "Hourly Rate",
             "list": [
                 {"name": "2.0", "key": "gpa1"},
                 {"name": "3.0", "key": "gpa2"}
             ],
             "key": "filter6"
-        },
-        {
-            "name": "Subject",
-            "list": [
-                {"name": "Math", "key": "subject1"},
-                {"name": "Science", "key": "subject2"}
-            ],
-            "key": "filter7"
-        },
-                {
-            "name": "Location",
-            "list": [
-                {"name": "Coquitlam", "key": "location1"},
-                {"name": "Vancouver", "key": "locatoin2"}
-            ],
-            "key": "filter8"
-        },
-        {
-            "name": "Remote/In-person",
-            "list": [
-                {"name": "Remote", "key": "remote1"},
-                {"name": "In-person", "key": "inperson1"}
-            ],
-            "key": "filter9"
         }
     ]
 }
