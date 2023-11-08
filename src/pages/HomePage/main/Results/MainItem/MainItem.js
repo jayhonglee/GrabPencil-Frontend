@@ -88,144 +88,135 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
     };
 
     return (
-        <div
-            id="profileCard"
-            className="card border-0 mt-3 d-flex flex-column"
-            style={cardStyle}
-        >
-            <div className="d-flex flex-column" style={headerStyle}>
-                <div style={inHeaderOneStyle} />
-                <div className="py-2 px-4" style={inHeaderTwoStyle}>
-                    <div className="d-flex justify-content-end pb-3">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            style={{ background: "#35b234", border: "none" }}
-                        >
-                            Message
-                        </button>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <div
-                            style={{
-                                lineHeight: "1.2",
-                            }}
-                        >
-                            <span
+        currentTutorProfile && (
+            <div
+                id="profileCard"
+                className="card border-0 mt-3 d-flex flex-column"
+                style={cardStyle}
+            >
+                <div className="d-flex flex-column" style={headerStyle}>
+                    <div style={inHeaderOneStyle} />
+                    <div className="py-2 px-4" style={inHeaderTwoStyle}>
+                        <div className="d-flex justify-content-end pb-3">
+                            <button
+                                type="button"
+                                className="btn btn-primary"
                                 style={{
-                                    textAlign: "left",
-                                    fontSize: "24px",
+                                    background: "#35b234",
+                                    border: "none",
                                 }}
-                                className="m-0"
                             >
-                                <b>
-                                    {`${currentTutorProfile?.firstName} ${currentTutorProfile?.lastName} `}
-                                </b>
-                            </span>
-                            <span
-                                style={{ color: "grey" }}
-                            >{`(${currentTutorProfile?.sex})`}</span>
-                            <p className="m-0 pb-3">
-                                {currentTutorProfile?.headline}
+                                Message
+                            </button>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <div
+                                style={{
+                                    lineHeight: "1.2",
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        textAlign: "left",
+                                        fontSize: "24px",
+                                    }}
+                                    className="m-0"
+                                >
+                                    <b>
+                                        {`${currentTutorProfile?.firstName} ${currentTutorProfile?.lastName} `}
+                                    </b>
+                                </span>
+                                <span
+                                    style={{ color: "grey" }}
+                                >{`(${currentTutorProfile?.sex})`}</span>
+                                <p className="m-0 pb-3">
+                                    {currentTutorProfile?.headline}
+                                </p>
+                            </div>
+                            <p style={{ color: "grey" }}>
+                                <img
+                                    className="me-2"
+                                    src={SFULogo} //needs to be updated
+                                    alt="profile"
+                                    width="48px"
+                                    height="auto"
+                                />
+                                {currentEducation?.school}
                             </p>
                         </div>
-                        <p style={{ color: "grey" }}>
-                            <img
-                                className="me-2"
-                                src={SFULogo} //needs to be updated
-                                alt="profile"
-                                width="48px"
-                                height="auto"
-                            />
-                            {currentEducation?.school}
-                        </p>
                     </div>
-                </div>
-                <div
-                    className="d-flex justify-content-center align-items-center"
-                    style={inHeaderCircleStyle}
-                >
                     <div
-                        alt="profile"
-                        id="profileMain"
+                        className="d-flex justify-content-center align-items-center"
+                        style={inHeaderCircleStyle}
+                    >
+                        <div
+                            alt="profile"
+                            id="profileMain"
+                            style={{
+                                width: "93%",
+                                height: "93%",
+                                backgroundImage: avatarURLs[
+                                    currentTutorProfile?.owner
+                                ]
+                                    ? `url(${
+                                          avatarURLs[currentTutorProfile?.owner]
+                                      })`
+                                    : `url(/images/no_avatar.png)`,
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover",
+                                borderRadius: "50%",
+                            }}
+                        />
+                    </div>
+                </div>
+                <div style={bodyStyle} className="flex-grow-1 px-4 py-3">
+                    <div
+                        className="card mb-3 px-4 py-3"
                         style={{
-                            width: "93%",
-                            height: "93%",
-                            backgroundImage: avatarURLs[
-                                currentTutorProfile?.owner
-                            ]
-                                ? `url(${
-                                      avatarURLs[currentTutorProfile?.owner]
-                                  })`
-                                : `url(/images/no_avatar.png)`,
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "cover",
-                            borderRadius: "50%",
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
                         }}
-                    />
-                </div>
-            </div>
-            <div style={bodyStyle} className="flex-grow-1 px-4 py-3">
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-0">
-                        <p className="m-0 text-start fs-5">
-                            <b>Tutor Subjects</b>
-                        </p>
-                    </div>
-                    <div className="d-flex flex-column">
-                        {currentTutorProfile?.subjects?.map(
-                            (subject, n, currentTutorProfile) => {
-                                return (
-                                    <div
-                                        key={n}
-                                        className={`py-2 ${
-                                            n + 1 === currentTutorProfile.length
-                                                ? ""
-                                                : "border-bottom"
-                                        }`}
-                                    >
-                                        <p className="text-start m-0">
-                                            {subject?.subject}
-                                        </p>
-                                        <p
-                                            className="text-start m-0"
-                                            style={{
-                                                color: "grey",
-                                                lineHeight: "1",
-                                            }}
+                    >
+                        <div className="pb-0">
+                            <p className="m-0 text-start fs-5">
+                                <b>Tutor Subjects</b>
+                            </p>
+                        </div>
+                        <div className="d-flex flex-column">
+                            {currentTutorProfile?.subjects?.map(
+                                (subject, n, currentTutorProfile) => {
+                                    return (
+                                        <div
+                                            key={n}
+                                            className={`py-2 ${
+                                                n + 1 ===
+                                                currentTutorProfile.length
+                                                    ? ""
+                                                    : "border-bottom"
+                                            }`}
                                         >
-                                            {subject?.teachingLevels
-                                                ? subject?.teachingLevels
-                                                : ""}
-                                        </p>
-                                    </div>
-                                );
-                            }
-                        )}
+                                            <p className="text-start m-0">
+                                                {subject?.subject}
+                                            </p>
+                                            <p
+                                                className="text-start m-0"
+                                                style={{
+                                                    color: "grey",
+                                                    lineHeight: "1",
+                                                }}
+                                            >
+                                                {subject?.teachingLevels
+                                                    ? subject?.teachingLevels
+                                                    : ""}
+                                            </p>
+                                        </div>
+                                    );
+                                }
+                            )}
+                        </div>
                     </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <p className="m-0 text-start fs-5 d-flex justify-content-between">
-                        <b>Lesson method</b>
-                        <span>{currentTutorProfile?.lessonMethod}</span>
-                    </p>
-                </div>
-                {currentTutorProfile?.lessonLocation ? (
                     <div
                         className="card mb-3 px-4 py-3"
                         style={{
@@ -235,263 +226,285 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
                         }}
                     >
                         <p className="m-0 text-start fs-5 d-flex justify-content-between">
-                            <b>Lesson location</b>
-                            <span>{currentTutorProfile?.lessonLocation}</span>
+                            <b>Lesson method</b>
+                            <span>{currentTutorProfile?.lessonMethod}</span>
                         </p>
                     </div>
-                ) : (
-                    ""
-                )}
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>About {currentTutorProfile?.firstName}</b>
-                        </p>
+                    {currentTutorProfile?.lessonLocation ? (
+                        <div
+                            className="card mb-3 px-4 py-3"
+                            style={{
+                                border: "none",
+                                background: "#fff",
+                                boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                            }}
+                        >
+                            <p className="m-0 text-start fs-5 d-flex justify-content-between">
+                                <b>Lesson location</b>
+                                <span>
+                                    {currentTutorProfile?.lessonLocation}
+                                </span>
+                            </p>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div className="pb-2">
+                            <p className="m-0 text-start fs-5">
+                                <b>About {currentTutorProfile?.firstName}</b>
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-start m-0">
+                                {currentTutorProfile?.aboutMe}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p className="text-start m-0">
-                            {currentTutorProfile?.aboutMe}
-                        </p>
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div className="pb-2">
+                            <p className="m-0 text-start fs-5">
+                                <b>About the lesson</b>
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-start m-0">
+                                {currentTutorProfile?.aboutLesson}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>About the lesson</b>
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-start m-0">
-                            {currentTutorProfile?.aboutLesson}
-                        </p>
-                    </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div>
-                        <p className="m-0 text-start fs-5">
-                            <b>Education</b>
-                        </p>
-                    </div>
-                    {sortedEducation?.map((education, n, eductaions) => {
-                        return (
-                            <div
-                                className={`d-flex py-3 ${
-                                    n + 1 === eductaions.length
-                                        ? ""
-                                        : "border-bottom"
-                                }`}
-                                key={n}
-                            >
-                                <div className="me-2">
-                                    <img
-                                        src={SFULogo} // needs to be updated
-                                        alt="profile"
-                                        width="48px"
-                                        height="48px"
-                                    />
-                                </div>
-                                <div className="d-flex flex-column">
-                                    <div>
-                                        <p
-                                            className="m-0 text-start"
-                                            style={{ fontWeight: "500" }}
-                                        >
-                                            {education?.school}
-                                        </p>
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div>
+                            <p className="m-0 text-start fs-5">
+                                <b>Education</b>
+                            </p>
+                        </div>
+                        {sortedEducation?.map((education, n, eductaions) => {
+                            return (
+                                <div
+                                    className={`d-flex py-3 ${
+                                        n + 1 === eductaions.length
+                                            ? ""
+                                            : "border-bottom"
+                                    }`}
+                                    key={n}
+                                >
+                                    <div className="me-2">
+                                        <img
+                                            src={SFULogo} // needs to be updated
+                                            alt="profile"
+                                            width="48px"
+                                            height="48px"
+                                        />
                                     </div>
-                                    <div>
-                                        <p className="m-0 text-start lh-sm">
-                                            {education?.degree
-                                                ? `${education?.degree}, `
-                                                : ""}
-                                            {education?.major}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p
-                                            className="m-0 text-start lh-sm"
-                                            style={{
-                                                color: "grey",
-                                                fontSize: "14px",
-                                            }}
-                                        >
-                                            {`${education?.startDateMonth} ${education?.startDateYear} - ${education?.endDateMonth} ${education?.endDateYear}`}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div>
-                        <p className="m-0 text-start fs-5">
-                            <b>Experience</b>
-                        </p>
-                    </div>
-                    {sortedExperiences?.map((experience, n, experiences) => {
-                        return (
-                            <div
-                                className={`d-flex py-3 ${
-                                    n + 1 === experiences.length
-                                        ? ""
-                                        : "border-bottom"
-                                }`}
-                                key={n}
-                            >
-                                <div className="d-flex flex-column">
-                                    <div>
-                                        <p
-                                            className="m-0 text-start"
-                                            style={{ fontWeight: "500" }}
-                                        >
-                                            {experience?.title}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="m-0 text-start lh-sm">
-                                            {experience?.employmentType
-                                                ? `${experience?.companyName} · ${experience?.employmentType}`
-                                                : experience?.companyName}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p
-                                            className="m-0 text-start lh-sm"
-                                            style={{
-                                                color: "grey",
-                                                fontSize: "14px",
-                                            }}
-                                        >
-                                            {experience?.currentlyWorking
-                                                ? `${experience?.startDateMonth} ${experience?.startDateYear} - Present`
-                                                : `${experience?.startDateMonth} ${experience?.startDateYear} - ${experience?.endDateMonth} ${experience?.endDateYear}`}
-                                        </p>
-                                        <p
-                                            className="m-0 text-start lh-sm"
-                                            style={{
-                                                color: "grey",
-                                                fontSize: "14px",
-                                            }}
-                                        >
-                                            {(experience?.location &&
-                                                `${experience?.location}, `) ||
-                                                ""}
-                                            {experience?.locationType || ""}
-                                        </p>
+                                    <div className="d-flex flex-column">
+                                        <div>
+                                            <p
+                                                className="m-0 text-start"
+                                                style={{ fontWeight: "500" }}
+                                            >
+                                                {education?.school}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="m-0 text-start lh-sm">
+                                                {education?.degree
+                                                    ? `${education?.degree}, `
+                                                    : ""}
+                                                {education?.major}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p
+                                                className="m-0 text-start lh-sm"
+                                                style={{
+                                                    color: "grey",
+                                                    fontSize: "14px",
+                                                }}
+                                            >
+                                                {`${education?.startDateMonth} ${education?.startDateYear} - ${education?.endDateMonth} ${education?.endDateYear}`}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-0">
-                        <p className="m-0 text-start fs-5">
-                            <b>Languages</b>
-                        </p>
+                            );
+                        })}
                     </div>
-                    <div className="d-flex flex-column">
-                        {currentTutorProfile?.languages?.map(
-                            (language, n, languages) => {
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div>
+                            <p className="m-0 text-start fs-5">
+                                <b>Experience</b>
+                            </p>
+                        </div>
+                        {sortedExperiences?.map(
+                            (experience, n, experiences) => {
                                 return (
                                     <div
-                                        key={n}
-                                        className={`py-2 ${
-                                            n + 1 === languages.length
+                                        className={`d-flex py-3 ${
+                                            n + 1 === experiences.length
                                                 ? ""
                                                 : "border-bottom"
                                         }`}
+                                        key={n}
                                     >
-                                        <p className="text-start m-0">
-                                            {language?.language}
-                                        </p>
-                                        <p
-                                            className="text-start m-0"
-                                            style={{
-                                                color: "grey",
-                                                lineHeight: "1",
-                                            }}
-                                        >
-                                            {language?.proficiency || ""}
-                                        </p>
+                                        <div className="d-flex flex-column">
+                                            <div>
+                                                <p
+                                                    className="m-0 text-start"
+                                                    style={{
+                                                        fontWeight: "500",
+                                                    }}
+                                                >
+                                                    {experience?.title}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p className="m-0 text-start lh-sm">
+                                                    {experience?.employmentType
+                                                        ? `${experience?.companyName} · ${experience?.employmentType}`
+                                                        : experience?.companyName}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p
+                                                    className="m-0 text-start lh-sm"
+                                                    style={{
+                                                        color: "grey",
+                                                        fontSize: "14px",
+                                                    }}
+                                                >
+                                                    {experience?.currentlyWorking
+                                                        ? `${experience?.startDateMonth} ${experience?.startDateYear} - Present`
+                                                        : `${experience?.startDateMonth} ${experience?.startDateYear} - ${experience?.endDateMonth} ${experience?.endDateYear}`}
+                                                </p>
+                                                <p
+                                                    className="m-0 text-start lh-sm"
+                                                    style={{
+                                                        color: "grey",
+                                                        fontSize: "14px",
+                                                    }}
+                                                >
+                                                    {(experience?.location &&
+                                                        `${experience?.location}, `) ||
+                                                        ""}
+                                                    {experience?.locationType ||
+                                                        ""}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 );
                             }
                         )}
                     </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <div className="pb-2">
-                        <p className="m-0 text-start fs-5">
-                            <b>Skills</b>
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div className="pb-0">
+                            <p className="m-0 text-start fs-5">
+                                <b>Languages</b>
+                            </p>
+                        </div>
+                        <div className="d-flex flex-column">
+                            {currentTutorProfile?.languages?.map(
+                                (language, n, languages) => {
+                                    return (
+                                        <div
+                                            key={n}
+                                            className={`py-2 ${
+                                                n + 1 === languages.length
+                                                    ? ""
+                                                    : "border-bottom"
+                                            }`}
+                                        >
+                                            <p className="text-start m-0">
+                                                {language?.language}
+                                            </p>
+                                            <p
+                                                className="text-start m-0"
+                                                style={{
+                                                    color: "grey",
+                                                    lineHeight: "1",
+                                                }}
+                                            >
+                                                {language?.proficiency || ""}
+                                            </p>
+                                        </div>
+                                    );
+                                }
+                            )}
+                        </div>
+                    </div>
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <div className="pb-2">
+                            <p className="m-0 text-start fs-5">
+                                <b>Skills</b>
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-start m-0">
+                                {currentTutorProfile?.skills
+                                    ?.map((skill) => skill.skill)
+                                    ?.join(" · ")}
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        className="card mb-3 px-4 py-3"
+                        style={{
+                            border: "none",
+                            background: "#fff",
+                            boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <p className="m-0 text-start fs-5 d-flex justify-content-between">
+                            <b>Hourly rate</b>
+                            <span>${currentTutorProfile?.hourlyRate}</span>
                         </p>
                     </div>
-                    <div>
-                        <p className="text-start m-0">
-                            {currentTutorProfile?.skills
-                                ?.map((skill) => skill.skill)
-                                ?.join(" · ")}
-                        </p>
-                    </div>
-                </div>
-                <div
-                    className="card mb-3 px-4 py-3"
-                    style={{
-                        border: "none",
-                        background: "#fff",
-                        boxShadow: "0px 7px 24px -8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <p className="m-0 text-start fs-5 d-flex justify-content-between">
-                        <b>Hourly rate</b>
-                        <span>${currentTutorProfile?.hourlyRate}</span>
-                    </p>
                 </div>
             </div>
-        </div>
+        )
     );
 }
 

@@ -39,48 +39,87 @@
         {
             "name": "Sort By",
             "list": [
-                {"name": "Simon Fraser University", "key": "school1"},
-                {"name": "University of British Columbia", "key": "school2"}
+                {"name": "Newest", "key": "sortby1"},
+                {"name": "Oldest", "key": "sortby2"}
             ],
             "key": "filter1"
         },
         {
             "name": "School",
             "list": [
-                {"name": "Korean", "key": "school1"},
-                {"name": "English", "key": "school2"}
+                {"name": "Simon Fraser University", "key": "school1"},
+                {"name": "University of British Columbia", "key": "school2"}
             ],
             "key": "filter2"
         },
         {
             "name": "Language",
             "list": [
-                {"name": "Male", "key": "sex1"},
-                {"name": "Female", "key": "sex2"}
+                {"name": "English", "key": "language1"},
+                {"name": "Mandarin", "key": "language2"},
+                {"name": "Cantonese", "key": "language3"},
+                {"name": "Punjabi", "key": "language4"},
+                {"name": "Tagalog", "key": "language5"},
+                {"name": "Korean", "key": "language6"},
+                {"name": "French", "key": "language7"},
+                {"name": "Spanish", "key": "language8"},
+                {"name": "Hindustani", "key": "language9"},
+                {"name": "Arabic", "key": "language10"},
+                {"name": "Persian", "key": "language11"},
+                {"name": "Russian", "key": "language12"},
+                {"name": "Tamil", "key": "language13"},
+                {"name": "Vietnamese", "key": "language14"},
+                {"name": "Gujarati", "key": "language15"},
+                {"name": "Polish", "key": "language16"},
+                {"name": "Serbo-Croatian", "key": "language17"},
+                {"name": "Greek", "key": "language18"},
+                {"name": "Italian", "key": "language19"},
+                {"name": "German", "key": "language20"},
+                {"name": "Portuguese", "key": "language21"},
+                {"name": "Ukrainian", "key": "language22"},
+                {"name": "Bengali", "key": "language23"},
+                {"name": "Romanian", "key": "language24"},
+                {"name": "Dutch", "key": "language25"},
+                {"name": "Cree", "key": "language26"},
+                {"name": "Japanese", "key": "language27"},
+                {"name": "Hebrew", "key": "language28"},
+                {"name": "Turkish", "key": "language29"},
+                {"name": "Malayalam", "key": "language30"},
+                {"name": "Hungarian", "key": "language31"},
+                {"name": "Ilocano", "key": "language32"},
+                {"name": "Somali", "key": "language33"},
+                {"name": "Swahili", "key": "language34"},
+                {"name": "Telugu", "key": "language35"},
+                {"name": "Haitian Creole", "key": "language36"}
             ],
             "key": "filter3"
-        },
+          }
+          ,
         {
             "name": "Sex",
             "list": [
-                {"name": "monday", "key": "availability1"},
-                {"name": "tuesday", "key": "availability2"}
+                {"name": "Male", "key": "sex1"},
+                {"name": "Female", "key": "sex2"},
+                {"name": "Non-Binary", "key": "sex3"}
             ],
             "key": "filter4"
         },
         {
             "name": "Lesson Method",
             "list": [
-                {"name": "Engineering", "key": "major1"},
-                {"name": "Math", "key": "major2"}
+                {"name": "In-Person", "key": "lessonMethod1"},
+                {"name": "Remote", "key": "lessonMethod2"},
+                {"name": "Hybrid", "key": "lessonMethod3"}
             ],
             "key": "filter5"
         },
         {
             "name": "Hourly Rate",
             "list": [
-                {"name": "2.0", "key": "gpa1"},
-                {"name": "3.0", "key": "gpa2"}
+                {"name": "≤$25.00/hour", "key": "hourlyRate1"},
+                {"name": "≤$35.00/hour", "key": "hourlyRate2"},
+                {"name": "≤$45.00/hour", "key": "hourlyRate3"},
+                {"name": "≤$55.00/hour", "key": "hourlyRate4"}
             ],
             "key": "filter6"
         }

@@ -17,7 +17,7 @@ function Main() {
         try {
             // Get tutor profiles
             const response = await axios.get(
-                `${process.env.REACT_APP_BASE_URL}/tutorProfiles?sortBy=createdAt:desc&pageSize=${process.env.REACT_APP_PAGE_SIZE}&pageNumber=${pageNumber}&maxPageIndex=${process.env.REACT_APP_MAX_PAGE_INDEX}`
+                `${process.env.REACT_APP_BASE_URL}/tutorProfiles?sortBy=createdAt:Newest&pageSize=${process.env.REACT_APP_PAGE_SIZE}&pageNumber=${pageNumber}&maxPageIndex=${process.env.REACT_APP_MAX_PAGE_INDEX}`
             );
             // Get avatars and save to avatarObject
             for (const tutorProfile of response.data.tutorProfiles) {

@@ -14,7 +14,7 @@ function TutorSearch({
 }) {
     const mountRef = useRef(false);
     const [currentParamString, setCurrentParamString] = useState(
-        "sortBy=createdAt:desc"
+        "sortBy=createdAt:Newest"
     );
     const [currentWhatParam, setCurrentWhatParam] = useState("");
     const [currentWhereParam, setCurrentWhereParam] = useState("");
@@ -75,12 +75,13 @@ function TutorSearch({
         getTutorProfiles(newPage);
     };
 
-    const onButtonClick = () => {
+    const onButtonClick = (event) => {
+        event.preventDefault();
         const encodedWhat = encodeParam(currentWhatParam);
         const encodedWhere = encodeParam(currentWhereParam);
 
         setCurrentParamString(
-            `sortBy=createdAt:desc&what=${encodedWhat}&where=${encodedWhere}`
+            `sortBy=createdAt:Newest&what=${encodedWhat}&where=${encodedWhere}`
         );
         setForceUpdate((prev) => prev + 1);
     };
@@ -107,15 +108,15 @@ function TutorSearch({
             <form
                 className="col d-flex justify-content-between mb-4"
                 style={form}
+                onSubmit={onButtonClick}
             >
                 <SearchbarsRender
                     onChange={{ setCurrentWhatParam, setCurrentWhereParam }}
                 />
                 <button
-                    type="button"
+                    type="submit"
                     className="btn btn-primary"
                     style={button}
-                    onClick={onButtonClick}
                 >
                     {fetchButtonText}
                 </button>

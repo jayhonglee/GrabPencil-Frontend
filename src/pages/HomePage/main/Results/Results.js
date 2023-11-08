@@ -79,7 +79,25 @@ function Results({
             <div className="row">
                 <div className="p-0 col-5">
                     {sliderItemsRender?.length === 0 ? (
-                        <p className="mt-3">No tutor profiles found</p>
+                        <>
+                            <p className="mt-4" style={{ textAlign: "start" }}>
+                                No tutor profiles found! 🤔 <br /> Don't worry,
+                                we're on it. Let's keep searching! 🥰🔍
+                            </p>
+                            <p className="mb-1" style={{ textAlign: "start" }}>
+                                <b>Search suggestions:</b>
+                            </p>
+                            <ul style={{ textAlign: "start" }}>
+                                <li>Search more general keywords</li>
+                                <li>Check your spelling</li>
+                                <li>
+                                    Replace abbreviations with the entire word
+                                </li>
+                                <li>
+                                    Check your search has the correct spacing
+                                </li>
+                            </ul>
+                        </>
                     ) : (
                         sliderItemsRender
                     )}
