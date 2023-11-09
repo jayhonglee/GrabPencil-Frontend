@@ -40,6 +40,7 @@ function Searchbar({ colorTheme, label, placeholder, icon, name, onChange }) {
                     id={name}
                     style={input}
                     onChange={handleInputChange}
+                    autoComplete="off"
                 />
                 <span>
                     <FontAwesomeIcon icon={icon} color={colorTheme.font} />
