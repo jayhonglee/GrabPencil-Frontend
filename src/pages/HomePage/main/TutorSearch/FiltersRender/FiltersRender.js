@@ -33,9 +33,9 @@ function FiltersRender({ setFunctions, filterParams }) {
                             background:
                                 filterParams[`current${filterType}Param`] &&
                                 "#35B234",
-                            color:
-                                filterParams[`current${filterType}Param`] &&
-                                "#fff",
+                            color: filterParams[`current${filterType}Param`]
+                                ? "#fff"
+                                : "#35B234",
                         }}
                     >
                         {filterParams[`current${filterType}Param`] ||
