@@ -15,6 +15,7 @@ import {
     faGraduationCap,
     faAngleRight,
     faAngleLeft,
+    faX,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -35,5 +36,6 @@ export default function getIcons() {
         faGraduationCap,
         faAngleRight,
         faAngleLeft,
+        faX,
     };
 }

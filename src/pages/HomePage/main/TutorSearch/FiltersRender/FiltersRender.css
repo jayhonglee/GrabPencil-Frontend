@@ -1,0 +1,4 @@
+.listItem:focus {
+    background-color: #35B234;
+    color: #fff !important;
+}
