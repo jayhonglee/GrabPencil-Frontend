@@ -1,7 +1,9 @@
 import useFetch from "hooks/useFetch";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
+import { useState } from "react";
 
-function FiltersRender() {
+function FiltersRender({ setFunctions, filterParams }) {
+    const [mouseHover, setMouseHover] = useState(false);
     const fetchFilters = useFetch("filters");
     const colorTheme = useFetchColorTheme();
 
@@ -9,11 +11,15 @@ function FiltersRender() {
         border: `1px solid ${colorTheme.point}`,
         color: colorTheme.point,
     };
+
     const listStyle = {
         color: colorTheme.font,
+        cursor: mouseHover && "pointer",
     };
 
     const filtersRender = fetchFilters.map((filter) => {
+        const filterType = filter.name.replace(/\s+/g, "");
+
         return (
             <div className="pb-2 pe-2" key={filter.key}>
                 <div className="btn-group">
@@ -22,21 +28,35 @@ function FiltersRender() {
                         className="btn dropdown-toggle"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
-                        style={buttonStyle}
+                        style={{
+                            ...buttonStyle,
+                            background:
+                                filterParams[`current${filterType}Param`] &&
+                                "grey",
+                        }}
                     >
-                        {filter.name}
+                        {filterParams[`current${filterType}Param`] ||
+                            filter.name}
                     </button>
                     <ul className="dropdown-menu">
                         {filter.list.map((list) => {
                             return (
                                 <li key={list.key}>
-                                    <a
+                                    <div
                                         className="dropdown-item"
-                                        href="/"
                                         style={listStyle}
+                                        onMouseEnter={() => setMouseHover(true)}
+                                        onMouseLeave={() =>
+                                            setMouseHover(false)
+                                        }
+                                        onClick={() => {
+                                            setFunctions[
+                                                `setCurrent${filterType}Param`
+                                            ](list.name);
+                                        }}
                                     >
                                         {list.name}
-                                    </a>
+                                    </div>
                                 </li>
                             );
                         })}

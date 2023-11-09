@@ -12,21 +12,46 @@ function TutorSearch({
     setAvatarURLs,
     setTutorProfilesIsLoading,
 }) {
-    const mountRef = useRef(false);
+    const mountRefOne = useRef(false);
+    const mountRefTwo = useRef(false);
     const [currentParamString, setCurrentParamString] = useState(
         "sortBy=createdAt:Newest"
     );
     const [currentWhatParam, setCurrentWhatParam] = useState("");
     const [currentWhereParam, setCurrentWhereParam] = useState("");
+    const [currentSortByParam, setCurrentSortByParam] = useState("Newest");
+    const [currentSchoolParam, setCurrentSchoolParam] = useState("");
+    const [currentLanguageParam, setCurrentLanguageParam] = useState("");
+    const [currentHourlyRateParam, setCurrentHourlyRateParam] = useState("");
+    const [currentSexParam, setCurrentSexParam] = useState("");
+    const [currentLessonMethodParam, setCurrentLessonMethodParam] =
+        useState("");
     const [forceUpdate, setForceUpdate] = useState(0);
 
     const avatarObject = {};
+    const filterParams = {
+        currentSortByParam,
+        currentSchoolParam,
+        currentLanguageParam,
+        currentSexParam,
+        currentLessonMethodParam,
+        currentHourlyRateParam,
+    };
+    const setFunctions = {
+        setCurrentSortByParam,
+        setCurrentSchoolParam,
+        setCurrentLanguageParam,
+        setCurrentSexParam,
+        setCurrentLessonMethodParam,
+        setCurrentHourlyRateParam,
+    };
+
     const colorTheme = useFetchColorTheme();
     const fetchButtonText = useFetch("searchbar")[2].buttons[0].text;
 
     const getTutorProfiles = async (pageNumber) => {
-        if (!mountRef.current) {
-            mountRef.current = true;
+        if (!mountRefOne.current) {
+            mountRefOne.current = true;
             return;
         }
         try {
@@ -77,6 +102,12 @@ function TutorSearch({
 
     const onButtonClick = (event) => {
         event.preventDefault();
+        setCurrentSortByParam("Newest");
+        setCurrentSchoolParam("");
+        setCurrentLanguageParam("");
+        setCurrentSexParam("");
+        setCurrentLessonMethodParam("");
+        setCurrentHourlyRateParam("");
         const encodedWhat = encodeParam(currentWhatParam);
         const encodedWhere = encodeParam(currentWhereParam);
 
@@ -85,6 +116,33 @@ function TutorSearch({
         );
         setForceUpdate((prev) => prev + 1);
     };
+
+    useEffect(() => {
+        if (!mountRefTwo.current) {
+            mountRefTwo.current = true;
+            return;
+        }
+
+        const encodedWhat = encodeParam(currentWhatParam);
+        const encodedWhere = encodeParam(currentWhereParam);
+        const encodedSortBy = encodeParam(currentSortByParam);
+        const encodedSchool = encodeParam(currentSchoolParam);
+        const encodedLanguage = encodeParam(currentLanguageParam);
+        const encodedHourlyRate = encodeParam(currentHourlyRateParam);
+        const encodedSex = encodeParam(currentSexParam);
+        const encodedLessonMethod = encodeParam(currentLessonMethodParam);
+
+        setCurrentParamString(
+            `sortBy=createdAt:${encodedSortBy}&school=${encodedSchool}&language=${encodedLanguage}&hourlyRate=${encodedHourlyRate}&sex=${encodedSex}&lessonMethod=${encodedLessonMethod}&what=${encodedWhat}&where=${encodedWhere}`
+        );
+    }, [
+        currentSortByParam,
+        currentSchoolParam,
+        currentLanguageParam,
+        currentHourlyRateParam,
+        currentSexParam,
+        currentLessonMethodParam,
+    ]);
 
     const encodeParam = (param) => {
         if (typeof param !== "string")
@@ -122,7 +180,10 @@ function TutorSearch({
                 </button>
             </form>
             <div className="col">
-                <FiltersRender />
+                <FiltersRender
+                    setFunctions={setFunctions}
+                    filterParams={filterParams}
+                />
             </div>
         </div>
     );
