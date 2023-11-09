@@ -32,7 +32,10 @@ function FiltersRender({ setFunctions, filterParams }) {
                             ...buttonStyle,
                             background:
                                 filterParams[`current${filterType}Param`] &&
-                                "grey",
+                                "#35B234",
+                            color:
+                                filterParams[`current${filterType}Param`] &&
+                                "#fff",
                         }}
                     >
                         {filterParams[`current${filterType}Param`] ||
