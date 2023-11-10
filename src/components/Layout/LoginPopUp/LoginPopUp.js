@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef } from "react";
 
-function LoginPopUp() {
+function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
     const [emailIsFocused, setEmailIsFocused] = useState(false);
     const [passwordIsFocused, setPasswordIsFocused] = useState(false);
     const [email, setEmail] = useState("");
@@ -19,6 +19,9 @@ function LoginPopUp() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        transition: "opacity 0.2s ease-in-out",
+        opacity: isLoginVisible ? 1 : 0,
+        pointerEvents: isLoginVisible ? "auto" : "none",
     };
 
     const popUpStyle = {
@@ -107,10 +110,10 @@ function LoginPopUp() {
             style={shadeStyle}
             onClick={(e) => {
                 if (e.target === shadeRef.current) {
-                    // Clicked on the shade itself (outside of the card)
-                    console.log("clicked outside of login");
+                    setIsLoginVisible(false);
                 }
             }}
+            className="text-center"
         >
             <div className="card border-0" style={popUpStyle}>
                 <FontAwesomeIcon
@@ -118,7 +121,7 @@ function LoginPopUp() {
                     icon="x"
                     color="black"
                     style={closeStyle}
-                    onClick={() => console.log("clicked X")}
+                    onClick={() => setIsLoginVisible(false)}
                 />
                 <p style={loginText}>Login to StudentTutor</p>
                 <form

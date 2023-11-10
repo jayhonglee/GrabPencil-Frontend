@@ -1,7 +1,7 @@
 import CircleButtonsRender from "./CircleButtonsRender/CircleButtonsRender";
 import { useState } from "react";
 
-function Navbar({ name, colorTheme, buttonsConfig }) {
+function Navbar({ name, colorTheme, buttonsConfig, setIsLoginVisible }) {
     const [mouseHover, setMouseHover] = useState(false);
 
     const buttonsContainer = {
@@ -42,6 +42,7 @@ function Navbar({ name, colorTheme, buttonsConfig }) {
                 <CircleButtonsRender
                     buttonsConfig={buttonsConfig}
                     colorTheme={colorTheme}
+                    setIsLoginVisible={setIsLoginVisible}
                 />
             </div>
         </nav>
