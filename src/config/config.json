@@ -10,9 +10,9 @@
         },
         {
             "buttons" : [
-                { "name": "about", "icon": "circle-question", "link": "TestPage", "key": "navbarBtn1" },
-                { "name": "messages", "icon": "comment", "link": "TestPage", "key": "navbarBtn2" },
-                { "name": "profile", "icon": "user", "link": "TestPage", "key": "navbarBtn3" }
+                { "name": "about", "icon": "circle-question", "link": "aboutPage", "key": "navbarBtn1" },
+                { "name": "messages", "icon": "comment", "link": "messagesPage", "key": "navbarBtn2" },
+                { "name": "profile", "icon": "user", "link": "profilePage", "key": "navbarBtn3" }
             ]
         }
     ],

@@ -1,10 +1,12 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import HomePage from "pages/HomePage/HomePage";
-import TestPage from "pages/TestPage/TestPage";
 import getIcons from "config/getIcons";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
+import HomePage from "pages/HomePage/HomePage";
+import AboutPage from "pages/AboutPage/AboutPage";
+import MessagesPage from "pages/MessagesPage/MessagesPage";
+import ProfilePage from "pages/ProfilePage/ProfilePage";
 
 function App() {
     // add icons
@@ -20,10 +22,25 @@ function App() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             {/* If not logged in dont render chat and profile pages instead, load homepage with login popup then if login successful go to the original intended page if not stay in homepage */}
+            <Route path="/aboutPage" element={<AboutPage />} />
             <Route
-                path="/testPage"
+                path="/messagesPage"
                 element={
-                    isLoggedIn ? <TestPage /> : <Navigate to="/" replace />
+                    isLoggedIn ? (
+                        <MessagesPage />
+                    ) : (
+                        <Navigate to="/" state={"messagesPage"} replace />
+                    )
+                }
+            />
+            <Route
+                path="/profilePage"
+                element={
+                    isLoggedIn ? (
+                        <ProfilePage />
+                    ) : (
+                        <Navigate to="/" state={"profilePage"} replace />
+                    )
                 }
             />
         </Routes>
