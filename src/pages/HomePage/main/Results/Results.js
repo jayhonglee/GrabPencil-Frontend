@@ -14,7 +14,7 @@ function Results({
     const [sliderItemsRender, setSliderItemsRender] = useState(null);
 
     useEffect(() => {
-        const sliderItemsRender = tutorProfilesArray.map((tutorProfile) => {
+        const sliderItemsRender = tutorProfilesArray.map((tutorProfile, n) => {
             if (!tutorProfile) return null;
 
             const currentEducation = tutorProfile.education.find(
@@ -63,12 +63,16 @@ function Results({
             };
 
             return (
-                <SliderItem
-                    key={tutorProfile._id}
-                    data={sliderItemData}
-                    onClick={onClick}
-                    currentTutorProfile={currentTutorProfile}
-                />
+                <div key={tutorProfile._id}>
+                    <SliderItem
+                        data={sliderItemData}
+                        onClick={onClick}
+                        currentTutorProfile={currentTutorProfile}
+                    />
+                    {n === tutorProfilesArray.length - 1 && (
+                        <Pagination paginationObject={paginationObject} />
+                    )}
+                </div>
             );
         });
         setSliderItemsRender(sliderItemsRender);
@@ -101,7 +105,6 @@ function Results({
                     ) : (
                         sliderItemsRender
                     )}
-                    <Pagination paginationObject={paginationObject} />
                 </div>
                 <div className="col-7">
                     <MainItem

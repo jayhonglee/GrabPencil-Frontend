@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function LoginPopUp() {
     const [emailIsFocused, setEmailIsFocused] = useState(false);
     const [passwordIsFocused, setPasswordIsFocused] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const shadeRef = useRef();
 
     const shadeStyle = {
         position: "fixed",
@@ -29,6 +31,7 @@ function LoginPopUp() {
     };
 
     const closeStyle = {
+        border: "none",
         position: "absolute",
         top: "20px",
         right: "20px",
@@ -71,6 +74,7 @@ function LoginPopUp() {
         fontSize: "14px",
         color: "#35B234",
         marginTop: "16px",
+        textDecoration: "none",
     };
 
     const createNewAccountStyle = {
@@ -98,9 +102,24 @@ function LoginPopUp() {
     };
 
     return (
-        <div style={shadeStyle}>
+        <div
+            ref={shadeRef}
+            style={shadeStyle}
+            onClick={(e) => {
+                if (e.target === shadeRef.current) {
+                    // Clicked on the shade itself (outside of the card)
+                    console.log("clicked outside of login");
+                }
+            }}
+        >
             <div className="card border-0" style={popUpStyle}>
-                <FontAwesomeIcon icon="x" color="black" style={closeStyle} />
+                <FontAwesomeIcon
+                    className="btn p-0"
+                    icon="x"
+                    color="black"
+                    style={closeStyle}
+                    onClick={() => console.log("clicked X")}
+                />
                 <p style={loginText}>Login to StudentTutor</p>
                 <form
                     style={formStyle}
@@ -113,6 +132,7 @@ function LoginPopUp() {
                             onBlur={() => setEmailIsFocused(false)}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            id="emailInput"
                         />
                         <label
                             style={{
@@ -127,6 +147,7 @@ function LoginPopUp() {
                                 transition: "all 0.3s",
                                 opacity: emailIsFocused || email ? 0 : 1,
                             }}
+                            htmlFor="emailInput"
                         >
                             E-mail address
                         </label>
@@ -154,6 +175,7 @@ function LoginPopUp() {
                             onBlur={() => setPasswordIsFocused(false)}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            id="passwordInput"
                         />
                         <label
                             style={{
@@ -168,6 +190,7 @@ function LoginPopUp() {
                                 transition: "all 0.3s",
                                 opacity: passwordIsFocused || password ? 0 : 1,
                             }}
+                            htmlFor="passwordInput"
                         >
                             Password
                         </label>
@@ -191,11 +214,11 @@ function LoginPopUp() {
                 </form>
                 <div
                     style={loginButtonStyle}
-                    className="d-flex justify-content-center align-items-center"
+                    className="d-flex justify-content-center align-items-center btn"
                 >
                     Login
                 </div>
-                <span style={forgottenStyle}>Forgotten Password?</span>
+                <a style={forgottenStyle}>Forgotten Password?</a>
                 <div className="d-flex justify-content-between align-items-center my-3">
                     <div style={line} />
                     <div style={orBlock}>or</div>
@@ -203,7 +226,7 @@ function LoginPopUp() {
                 </div>
                 <div
                     style={createNewAccountStyle}
-                    className="d-flex justify-content-center align-items-center"
+                    className="d-flex justify-content-center align-items-center btn"
                 >
                     Create new account
                 </div>

@@ -16,6 +16,7 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
+            {/* If not logged in dont render chat and profile pages instead, load homepage with login popup */}
             <Route path="/testPage" element={<TestPage />} />
         </Routes>
     );
