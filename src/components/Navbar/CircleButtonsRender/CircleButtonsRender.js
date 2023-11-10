@@ -6,15 +6,10 @@ function CircleButtonsRender({ buttonsConfig, colorTheme, setIsLoginVisible }) {
     const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
 
     const circleButtonsRender = buttonsConfig.map((button) => {
+        const buttonName = button.name;
         const onClick = () => {
-            const buttonName = button.name;
-
             if (buttonName === "about") return;
-            if (!isLoggedIn) {
-                setIsLoginVisible(true);
-                console.log("onclick rendered");
-                return;
-            }
+            if (!isLoggedIn) setIsLoginVisible(true);
         };
 
         return (
@@ -29,6 +24,7 @@ function CircleButtonsRender({ buttonsConfig, colorTheme, setIsLoginVisible }) {
                 colorTheme={colorTheme}
                 key={button.key}
                 onClick={onClick}
+                buttonName={buttonName}
             />
         );
     });

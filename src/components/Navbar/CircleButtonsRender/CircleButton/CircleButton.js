@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./circleButton.css";
 
-function CircleButton({ icon, link, colorTheme, onClick }) {
+function CircleButton({ icon, link, colorTheme, onClick, buttonName }) {
     const [isClicked, setIsClicked] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
 
@@ -42,7 +42,10 @@ function CircleButton({ icon, link, colorTheme, onClick }) {
     };
 
     return (
-        <Link onClick={onClick} to={isLoggedIn ? `/${link}` : ""}>
+        <Link
+            onClick={onClick}
+            to={isLoggedIn || buttonName === "about" ? `/${link}` : ""}
+        >
             <div
                 className="rounded-circle d-flex justify-content-center align-items-center circle-button"
                 onMouseLeave={handleMouseLeave}
