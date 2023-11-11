@@ -4,7 +4,7 @@ import Main from "./Main/Main";
 import Footer from "components/Footer/Footer";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 import useFetch from "hooks/useFetch";
-import LoginPopUp from "components/Layout/LoginPopUp/LoginPopUp";
+import LoginPopUp from "components/LoginPopUp/LoginPopUp";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
