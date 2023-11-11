@@ -55,6 +55,42 @@ function Signup({
         height: "57px",
     };
 
+    const signupButtonStyle = {
+        fontSize: "15px",
+        fontWeight: "600",
+        width: "100%",
+        height: "55px",
+        borderRadius: "5px",
+        background: "#35B234",
+        color: "#fff",
+        marginBottom: "40px",
+        border: "none",
+    };
+
+    const haveAccount = {
+        fontSize: "15px",
+        fontWeight: "600",
+    };
+
+    const login = {
+        ...haveAccount,
+        color: "#35B234",
+        padding: "0",
+        border: "none",
+        verticalAlign: "baseLine",
+    };
+
+    const footer = {
+        marginTop: "20px",
+        fontSize: "14px",
+        color: "#999",
+    };
+
+    const termsCondition = {
+        textDecoration: "underline",
+        color: "black",
+    };
+
     return (
         isSignupVisible && (
             <div style={cardStyle} className="card border-0">
@@ -107,6 +143,32 @@ function Signup({
                         <GenderSelect gender={gender} setGender={setGender} />
                     </div>
                 </form>
+                <div
+                    style={signupButtonStyle}
+                    className="d-flex justify-content-center align-items-center btn"
+                >
+                    <FontAwesomeIcon
+                        className="btn p-0 me-2"
+                        icon="envelope"
+                        onClick={() => setIsLoginVisible(false)}
+                        style={{ color: "#fff" }}
+                    />
+                    <span>Sign up by email</span>
+                </div>
+                <div style={haveAccount}>
+                    You already have an account?{" "}
+                    <span className="btn" style={login}>
+                        Log in
+                    </span>
+                </div>
+                <div style={footer}>
+                    <p className="m-0">
+                        By registering with your email, you agree to our <br />
+                        <a href="" style={termsCondition}>
+                            Terms and Conditions.
+                        </a>
+                    </p>
+                </div>
             </div>
         )
     );
