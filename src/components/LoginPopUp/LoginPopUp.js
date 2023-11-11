@@ -17,6 +17,7 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
     const [passwordSignUp, setPasswordSignUp] = useState("");
     const [passwordSignUpIsFocused, setPasswordSignUpIsFocused] =
         useState(false);
+    const [gender, setGender] = useState("");
 
     useEffect(() => {
         if (isLoginVisible) setIsSignupVisible(false);
@@ -83,6 +84,8 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
                 setPasswordSignUp={setPasswordSignUp}
                 passwordSignUpIsFocused={passwordSignUpIsFocused}
                 setPasswordSignUpIsFocused={setPasswordSignUpIsFocused}
+                gender={gender}
+                setGender={setGender}
             />
         </div>
     );

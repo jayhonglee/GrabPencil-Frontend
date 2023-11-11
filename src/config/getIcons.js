@@ -16,6 +16,8 @@ import {
     faAngleRight,
     faAngleLeft,
     faX,
+    faAngleDown,
+    faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -37,5 +39,7 @@ export default function getIcons() {
         faAngleRight,
         faAngleLeft,
         faX,
+        faAngleDown,
+        faAngleUp,
     };
 }

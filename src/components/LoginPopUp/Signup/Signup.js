@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import GenderSelect from "./GenderSelect/GenderSelect";
 import Input from "../Input/Input";
 
 function Signup({
@@ -21,6 +21,8 @@ function Signup({
     setPasswordSignUp,
     passwordSignUpIsFocused,
     setPasswordSignUpIsFocused,
+    gender,
+    setGender,
 }) {
     const cardStyle = {
         width: "530px",
@@ -43,8 +45,14 @@ function Signup({
     };
 
     const formStyle = {
-        height: "221px",
+        height: "303px",
         marginBottom: "20px",
+    };
+
+    const genderSelectContainer = {
+        position: "relative",
+        width: "100%",
+        height: "57px",
     };
 
     return (
@@ -95,6 +103,9 @@ function Signup({
                         text={"Create a password"}
                         password="yes"
                     />
+                    <div style={genderSelectContainer}>
+                        <GenderSelect gender={gender} setGender={setGender} />
+                    </div>
                 </form>
             </div>
         )

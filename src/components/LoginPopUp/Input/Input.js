@@ -41,6 +41,7 @@ export default function Input({
                     fontWeight: "600",
                     transition: "all 0.3s",
                     opacity: isFocus || value ? 0 : 1,
+                    userSelect: "none",
                 }}
                 htmlFor={`${text}Input`}
             >
@@ -58,6 +59,7 @@ export default function Input({
                     fontWeight: "500",
                     transition: "all 0.3s",
                     opacity: isFocus ? 1 : 0,
+                    userSelect: "none",
                 }}
             >
                 {text}
