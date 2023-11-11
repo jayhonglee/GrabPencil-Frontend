@@ -93,7 +93,7 @@ function Signup({
                 style={closeStyle}
                 onClick={() => setIsLoginVisible(false)}
             />
-            <p style={singupText}>Signup</p>
+            <p style={singupText}>Sign up</p>
             <form
                 style={formStyle}
                 className="d-flex flex-column justify-content-between"

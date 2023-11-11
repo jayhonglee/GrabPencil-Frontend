@@ -11,7 +11,6 @@ export default function Login({
     setPassword,
     passwordIsFocused,
     setPasswordIsFocused,
-    isSignupVisible,
     setIsSignupVisible,
 }) {
     const closeStyle = {

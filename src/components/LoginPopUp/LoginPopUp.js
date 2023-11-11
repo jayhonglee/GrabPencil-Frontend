@@ -19,7 +19,8 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
     const [gender, setGender] = useState("");
 
     useEffect(() => {
-        if (isLoginVisible) setIsSignupVisible(false);
+        // if (isLoginVisible)
+        setIsSignupVisible(false);
     }, [isLoginVisible]);
 
     const shadeRef = useRef();

@@ -44,46 +44,50 @@ export default function PopUp({
 
     return (
         <div className="card border-0" style={popUpStyle}>
-            {!isSignupVisible ? (
-                <Login
-                    isLoginVisible={isLoginVisible}
-                    setIsLoginVisible={setIsLoginVisible}
-                    emailIsFocused={emailIsFocused}
-                    setEmailIsFocused={setEmailIsFocused}
-                    passwordIsFocused={passwordIsFocused}
-                    setPasswordIsFocused={setPasswordIsFocused}
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    isSignupVisible={isSignupVisible}
-                    setIsSignupVisible={setIsSignupVisible}
-                />
-            ) : (
-                <Signup
-                    isSignupVisible={isSignupVisible}
-                    setIsSignupVisible={setIsSignupVisible}
-                    setIsLoginVisible={setIsLoginVisible}
-                    firstName={firstName}
-                    setFirstName={setFirstName}
-                    firstNameIsFocused={firstNameIsFocused}
-                    setFirstNameIsFocused={setFirstNameIsFocused}
-                    lastName={lastName}
-                    setLastName={setLastName}
-                    lastNameIsFocused={lastNameIsFocused}
-                    setLastNameIsFocused={setLastNameIsFocused}
-                    signUpEmail={signUpEmail}
-                    setSignUpEmail={setSignUpEmail}
-                    signUpEmailIsFocused={signUpEmailIsFocused}
-                    setSignUpEmailIsFocused={setSignUpEmailIsFocused}
-                    passwordSignUp={passwordSignUp}
-                    setPasswordSignUp={setPasswordSignUp}
-                    passwordSignUpIsFocused={passwordSignUpIsFocused}
-                    setPasswordSignUpIsFocused={setPasswordSignUpIsFocused}
-                    gender={gender}
-                    setGender={setGender}
-                />
-            )}
+            {!isSignupVisible
+                ? isLoginVisible && (
+                      <Login
+                          isLoginVisible={isLoginVisible}
+                          setIsLoginVisible={setIsLoginVisible}
+                          emailIsFocused={emailIsFocused}
+                          setEmailIsFocused={setEmailIsFocused}
+                          passwordIsFocused={passwordIsFocused}
+                          setPasswordIsFocused={setPasswordIsFocused}
+                          email={email}
+                          setEmail={setEmail}
+                          password={password}
+                          setPassword={setPassword}
+                          isSignupVisible={isSignupVisible}
+                          setIsSignupVisible={setIsSignupVisible}
+                      />
+                  )
+                : isLoginVisible && (
+                      <Signup
+                          isSignupVisible={isSignupVisible}
+                          setIsSignupVisible={setIsSignupVisible}
+                          setIsLoginVisible={setIsLoginVisible}
+                          firstName={firstName}
+                          setFirstName={setFirstName}
+                          firstNameIsFocused={firstNameIsFocused}
+                          setFirstNameIsFocused={setFirstNameIsFocused}
+                          lastName={lastName}
+                          setLastName={setLastName}
+                          lastNameIsFocused={lastNameIsFocused}
+                          setLastNameIsFocused={setLastNameIsFocused}
+                          signUpEmail={signUpEmail}
+                          setSignUpEmail={setSignUpEmail}
+                          signUpEmailIsFocused={signUpEmailIsFocused}
+                          setSignUpEmailIsFocused={setSignUpEmailIsFocused}
+                          passwordSignUp={passwordSignUp}
+                          setPasswordSignUp={setPasswordSignUp}
+                          passwordSignUpIsFocused={passwordSignUpIsFocused}
+                          setPasswordSignUpIsFocused={
+                              setPasswordSignUpIsFocused
+                          }
+                          gender={gender}
+                          setGender={setGender}
+                      />
+                  )}
         </div>
     );
 }
