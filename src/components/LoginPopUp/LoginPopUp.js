@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Login from "./Login.js/Login";
-import Signup from "./Signup/Signup";
+import PopUp from "./PopUp.js/PopUp";
 
 function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
     const [email, setEmail] = useState("");
@@ -51,7 +50,7 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
             }}
             className="text-center"
         >
-            <Login
+            <PopUp
                 isLoginVisible={isLoginVisible}
                 setIsLoginVisible={setIsLoginVisible}
                 emailIsFocused={emailIsFocused}
@@ -64,10 +63,6 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
                 setPassword={setPassword}
                 isSignupVisible={isSignupVisible}
                 setIsSignupVisible={setIsSignupVisible}
-            />
-            <Signup
-                isSignupVisible={isSignupVisible}
-                setIsLoginVisible={setIsLoginVisible}
                 firstName={firstName}
                 setFirstName={setFirstName}
                 firstNameIsFocused={firstNameIsFocused}
