@@ -8,7 +8,7 @@ import LoginPopUp from "components/LoginPopUp/LoginPopUp";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function HomePage() {
+function HomePage({ isLoggedIn }) {
     const location = useLocation();
     const navigate = useNavigate();
     const colorTheme = useFetchColorTheme();
@@ -33,6 +33,7 @@ function HomePage() {
                         buttonsConfig={buttonsConfig}
                         setIsLoginVisible={setIsLoginVisible}
                         setFromState={setFromState}
+                        isLoggedIn={isLoggedIn}
                     />
                 }
                 content={<Main />}

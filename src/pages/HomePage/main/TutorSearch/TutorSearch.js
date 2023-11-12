@@ -161,8 +161,6 @@ function TutorSearch({
         fontWeight: "600",
     };
 
-    console.log(currentGenderParam);
-
     return (
         <div className="text-center container-fluid p-0">
             <form

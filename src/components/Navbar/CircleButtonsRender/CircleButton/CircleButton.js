@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import "./circleButton.css";
 
-function CircleButton({ icon, link, colorTheme, onClick, buttonName }) {
+function CircleButton({
+    icon,
+    link,
+    colorTheme,
+    onClick,
+    buttonName,
+    isLoggedIn,
+}) {
     const [isClicked, setIsClicked] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
-
-    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
 
     const handleMouseLeave = () => {
         setIsClicked(false);

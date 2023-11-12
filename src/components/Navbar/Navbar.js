@@ -7,6 +7,7 @@ function Navbar({
     buttonsConfig,
     setIsLoginVisible,
     setFromState,
+    isLoggedIn,
 }) {
     const [mouseHover, setMouseHover] = useState(false);
 
@@ -27,6 +28,8 @@ function Navbar({
         // Reload the page when the div is clicked
         window.location.reload();
     };
+
+    console.log(isLoggedIn);
 
     return (
         <nav
@@ -50,6 +53,7 @@ function Navbar({
                     colorTheme={colorTheme}
                     setIsLoginVisible={setIsLoginVisible}
                     setFromState={setFromState}
+                    isLoggedIn={isLoggedIn}
                 />
             </div>
         </nav>

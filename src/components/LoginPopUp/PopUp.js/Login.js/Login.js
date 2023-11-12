@@ -1,7 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "slices/loginSlice";
 import { useState } from "react";
 import axios from "axios";
 import Input from "../Input/Input";
@@ -20,9 +18,8 @@ export default function Login({
     fromState,
     setFromState,
 }) {
-    const [isRequired, setIsRequired] = useState({});
+    const [isLoginFail, setIsLoginFail] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const closeStyle = {
         border: "none",
@@ -88,8 +85,6 @@ export default function Login({
     };
 
     const handleLogin = async () => {
-        const list = ["email", "password"];
-
         try {
             await axios.post(
                 `${process.env.REACT_APP_BASE_URL}/users/login`,
@@ -100,20 +95,14 @@ export default function Login({
                 { withCredentials: true }
             );
 
-            dispatch(login());
-            setIsRequired({});
+            localStorage.setItem("isLoggedIn", "true");
+            window.dispatchEvent(new Event("storage"));
+            setIsLoginFail(false);
             if (fromState) navigate(`/${fromState}`);
             setFromState(null);
         } catch (e) {
             console.error("Signup failed:", e.response.data);
-            for (let i = 0; i < list.length; i++) {
-                const item = list[i];
-                if (e.response.data.includes(item)) {
-                    setIsRequired((prev) => ({ ...prev, [item]: true }));
-                } else {
-                    setIsRequired((prev) => ({ ...prev, [item]: false }));
-                }
-            }
+            setIsLoginFail(true);
         }
     };
 
@@ -137,6 +126,7 @@ export default function Login({
                     isFocus={emailIsFocused}
                     setIsFocus={setEmailIsFocused}
                     text={"E-mail address"}
+                    isRequired={isLoginFail}
                 />
                 <Input
                     value={password}
@@ -145,6 +135,7 @@ export default function Login({
                     setIsFocus={setPasswordIsFocused}
                     text={"Password"}
                     password="yes"
+                    isRequired={isLoginFail}
                 />
             </form>
             <div

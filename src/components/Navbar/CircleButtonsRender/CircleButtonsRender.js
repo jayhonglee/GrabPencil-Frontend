@@ -1,15 +1,13 @@
 import CircleButton from "./CircleButton/CircleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
 
 function CircleButtonsRender({
     buttonsConfig,
     colorTheme,
     setIsLoginVisible,
     setFromState,
+    isLoggedIn,
 }) {
-    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
-
     const circleButtonsRender = buttonsConfig.map((button) => {
         const buttonName = button.name;
         const onClick = () => {
@@ -33,6 +31,7 @@ function CircleButtonsRender({
                 key={button.key}
                 onClick={onClick}
                 buttonName={buttonName}
+                isLoggedIn={isLoggedIn}
             />
         );
     });

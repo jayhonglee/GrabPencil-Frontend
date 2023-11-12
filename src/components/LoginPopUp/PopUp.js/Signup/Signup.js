@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "slices/loginSlice";
 import GenderSelect from "./GenderSelect/GenderSelect";
 import Input from "../Input/Input";
 import axios from "axios";
@@ -33,7 +31,6 @@ function Signup({
 }) {
     const [isRequired, setIsRequired] = useState({});
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const closeStyle = {
         border: "none",
@@ -110,8 +107,8 @@ function Signup({
                 },
                 { withCredentials: true }
             );
-
-            dispatch(login());
+            localStorage.setItem("isLoggedIn", "true");
+            window.dispatchEvent(new Event("storage"));
             setIsRequired({});
             if (fromState) navigate(`/${fromState}`);
             setFromState(null);
