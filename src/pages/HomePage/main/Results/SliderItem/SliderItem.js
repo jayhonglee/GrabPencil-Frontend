@@ -85,7 +85,7 @@ function SliderItem({ data, onClick, currentTutorProfile }) {
                                     data.lessonLocation
                                 )}
                                 {renderInfo("comment", data.languages)}
-                                {renderInfo("user", data.sex)}
+                                {renderInfo("user", data.gender)}
                                 {renderInfo("dollar-sign", data.hourlyRate)}
                             </div>
                         </div>

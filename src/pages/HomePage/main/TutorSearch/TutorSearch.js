@@ -23,7 +23,7 @@ function TutorSearch({
     const [currentSchoolParam, setCurrentSchoolParam] = useState("");
     const [currentLanguageParam, setCurrentLanguageParam] = useState("");
     const [currentHourlyRateParam, setCurrentHourlyRateParam] = useState("");
-    const [currentSexParam, setCurrentSexParam] = useState("");
+    const [currentGenderParam, setCurrentGenderParam] = useState("");
     const [currentLessonMethodParam, setCurrentLessonMethodParam] =
         useState("");
     const [forceUpdate, setForceUpdate] = useState(0);
@@ -33,7 +33,7 @@ function TutorSearch({
         currentSortByParam,
         currentSchoolParam,
         currentLanguageParam,
-        currentSexParam,
+        currentGenderParam,
         currentLessonMethodParam,
         currentHourlyRateParam,
     };
@@ -41,7 +41,7 @@ function TutorSearch({
         setCurrentSortByParam,
         setCurrentSchoolParam,
         setCurrentLanguageParam,
-        setCurrentSexParam,
+        setCurrentGenderParam,
         setCurrentLessonMethodParam,
         setCurrentHourlyRateParam,
     };
@@ -105,7 +105,7 @@ function TutorSearch({
         setCurrentSortByParam("Newest");
         setCurrentSchoolParam("");
         setCurrentLanguageParam("");
-        setCurrentSexParam("");
+        setCurrentGenderParam("");
         setCurrentLessonMethodParam("");
         setCurrentHourlyRateParam("");
         const encodedWhat = encodeParam(currentWhatParam);
@@ -129,18 +129,18 @@ function TutorSearch({
         const encodedSchool = encodeParam(currentSchoolParam);
         const encodedLanguage = encodeParam(currentLanguageParam);
         const encodedHourlyRate = encodeParam(currentHourlyRateParam);
-        const encodedSex = encodeParam(currentSexParam);
+        const encodedGender = encodeParam(currentGenderParam);
         const encodedLessonMethod = encodeParam(currentLessonMethodParam);
 
         setCurrentParamString(
-            `sortBy=createdAt:${encodedSortBy}&school=${encodedSchool}&language=${encodedLanguage}&hourlyRate=${encodedHourlyRate}&sex=${encodedSex}&lessonMethod=${encodedLessonMethod}&what=${encodedWhat}&where=${encodedWhere}`
+            `sortBy=createdAt:${encodedSortBy}&school=${encodedSchool}&language=${encodedLanguage}&hourlyRate=${encodedHourlyRate}&gender=${encodedGender}&lessonMethod=${encodedLessonMethod}&what=${encodedWhat}&where=${encodedWhere}`
         );
     }, [
         currentSortByParam,
         currentSchoolParam,
         currentLanguageParam,
         currentHourlyRateParam,
-        currentSexParam,
+        currentGenderParam,
         currentLessonMethodParam,
     ]);
 
@@ -160,6 +160,8 @@ function TutorSearch({
         border: "none",
         fontWeight: "600",
     };
+
+    console.log(currentGenderParam);
 
     return (
         <div className="text-center container-fluid p-0">

@@ -96,11 +96,11 @@
           }
           ,
         {
-            "name": "Sex",
+            "name": "Gender",
             "list": [
-                {"name": "Male", "key": "sex1"},
-                {"name": "Female", "key": "sex2"},
-                {"name": "Non-Binary", "key": "sex3"}
+                {"name": "Male", "key": "gender1"},
+                {"name": "Female", "key": "gender2"},
+                {"name": "Non-Binary", "key": "gender3"}
             ],
             "key": "filter4"
         },

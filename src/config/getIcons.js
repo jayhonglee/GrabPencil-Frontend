@@ -19,6 +19,7 @@ import {
     faAngleDown,
     faAngleUp,
     faEnvelope,
+    faCircleUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -43,5 +44,6 @@ export default function getIcons() {
         faAngleDown,
         faAngleUp,
         faEnvelope,
+        faCircleUser,
     };
 }

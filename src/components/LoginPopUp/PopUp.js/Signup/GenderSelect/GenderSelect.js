@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-export default function GenderSelect({ gender, setGender }) {
+export default function GenderSelect({ gender, setGender, isRequired }) {
     const [isFocused, setIsFocused] = useState(false);
     const [isHoveredOn, setIsHoveredOn] = useState(null);
 
@@ -9,7 +9,14 @@ export default function GenderSelect({ gender, setGender }) {
         width: "100%",
         height: isFocused ? "196px" : "57px",
         backgroundColor: "#fff",
-        border: isFocused ? "1px solid #222" : "1px solid #e0e0e0",
+        borderRight: isFocused ? "1px solid #222" : "1px solid #e0e0e0",
+        borderTop: isFocused ? "1px solid #222" : "1px solid #e0e0e0",
+        borderBottom: isFocused ? "1px solid #222" : "1px solid #e0e0e0",
+        borderLeft: isRequired
+            ? "2px solid red"
+            : isFocused
+            ? "1px solid #222"
+            : "1px solid #e0e0e0",
         borderRadius: "5px",
         fontSize: "16px",
         fontWeight: "600",

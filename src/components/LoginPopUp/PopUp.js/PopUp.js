@@ -32,6 +32,8 @@ export default function PopUp({
     setPasswordSignUpIsFocused,
     gender,
     setGender,
+    fromState,
+    setFromState,
 }) {
     const popUpStyle = {
         position: "relative",
@@ -59,6 +61,8 @@ export default function PopUp({
                           setPassword={setPassword}
                           isSignupVisible={isSignupVisible}
                           setIsSignupVisible={setIsSignupVisible}
+                          fromState={fromState}
+                          setFromState={setFromState}
                       />
                   )
                 : isLoginVisible && (
@@ -86,6 +90,8 @@ export default function PopUp({
                           }
                           gender={gender}
                           setGender={setGender}
+                          fromState={fromState}
+                          setFromState={setFromState}
                       />
                   )}
         </div>

@@ -1,4 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "slices/loginSlice";
+import { useState } from "react";
+import axios from "axios";
 import Input from "../Input/Input";
 
 export default function Login({
@@ -12,7 +17,13 @@ export default function Login({
     passwordIsFocused,
     setPasswordIsFocused,
     setIsSignupVisible,
+    fromState,
+    setFromState,
 }) {
+    const [isRequired, setIsRequired] = useState({});
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const closeStyle = {
         border: "none",
         position: "absolute",
@@ -53,7 +64,7 @@ export default function Login({
         fontWeight: "600",
         width: "257.78px",
         height: "48px",
-        background: "#1877f2",
+        background: "#4285F4",
         margin: "6px auto",
         borderRadius: "5px",
         color: "#fff",
@@ -74,6 +85,36 @@ export default function Login({
 
     const handleSignUp = () => {
         setIsSignupVisible(true);
+    };
+
+    const handleLogin = async () => {
+        const list = ["email", "password"];
+
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/users/login`,
+                {
+                    email,
+                    password,
+                },
+                { withCredentials: true }
+            );
+
+            dispatch(login());
+            setIsRequired({});
+            if (fromState) navigate(`/${fromState}`);
+            setFromState(null);
+        } catch (e) {
+            console.error("Signup failed:", e.response.data);
+            for (let i = 0; i < list.length; i++) {
+                const item = list[i];
+                if (e.response.data.includes(item)) {
+                    setIsRequired((prev) => ({ ...prev, [item]: true }));
+                } else {
+                    setIsRequired((prev) => ({ ...prev, [item]: false }));
+                }
+            }
+        }
     };
 
     return (
@@ -109,6 +150,7 @@ export default function Login({
             <div
                 style={loginButtonStyle}
                 className="d-flex justify-content-center align-items-center btn"
+                onClick={handleLogin}
             >
                 Login
             </div>
@@ -123,7 +165,14 @@ export default function Login({
                 className="d-flex justify-content-center align-items-center btn"
                 onClick={handleSignUp}
             >
-                Create new account
+                <FontAwesomeIcon
+                    className="me-2"
+                    icon="circle-user"
+                    style={{
+                        color: "#fff",
+                    }}
+                />
+                <span>Create new account</span>
             </div>
         </>
     );

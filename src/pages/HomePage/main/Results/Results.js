@@ -28,7 +28,7 @@ function Results({
                 subjects,
                 lessonMethod,
                 languages,
-                sex,
+                gender,
                 hourlyRate,
                 _id,
             } = tutorProfile;
@@ -52,7 +52,7 @@ function Results({
                 languages: languages
                     .map((language) => language.language)
                     .join(", "),
-                sex,
+                gender,
                 hourlyRate,
                 avatarURL,
                 _id,

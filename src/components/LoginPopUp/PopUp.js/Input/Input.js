@@ -5,17 +5,23 @@ export default function Input({
     setIsFocus,
     text,
     password,
+    isRequired,
 }) {
     const inputStyle = {
         width: "100%",
         height: "57px",
         background: "rgb(247,247,247)",
-        border: "none",
+        borderLeft: "none",
+        borderRight: "none",
+        borderTop: "none",
+        borderBottom: "none",
+        borderLeft: isRequired ? "2px solid red" : "none",
         outline: "none",
         padding: "18px",
         borderRadius: "5px",
         fontSize: "15px",
         fontWeight: "600",
+        transition: "borderLeft 0.3s",
     };
 
     return (

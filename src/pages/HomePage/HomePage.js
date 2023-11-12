@@ -16,8 +16,6 @@ function HomePage() {
     const [isLoginVisible, setIsLoginVisible] = useState(false);
     const [fromState, setFromState] = useState(location.state);
 
-    console.log(fromState);
-    // later implement => if(fromState) after login, go to the fromState page
     useEffect(() => {
         if (fromState) {
             setIsLoginVisible(true);
@@ -43,6 +41,8 @@ function HomePage() {
             <LoginPopUp
                 isLoginVisible={isLoginVisible}
                 setIsLoginVisible={setIsLoginVisible}
+                fromState={fromState}
+                setFromState={setFromState}
             />
         </>
     );

@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import PopUp from "./PopUp.js/PopUp";
 
-function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
+function LoginPopUp({
+    isLoginVisible,
+    setIsLoginVisible,
+    fromState,
+    setFromState,
+}) {
     const [email, setEmail] = useState("");
     const [emailIsFocused, setEmailIsFocused] = useState(false);
     const [password, setPassword] = useState("");
@@ -19,7 +24,6 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
     const [gender, setGender] = useState("");
 
     useEffect(() => {
-        // if (isLoginVisible)
         setIsSignupVisible(false);
     }, [isLoginVisible]);
 
@@ -82,6 +86,8 @@ function LoginPopUp({ isLoginVisible, setIsLoginVisible }) {
                 setPasswordSignUpIsFocused={setPasswordSignUpIsFocused}
                 gender={gender}
                 setGender={setGender}
+                fromState={fromState}
+                setFromState={setFromState}
             />
         </div>
     );

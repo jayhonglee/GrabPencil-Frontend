@@ -128,7 +128,7 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
                                 </span>
                                 <span
                                     style={{ color: "grey" }}
-                                >{`(${currentTutorProfile?.sex})`}</span>
+                                >{`(${currentTutorProfile?.gender})`}</span>
                                 <p className="m-0 pb-3">
                                     {currentTutorProfile?.headline}
                                 </p>

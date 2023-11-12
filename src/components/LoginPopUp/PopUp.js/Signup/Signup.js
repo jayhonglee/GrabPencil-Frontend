@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "slices/loginSlice";
 import GenderSelect from "./GenderSelect/GenderSelect";
 import Input from "../Input/Input";
+import axios from "axios";
 
 function Signup({
     setIsSignupVisible,
@@ -23,7 +28,13 @@ function Signup({
     setPasswordSignUpIsFocused,
     gender,
     setGender,
+    fromState,
+    setFromState,
 }) {
+    const [isRequired, setIsRequired] = useState({});
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const closeStyle = {
         border: "none",
         position: "absolute",
@@ -65,7 +76,7 @@ function Signup({
         fontWeight: "600",
     };
 
-    const login = {
+    const loginStyle = {
         ...haveAccount,
         color: "#35B234",
         padding: "0",
@@ -82,6 +93,39 @@ function Signup({
     const termsCondition = {
         textDecoration: "underline",
         color: "black",
+    };
+
+    const handleSignUp = async () => {
+        const list = ["firstName", "lastName", "email", "password", "gender"];
+
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/users`,
+                {
+                    firstName,
+                    lastName,
+                    email: signUpEmail,
+                    password: passwordSignUp,
+                    gender,
+                },
+                { withCredentials: true }
+            );
+
+            dispatch(login());
+            setIsRequired({});
+            if (fromState) navigate(`/${fromState}`);
+            setFromState(null);
+        } catch (e) {
+            console.error("Signup failed:", e.response.data);
+            for (let i = 0; i < list.length; i++) {
+                const item = list[i];
+                if (e.response.data.includes(item)) {
+                    setIsRequired((prev) => ({ ...prev, [item]: true }));
+                } else {
+                    setIsRequired((prev) => ({ ...prev, [item]: false }));
+                }
+            }
+        }
     };
 
     return (
@@ -106,6 +150,7 @@ function Signup({
                             isFocus={firstNameIsFocused}
                             setIsFocus={setFirstNameIsFocused}
                             text={"First name"}
+                            isRequired={isRequired["firstName"]}
                         />
                     </div>
                     <Input
@@ -114,6 +159,7 @@ function Signup({
                         isFocus={lastNameIsFocused}
                         setIsFocus={setLastNameIsFocused}
                         text={"Last name"}
+                        isRequired={isRequired["lastName"]}
                     />
                 </div>
                 <Input
@@ -122,6 +168,7 @@ function Signup({
                     isFocus={signUpEmailIsFocused}
                     setIsFocus={setSignUpEmailIsFocused}
                     text={"E-mail address"}
+                    isRequired={isRequired["email"]}
                 />
                 <Input
                     value={passwordSignUp}
@@ -130,14 +177,20 @@ function Signup({
                     setIsFocus={setPasswordSignUpIsFocused}
                     text={"Create a password"}
                     password="yes"
+                    isRequired={isRequired["password"]}
                 />
                 <div style={genderSelectContainer}>
-                    <GenderSelect gender={gender} setGender={setGender} />
+                    <GenderSelect
+                        gender={gender}
+                        setGender={setGender}
+                        isRequired={isRequired["gender"]}
+                    />
                 </div>
             </form>
             <div
                 style={signupButtonStyle}
                 className="d-flex justify-content-center align-items-center btn"
+                onClick={handleSignUp}
             >
                 <FontAwesomeIcon
                     className="btn p-0 me-2"
@@ -151,7 +204,7 @@ function Signup({
                 You already have an account?{" "}
                 <span
                     className="btn"
-                    style={login}
+                    style={loginStyle}
                     onClick={() => setIsSignupVisible(false)}
                 >
                     Log in
