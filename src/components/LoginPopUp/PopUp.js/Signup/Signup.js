@@ -92,7 +92,9 @@ function Signup({
         color: "black",
     };
 
-    const handleSignUp = async () => {
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+
         const list = ["firstName", "lastName", "email", "password", "gender"];
 
         try {

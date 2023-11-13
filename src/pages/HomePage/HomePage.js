@@ -8,16 +8,17 @@ import LoginPopUp from "components/LoginPopUp/LoginPopUp";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function HomePage({ isLoggedIn }) {
+function HomePage({ isLoggedIn, fromState, setFromState }) {
     const location = useLocation();
     const navigate = useNavigate();
     const colorTheme = useFetchColorTheme();
     const buttonsConfig = useFetch("navbar")[1].buttons;
     const [isLoginVisible, setIsLoginVisible] = useState(false);
-    const [fromState, setFromState] = useState(location.state);
+    // const [fromState, setFromState] = useState(location.state);
 
     useEffect(() => {
-        if (fromState) {
+        setFromState(location.state);
+        if (location.state) {
             setIsLoginVisible(true);
             navigate(".", { replace: true });
         }

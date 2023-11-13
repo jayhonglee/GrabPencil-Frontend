@@ -29,8 +29,6 @@ function Navbar({
         window.location.reload();
     };
 
-    console.log(isLoggedIn);
-
     return (
         <nav
             className="navbar container-fluid d-flex justify-content-between"

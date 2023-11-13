@@ -95,9 +95,9 @@ export default function Login({
                 { withCredentials: true }
             );
 
+            setIsLoginFail(false);
             localStorage.setItem("isLoggedIn", "true");
             window.dispatchEvent(new Event("storage"));
-            setIsLoginFail(false);
             if (fromState) navigate(`/${fromState}`);
             setFromState(null);
         } catch (e) {
