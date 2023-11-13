@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import "./Navigation.css";
 
-function Navigation({}) {
+function Navigation({ currentButton, setCurrentButton }) {
     const navigationList = ["My Tutor Profiles", "My Account"];
     const useref = useRef;
     const buttonRefs = navigationList.map(() => useref(null));
-    const [currentButton, setCurrentButton] = useState("My Tutor Profiles");
     const [buttonWidths, setButtonWidths] = useState([]);
     const [underlineLeft, setUnderlineLeft] = useState(0);
 

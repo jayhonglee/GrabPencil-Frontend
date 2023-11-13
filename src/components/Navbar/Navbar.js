@@ -14,10 +14,10 @@ function Navbar({
     const navigate = useNavigate();
 
     const buttonsContainer = {
-        paddingRight: "16px",
+        paddingRight: "24px",
     };
     const navbarBrand = {
-        paddingLeft: "16px",
+        paddingLeft: "24px",
         fontSize: "22px",
         cursor: mouseHover && "pointer",
     };
