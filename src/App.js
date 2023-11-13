@@ -72,7 +72,6 @@ function App() {
                         isLoggedIn={isLoggedIn}
                         fromState={fromState}
                         setFromState={setFromState}
-                        state={"hi"}
                     />
                 }
             />
@@ -81,7 +80,10 @@ function App() {
                 path="/messagesPage"
                 element={
                     isLoggedIn ? (
-                        <MessagesPage />
+                        <MessagesPage
+                            isLoggedIn={isLoggedIn}
+                            setFromState={setFromState}
+                        />
                     ) : (
                         <Navigate to="/" state={"messagesPage"} replace />
                     )
@@ -91,7 +93,10 @@ function App() {
                 path="/profilePage"
                 element={
                     isLoggedIn ? (
-                        <ProfilePage />
+                        <ProfilePage
+                            isLoggedIn={isLoggedIn}
+                            setFromState={setFromState}
+                        />
                     ) : (
                         <Navigate to="/" state={"profilePage"} replace />
                     )

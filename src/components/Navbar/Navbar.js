@@ -1,5 +1,6 @@
 import CircleButtonsRender from "./CircleButtonsRender/CircleButtonsRender";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({
     name,
@@ -10,6 +11,7 @@ function Navbar({
     isLoggedIn,
 }) {
     const [mouseHover, setMouseHover] = useState(false);
+    const navigate = useNavigate();
 
     const buttonsContainer = {
         paddingRight: "16px",
@@ -25,8 +27,8 @@ function Navbar({
     };
 
     const handleDivClick = () => {
-        // Reload the page when the div is clicked
-        window.location.reload();
+        // window.location.reload();
+        navigate("/", { replace: true });
     };
 
     return (

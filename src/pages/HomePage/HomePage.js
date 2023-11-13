@@ -14,7 +14,6 @@ function HomePage({ isLoggedIn, fromState, setFromState }) {
     const colorTheme = useFetchColorTheme();
     const buttonsConfig = useFetch("navbar")[1].buttons;
     const [isLoginVisible, setIsLoginVisible] = useState(false);
-    // const [fromState, setFromState] = useState(location.state);
 
     useEffect(() => {
         setFromState(location.state);

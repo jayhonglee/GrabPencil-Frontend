@@ -28,7 +28,10 @@ function Footer() {
                     <button
                         type="button"
                         className="btn btn-outline-primary me-3"
-                        style={{ border: "1px solid green", color: "green" }}
+                        style={{
+                            border: "1px solid #35b234",
+                            color: "#35b234",
+                        }}
                     >
                         About
                     </button>
@@ -36,9 +39,9 @@ function Footer() {
                         className="btn btn-primary"
                         type="submit"
                         style={{
-                            background: "green",
+                            background: "#35b234",
                             color: "#fff",
-                            border: "1px solid green",
+                            border: "1px solid #35b234",
                         }}
                     >
                         Get started
