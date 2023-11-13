@@ -67,8 +67,6 @@ function CircleButton({
         setIsTouched(false);
     };
 
-    console.log(profileURL);
-
     const button = {
         marginRight: "5px",
         width: "40px",
@@ -89,10 +87,16 @@ function CircleButton({
         >
             {isLoggedIn && buttonName === "profile" ? (
                 <img
-                    class="rounded-circle"
+                    className="rounded-circle circle-button"
                     alt="avatar1"
                     src={profileURL ? `${profileURL}` : `/images/no_avatar.png`}
-                    style={button}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    style={isClicked || isTouched ? buttonPressed : button}
                 />
             ) : (
                 <div
