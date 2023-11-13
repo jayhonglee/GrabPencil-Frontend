@@ -14,7 +14,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
-    const storageIsLoggedIn = localStorage.getItem("isLoggedIn");
     const [isLoggedIn, setIsLoggedIn] = useState(
         () => localStorage.getItem("isLoggedIn") === "true"
     );
@@ -39,13 +38,12 @@ function App() {
                     localStorage.setItem("isLoggedIn", "true");
                     setIsLoggedIn(true);
                     if (fromState) navigate(`/${fromState}`);
-                    // console.log(isLoggedIn);
+                    setFromState(null);
                 } else {
                     localStorage.setItem("isLoggedIn", "false");
                     setIsLoggedIn(false);
                 }
             } catch (e) {
-                // setIsLoggedIn("false");
                 localStorage.setItem("isLoggedIn", "false");
                 setIsLoggedIn(false);
             }
@@ -71,14 +69,13 @@ function App() {
                 path="/"
                 element={
                     <HomePage
-                        isLoggedIn={storageIsLoggedIn}
+                        isLoggedIn={isLoggedIn}
                         fromState={fromState}
                         setFromState={setFromState}
                         state={"hi"}
                     />
                 }
             />
-            {/* If not logged in dont render chat and profile pages instead, load homepage with login popup then if login successful go to the original intended page if not stay in homepage */}
             <Route path="/aboutPage" element={<AboutPage />} />
             <Route
                 path="/messagesPage"

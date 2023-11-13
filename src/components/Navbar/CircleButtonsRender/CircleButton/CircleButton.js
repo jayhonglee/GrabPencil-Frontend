@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useCookie from "hooks/useCookie";
+import axios from "axios";
 import "./circleButton.css";
 
 function CircleButton({
@@ -12,6 +14,39 @@ function CircleButton({
 }) {
     const [isClicked, setIsClicked] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
+    const [profileURL, setProfileURL] = useState(null);
+    const getCookie = useCookie;
+
+    useEffect(() => {
+        async function getProfile() {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
+                {},
+                {
+                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${getCookie("auth_token")}`,
+                    },
+                }
+            );
+            const userId = response.data.user._id;
+
+            const profileURL = await axios
+                .get(
+                    `${process.env.REACT_APP_BASE_URL}/users/${userId}/avatar`,
+                    { responseType: "arraybuffer" }
+                )
+                .then((response) => {
+                    const blob = new Blob([response.data], {
+                        type: "image/png",
+                    });
+                    const imageUrl = URL.createObjectURL(blob);
+                    setProfileURL(imageUrl);
+                });
+        }
+
+        if (isLoggedIn && buttonName === "profile") getProfile();
+    }, [isLoggedIn]);
 
     const handleMouseLeave = () => {
         setIsClicked(false);
@@ -32,6 +67,8 @@ function CircleButton({
         setIsTouched(false);
     };
 
+    console.log(profileURL);
+
     const button = {
         marginRight: "5px",
         width: "40px",
@@ -50,18 +87,27 @@ function CircleButton({
             onClick={onClick}
             to={isLoggedIn || buttonName === "about" ? `/${link}` : ""}
         >
-            <div
-                className="rounded-circle d-flex justify-content-center align-items-center circle-button"
-                onMouseLeave={handleMouseLeave}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                style={isClicked || isTouched ? buttonPressed : button}
-            >
-                {icon}
-            </div>
+            {isLoggedIn && buttonName === "profile" ? (
+                <img
+                    class="rounded-circle"
+                    alt="avatar1"
+                    src={profileURL ? `${profileURL}` : `/images/no_avatar.png`}
+                    style={button}
+                />
+            ) : (
+                <div
+                    className="rounded-circle d-flex justify-content-center align-items-center circle-button"
+                    onMouseLeave={handleMouseLeave}
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    style={isClicked || isTouched ? buttonPressed : button}
+                >
+                    {icon}
+                </div>
+            )}
         </Link>
     );
 }
