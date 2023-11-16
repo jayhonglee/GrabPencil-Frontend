@@ -96,6 +96,7 @@ function App() {
                         <ProfilePage
                             isLoggedIn={isLoggedIn}
                             setFromState={setFromState}
+                            setIsLoggedIn={setIsLoggedIn}
                         />
                     ) : (
                         <Navigate to="/" state={"profilePage"} replace />

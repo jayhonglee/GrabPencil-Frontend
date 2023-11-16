@@ -2,10 +2,9 @@ import MainLayout from "components/Layout/MainLayout";
 import Navbar from "components/Navbar/Navbar";
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 import useFetch from "hooks/useFetch";
-import Footer from "components/Footer/Footer";
 import Main from "./Main/Main";
 
-function ProfilePage({ isLoggedIn, setFromState }) {
+function ProfilePage({ isLoggedIn, setFromState, setIsLoggedIn }) {
     const colorTheme = useFetchColorTheme();
     const buttonsConfig = useFetch("navbar")[1].buttons;
 
@@ -20,7 +19,7 @@ function ProfilePage({ isLoggedIn, setFromState }) {
                     isLoggedIn={isLoggedIn}
                 />
             }
-            content={<Main />}
+            content={<Main setIsLoggedIn={setIsLoggedIn} />}
             footer={<div></div>}
         />
     );

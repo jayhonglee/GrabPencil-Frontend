@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Navigation from "./Navigation/Navigation";
-import Content from "./Content/Content";
+import TutorProfileContent from "./TutorProfileContent/TutorProfileContent";
 
-function Main({}) {
+function Main({ setIsLoggedIn }) {
     const [currentButton, setCurrentButton] = useState("My Tutor Profiles");
     const contentWrapper = {
         padding: "16px",
@@ -15,7 +15,11 @@ function Main({}) {
                 setCurrentButton={setCurrentButton}
             />
             <div style={contentWrapper}>
-                <Content />
+                {currentButton === "My Tutor Profiles" ? (
+                    <TutorProfileContent setIsLoggedIn={setIsLoggedIn} />
+                ) : (
+                    <div>My Account</div>
+                )}
             </div>
         </>
     );
