@@ -10,6 +10,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
     const [myTutorProfiles, setMyTutorProfiles] = useState([]);
     const [avatarURL, setAvatarURL] = useState();
     const [currentProfile, setCurrentProfile] = useState();
+    const [userName, setUserName] = useState();
     const getCookie = useCookie;
     const navigate = useNavigate();
     const header = {
@@ -34,8 +35,9 @@ function TutorProfileContent({ setIsLoggedIn }) {
                     }
                 );
 
-                // Get user profile (avatar)
+                // Get user profile (avatar) & user name
                 const userId = responseToken.data.user._id;
+                setUserName(responseToken.data.user.firstName);
 
                 await axios
                     .get(
@@ -80,7 +82,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
                 setCurrentProfile={setCurrentProfile}
             />
             <Main currentProfile={currentProfile} />
-            <Right />
+            <Right avatarURL={avatarURL} userName={userName} />
         </div>
     );
 }
