@@ -30,9 +30,7 @@ function Aside({
         marginRight: "8px",
     };
 
-    console.log(myTutorProfiles, avatarURL, currentProfile);
-
-    const renderProfileList = myTutorProfiles.map((profile) => {
+    const renderProfileList = myTutorProfiles.map((profile, n) => {
         const textWrapStyle = {
             fontWeight: "bold",
             lineHeight: "24px",
@@ -48,6 +46,7 @@ function Aside({
 
         return (
             <div
+                key={n}
                 style={{
                     ...createNewBtnStyle,
                     background: isCurrentProfile ? "#2A2A2A" : "",

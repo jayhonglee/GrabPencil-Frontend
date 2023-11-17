@@ -21,6 +21,7 @@ import {
     faEnvelope,
     faCircleUser,
     faCirclePlus,
+    faPen,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -47,5 +48,6 @@ export default function getIcons() {
         faEnvelope,
         faCircleUser,
         faCirclePlus,
+        faPen,
     };
 }

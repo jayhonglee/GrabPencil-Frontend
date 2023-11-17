@@ -79,7 +79,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
                 currentProfile={currentProfile}
                 setCurrentProfile={setCurrentProfile}
             />
-            <Main />
+            <Main currentProfile={currentProfile} />
             <Right />
         </div>
     );
