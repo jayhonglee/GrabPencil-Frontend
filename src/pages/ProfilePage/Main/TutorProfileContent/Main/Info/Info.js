@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef, useEffect } from "react";
 
-function Info({ currentProfile, label, content }) {
+function Info({ currentProfile, label, content, popup, setPopup }) {
     const [isHover, setIsHover] = useState(false);
+    const [iconOffset, setIconOffset] = useState(0);
     const parentRef = useRef(null);
     const iconRef = useRef(null);
-    const [iconOffset, setIconOffset] = useState(0);
 
     useEffect(() => {
         if (parentRef.current && iconRef.current) {
@@ -19,7 +19,6 @@ function Info({ currentProfile, label, content }) {
 
     const div = {
         width: "100%",
-        cursor: "pointer",
         marginBottom: "32px",
     };
 
@@ -47,6 +46,7 @@ function Info({ currentProfile, label, content }) {
         fontSize: "20px",
         fontWeight: "bold",
         backgroundColor: isHover ? "#ebf7eb" : "#fff",
+        cursor: "pointer",
     };
 
     const wrapTextStyle = {
@@ -118,9 +118,13 @@ function Info({ currentProfile, label, content }) {
                 style={contentStyle}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
+                onClick={() => {
+                    if (setPopup) setPopup(true);
+                }}
             >
                 {renderContent}
             </div>
+            {popup}
         </div>
     );
 }

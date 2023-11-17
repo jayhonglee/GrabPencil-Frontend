@@ -1,12 +1,24 @@
+import { useState } from "react";
 import Info from "./Info/Info";
+import Subjects, { setIsVisibleSubjects } from "./Popups/Subjects";
 
 function Main({ currentProfile }) {
+    const [newSubjectsValue, setNewSubjectsValue] = useState();
+    const [newHeadlineValue, setNewHeadlineValue] = useState();
+    const [newLessonMethodValue, setNewLessonMethodValue] = useState();
+    const [newLessonLocationValue, setNewLessonLocationValue] = useState();
+    const [newEducationValue, setNewEducationValue] = useState();
+    const [newExperienceValue, setNewExperienceValue] = useState();
+    const [newSkillsValue, setNewSkillsValue] = useState();
+    const [newLanguagesValue, setNewLanguagesValue] = useState();
+    const [newAboutMeValue, setNewAboutMeValue] = useState();
+    const [newAboutLessonValue, setNewAboutLessonValue] = useState();
+    const [newHourlyRateValue, setNewHourlyRateValue] = useState();
+
     const wrapperStyle = {
         width: "840px",
         margin: "0 24px",
     };
-
-    console.log(currentProfile);
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -14,6 +26,8 @@ function Main({ currentProfile }) {
                 currentProfile={currentProfile}
                 label={"Subjects"}
                 content={currentProfile?.subjects?.map((sub) => sub.subject)}
+                popup={<Subjects setValue={setNewSubjectsValue} />}
+                setPopup={setIsVisibleSubjects}
             />
             <Info
                 currentProfile={currentProfile}
