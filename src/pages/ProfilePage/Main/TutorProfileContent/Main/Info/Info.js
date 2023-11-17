@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef, useEffect } from "react";
 
-function Info({ label, content }) {
+function Info({ currentProfile, label, content }) {
     const [isHover, setIsHover] = useState(false);
     const parentRef = useRef(null);
     const iconRef = useRef(null);
@@ -46,7 +46,7 @@ function Info({ label, content }) {
         padding: "24px",
         fontSize: "20px",
         fontWeight: "bold",
-        backgroundColor: isHover && "#fff",
+        backgroundColor: isHover ? "#ebf7eb" : "#fff",
     };
 
     const wrapTextStyle = {
@@ -65,7 +65,7 @@ function Info({ label, content }) {
                 lineHeight: "16px",
                 fontSize: "12px",
                 borderRadius: "40px",
-                backgroundColor: isHover ? "#F1F2F6" : "#fff",
+                backgroundColor: isHover ? "#fff" : "#ebf7eb",
                 margin: "5px",
             };
 
@@ -75,11 +75,26 @@ function Info({ label, content }) {
                 </div>
             );
         })
+    ) : currentProfile === "create" ? (
+        <div
+            style={{
+                ...wrapTextStyle,
+                fontSize: "14px",
+                fontWeight: "normal",
+                color: "grey",
+            }}
+        >
+            Add {label}
+        </div>
     ) : (
         <div style={wrapTextStyle}>{content}</div>
     );
 
-    return !content || content.length == 0 ? (
+    return (currentProfile !== "create" && (!content || content.length == 0)) ||
+        (currentProfile === "create" &&
+            (label === "First name" ||
+                label === "Last name" ||
+                label === "Gender")) ? (
         ""
     ) : (
         <div style={div}>

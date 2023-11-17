@@ -2,11 +2,13 @@ import Aside from "./Aside/Aside";
 import Main from "./Main/Main";
 import Right from "./Right/Right";
 import axios from "axios";
+import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import useCookie from "hooks/useCookie";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TutorProfileContent({ setIsLoggedIn }) {
+    const [isLoading, setIsLoading] = useState(true);
     const [myTutorProfiles, setMyTutorProfiles] = useState([]);
     const [avatarURL, setAvatarURL] = useState();
     const [currentProfile, setCurrentProfile] = useState();
@@ -23,6 +25,8 @@ function TutorProfileContent({ setIsLoggedIn }) {
     useEffect(() => {
         const getMyTutorProfiles = async () => {
             try {
+                setIsLoading(true);
+
                 // Check valid token
                 const responseToken = await axios.post(
                     `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
@@ -59,6 +63,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
                 );
                 setCurrentProfile(responseTP.data.tutorProfiles[0] || "create");
                 setMyTutorProfiles(responseTP.data.tutorProfiles);
+                setIsLoading(false);
             } catch (e) {
                 if (
                     e.request.url.includes("/checkAuthToken") &&
@@ -68,12 +73,15 @@ function TutorProfileContent({ setIsLoggedIn }) {
                     setIsLoggedIn(false);
                     navigate("/");
                 }
+                setIsLoading(false);
             }
         };
         getMyTutorProfiles();
     }, []);
 
-    return (
+    return isLoading ? (
+        <LoadingScreen />
+    ) : (
         <div className="d-flex justify-content-center">
             <Aside
                 myTutorProfiles={myTutorProfiles}

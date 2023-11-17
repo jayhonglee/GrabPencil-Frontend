@@ -9,22 +9,25 @@ function Aside({
     setCurrentProfile,
 }) {
     const [isHover, setIsHover] = useState({ state: false, profile: null });
+    const isCreateMode = currentProfile === "create";
+    const isHoveringCreate = isHover.state && isHover.profile === "create_id";
 
     const createNewBtnStyle = {
         width: "200px",
         height: "80px",
-        border: "solid #d9d9d9 1px",
-        background: "#4285f4",
+        border: isHoveringCreate ? "solid #4285f4 1px" : "solid #d9d9d9 1px",
+        background: isCreateMode ? "#4285f4" : "",
         borderRadius: "32px",
-        color: "#fff",
+        color: isCreateMode ? "#fff" : "black",
         fontSize: "16px",
         fontWeight: "bold",
         padding: "24px",
         marginBottom: "16px",
+        cursor: "pointer",
     };
 
     const plusIconStyle = {
-        color: "#fff",
+        color: isCreateMode ? "#fff" : "black",
         width: "24px",
         height: "24px",
         marginRight: "8px",
@@ -98,6 +101,10 @@ function Aside({
             <div
                 style={createNewBtnStyle}
                 className="d-flex justify-content-center align-items-center"
+                onMouseEnter={() =>
+                    setIsHover({ state: true, profile: "create_id" })
+                }
+                onMouseLeave={() => setIsHover({ state: false, profile: null })}
                 onClick={() => setCurrentProfile("create")}
             >
                 <FontAwesomeIcon icon="circle-plus" style={plusIconStyle} />

@@ -6,6 +6,9 @@ function Main({ setIsLoggedIn }) {
     const [currentButton, setCurrentButton] = useState("My Tutor Profiles");
     const contentWrapper = {
         padding: "16px",
+        width: "100vw",
+        height: "100%",
+        background: "#fff",
     };
 
     return (
