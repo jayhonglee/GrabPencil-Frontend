@@ -3,6 +3,7 @@ import Info from "./Info/Info";
 import Subjects from "./Popups/Subjects/Subjects";
 import Headline from "./Popups/Headline/Headline";
 import LessonMethod from "./Popups/LessonMethod/LessonMethod";
+import LessonLocation from "./Popups/LessonLocation/LessonLocation";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -12,6 +13,8 @@ function Main({ currentProfile }) {
     const [newLessonMethodValue, setNewLessonMethodValue] = useState();
     const [isLessonMethodVisible, setIsLessonMethodVisible] = useState(false);
     const [newLessonLocationValue, setNewLessonLocationValue] = useState();
+    const [isLessonLocationVisible, setIsLessonLocationVisible] =
+        useState(false);
     const [newEducationValue, setNewEducationValue] = useState();
     const [newExperienceValue, setNewExperienceValue] = useState();
     const [newSkillsValue, setNewSkillsValue] = useState();
@@ -29,10 +32,8 @@ function Main({ currentProfile }) {
         setNewSubjectsValue(currentProfile?.subjects);
         setNewHeadlineValue(currentProfile?.headline);
         setNewLessonMethodValue(currentProfile?.lessonMethod);
+        setNewLessonLocationValue(currentProfile?.lessonLocation);
     }, [currentProfile]);
-
-    // console.log(newSubjectsValue);
-    // console.log(newHeadlineValue);
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -81,7 +82,16 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Lesson location"}
-                content={currentProfile?.lessonLocation}
+                content={newLessonLocationValue}
+                popup={
+                    <LessonLocation
+                        isVisible={isLessonLocationVisible}
+                        setIsVisible={setIsLessonLocationVisible}
+                        isValue={newLessonLocationValue}
+                        setValue={setNewLessonLocationValue}
+                    />
+                }
+                setPopup={setIsLessonLocationVisible}
             />
             <span className="d-flex">
                 <div style={{ width: "49%", marginRight: "2%" }}>
