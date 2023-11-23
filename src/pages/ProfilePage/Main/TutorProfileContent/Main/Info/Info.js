@@ -84,18 +84,36 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
                 color: "grey",
             }}
         >
-            Add {label}
+            Add{" "}
+            {label.includes("(optional)")
+                ? label.replace(" (optional)", "")
+                : label}
         </div>
     ) : (
-        <div style={wrapTextStyle}>{content}</div>
+        <div style={wrapTextStyle}>
+            {content ? (
+                content
+            ) : (
+                <span
+                    style={{
+                        ...wrapTextStyle,
+                        fontSize: "14px",
+                        fontWeight: "normal",
+                        color: "grey",
+                    }}
+                >{`Add ${label}`}</span>
+            )}
+        </div>
     );
 
-    return (currentProfile !== "create" &&
-        (!content || content.length === 0)) ||
-        (currentProfile === "create" &&
-            (label === "First name" ||
-                label === "Last name" ||
-                label === "Gender")) ? (
+    return (currentProfile === "create" &&
+        (label === "First name" ||
+            label === "Last name" ||
+            label === "Gender")) ||
+        (!content &&
+            (label === "Headline" ||
+                label === "Experience" ||
+                label === "Skills")) ? (
         ""
     ) : (
         <div style={div}>

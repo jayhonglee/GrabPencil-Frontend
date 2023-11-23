@@ -53,7 +53,7 @@ function Main({ currentProfile }) {
             />
             <Info
                 currentProfile={currentProfile}
-                label={"Headline"}
+                label={"Headline (optional)"}
                 content={newHeadlineValue}
                 popup={
                     <Headline
@@ -121,14 +121,14 @@ function Main({ currentProfile }) {
             />
             <Info
                 currentProfile={currentProfile}
-                label={"Experience"}
+                label={"Experience (optional)"}
                 content={currentProfile?.experiences?.map(
                     (exp) => exp.companyName
                 )}
             />
             <Info
                 currentProfile={currentProfile}
-                label={"Skills"}
+                label={"Skills (optional)"}
                 content={currentProfile?.skills?.map((s) => s.skill)}
             />
             <Info
