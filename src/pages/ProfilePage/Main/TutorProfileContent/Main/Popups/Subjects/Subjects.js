@@ -33,7 +33,14 @@ function Subjects({ isVisible, setIsVisible, isValue, setValue }) {
             <div
                 key={n}
                 style={subjectStyle}
-                className="d-flex justify-content-between text-start"
+                className="d-flex justify-content-between text-start subjectList"
+                onClick={() => {
+                    const updatedValue = isValue.filter(
+                        (_, index) => index !== n
+                    );
+                    if (updatedValue.length === 0) return;
+                    setValue(updatedValue);
+                }}
             >
                 <span
                     style={{

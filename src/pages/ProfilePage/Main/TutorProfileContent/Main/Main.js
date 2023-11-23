@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Info from "./Info/Info";
 import Subjects from "./Popups/Subjects/Subjects";
 import Headline from "./Popups/Headline/Headline";
+import LessonMethod from "./Popups/LessonMethod/LessonMethod";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -9,6 +10,7 @@ function Main({ currentProfile }) {
     const [newHeadlineValue, setNewHeadlineValue] = useState();
     const [isHeadlineVisible, setIsHeadlineVisible] = useState(false);
     const [newLessonMethodValue, setNewLessonMethodValue] = useState();
+    const [isLessonMethodVisible, setIsLessonMethodVisible] = useState(false);
     const [newLessonLocationValue, setNewLessonLocationValue] = useState();
     const [newEducationValue, setNewEducationValue] = useState();
     const [newExperienceValue, setNewExperienceValue] = useState();
@@ -26,10 +28,11 @@ function Main({ currentProfile }) {
     useEffect(() => {
         setNewSubjectsValue(currentProfile?.subjects);
         setNewHeadlineValue(currentProfile?.headline);
+        setNewLessonMethodValue(currentProfile?.lessonMethod);
     }, [currentProfile]);
 
-    console.log(newSubjectsValue);
-    console.log(newHeadlineValue);
+    // console.log(newSubjectsValue);
+    // console.log(newHeadlineValue);
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -64,7 +67,16 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Lesson method"}
-                content={currentProfile?.lessonMethod}
+                content={newLessonMethodValue}
+                popup={
+                    <LessonMethod
+                        isVisible={isLessonMethodVisible}
+                        setIsVisible={setIsLessonMethodVisible}
+                        isValue={newLessonMethodValue}
+                        setValue={setNewLessonMethodValue}
+                    />
+                }
+                setPopup={setIsLessonMethodVisible}
             />
             <Info
                 currentProfile={currentProfile}

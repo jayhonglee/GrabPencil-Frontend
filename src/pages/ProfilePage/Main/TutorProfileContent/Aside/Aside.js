@@ -18,7 +18,7 @@ function Aside({
         border: isHoveringCreate ? "solid #4285f4 1px" : "solid #d9d9d9 1px",
         background: isCreateMode ? "#4285f4" : "",
         borderRadius: "32px",
-        color: isCreateMode ? "#fff" : "black",
+        color: isCreateMode ? "#fff" : "#4285f4",
         fontSize: "16px",
         fontWeight: "bold",
         padding: "24px",
@@ -27,7 +27,7 @@ function Aside({
     };
 
     const plusIconStyle = {
-        color: isCreateMode ? "#fff" : "black",
+        color: isCreateMode ? "#fff" : "#4285f4",
         width: "24px",
         height: "24px",
         marginRight: "8px",
