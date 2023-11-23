@@ -1,50 +1,44 @@
-import { useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
+import "./Education.css";
 
-function LessonMethod({ isVisible, setIsVisible, isValue, setValue }) {
-    const [lessonMethod, setLessonMethod] = useState("");
+function Education({ isVisible, setIsVisible, isValue, setValue }) {
     const shadeRef = useRef(null);
 
-    useEffect(() => {
-        setLessonMethod(isValue);
-    }, [isValue, isVisible]);
+    const sortedEducation = isValue?.slice().sort((a, b) => {
+        return b.startDateYear - a.startDateYear;
+    });
 
-    const lessonMethodsRender = ["Remote", "In-Person", "Hybrid"].map(
-        (method, n) => {
-            const isCurrentMethod = lessonMethod === method;
-
-            return (
-                <div
-                    className="d-flex justify-content-start align-items-center"
-                    key={n}
-                    style={{
-                        width: "100%",
-                        height: "67.53px",
-                        marginBottom: "10px",
-                        backgroundColor: isCurrentMethod
-                            ? "#5bca8d"
-                            : "#F7F7F7",
-                        borderRadius: "5px",
-                        color: isCurrentMethod ? "#fff" : "#999",
-                        padding: "20px",
-                        cursor: "pointer",
-                    }}
-                    onClick={() => setLessonMethod(method)}
-                >
-                    <FontAwesomeIcon
-                        icon="circle-check"
-                        style={{
-                            width: "26px",
-                            height: "26px",
-                            marginRight: "5px",
-                            color: isCurrentMethod ? "#fff" : "#999",
-                        }}
-                    />
-                    {method}
+    const renderEducation = sortedEducation?.map((edu, n) => {
+        return (
+            <div
+                key={n}
+                className="text-start educationList"
+                style={{
+                    padding: "16px 24px",
+                    border: "1px solid rgb(217, 217, 217)",
+                    fontSize: "16px",
+                    borderRadius: "32px",
+                    marginBottom: "16px",
+                    maxHeight: "60vh",
+                }}
+            >
+                {edu.school} <br />
+                <div style={{ fontSize: "14px", fontWeight: "400" }}>
+                    {edu.degree ? `${edu.degree} - ` : ""}
+                    {edu.major} <br />
                 </div>
-            );
-        }
-    );
+                <div
+                    style={{
+                        fontSize: "14px",
+                        fontWeight: "400",
+                    }}
+                >
+                    {edu.startDateMonth} {edu.startDateYear} -{" "}
+                    {edu.endDateMonth} {edu.endDateYear}
+                </div>
+            </div>
+        );
+    });
 
     return (
         <div
@@ -86,10 +80,19 @@ function LessonMethod({ isVisible, setIsVisible, isValue, setValue }) {
                         paddingBottom: "32px",
                     }}
                 >
-                    Lesson method
+                    Education
                 </h1>
+                <div
+                    className="scroll-content"
+                    style={{
+                        maxHeight: "60vh",
+                        overflow: "auto",
+                        padding: "0 16px",
+                    }}
+                >
+                    {renderEducation}
+                </div>
                 <div style={{ padding: "0 16px" }}>
-                    {lessonMethodsRender}
                     <div
                         className="d-flex justify-content-around align-items-center"
                         style={{
@@ -122,12 +125,7 @@ function LessonMethod({ isVisible, setIsVisible, isValue, setValue }) {
                                 color: "#fff",
                                 cursor: "pointer",
                             }}
-                            onClick={() => {
-                                if (lessonMethod) {
-                                    setValue(lessonMethod);
-                                    setIsVisible(false);
-                                }
-                            }}
+                            onClick={() => {}}
                         >
                             Add
                         </div>
@@ -138,4 +136,4 @@ function LessonMethod({ isVisible, setIsVisible, isValue, setValue }) {
     );
 }
 
-export default LessonMethod;
+export default Education;

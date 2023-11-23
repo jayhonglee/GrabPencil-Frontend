@@ -4,6 +4,7 @@ import Subjects from "./Popups/Subjects/Subjects";
 import Headline from "./Popups/Headline/Headline";
 import LessonMethod from "./Popups/LessonMethod/LessonMethod";
 import LessonLocation from "./Popups/LessonLocation/LessonLocation";
+import Education from "./Popups/Education/Education";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -16,6 +17,7 @@ function Main({ currentProfile }) {
     const [isLessonLocationVisible, setIsLessonLocationVisible] =
         useState(false);
     const [newEducationValue, setNewEducationValue] = useState();
+    const [isEducationVisible, setIsEducationVisible] = useState(false);
     const [newExperienceValue, setNewExperienceValue] = useState();
     const [newSkillsValue, setNewSkillsValue] = useState();
     const [newLanguagesValue, setNewLanguagesValue] = useState();
@@ -33,7 +35,10 @@ function Main({ currentProfile }) {
         setNewHeadlineValue(currentProfile?.headline);
         setNewLessonMethodValue(currentProfile?.lessonMethod);
         setNewLessonLocationValue(currentProfile?.lessonLocation);
+        setNewEducationValue(currentProfile?.education);
     }, [currentProfile]);
+
+    console.log(newEducationValue);
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -81,7 +86,11 @@ function Main({ currentProfile }) {
             />
             <Info
                 currentProfile={currentProfile}
-                label={"Lesson location"}
+                label={
+                    newLessonMethodValue === "Remote"
+                        ? "Lesson location (Not applicable for Remote)"
+                        : "Lesson location"
+                }
                 content={newLessonLocationValue}
                 popup={
                     <LessonLocation
@@ -117,7 +126,16 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Education"}
-                content={currentProfile?.education?.map((edu) => edu.school)}
+                content={newEducationValue?.map((edu) => edu.school)}
+                popup={
+                    <Education
+                        isVisible={isEducationVisible}
+                        setIsVisible={setIsEducationVisible}
+                        isValue={newEducationValue}
+                        setValue={setNewEducationValue}
+                    />
+                }
+                setPopup={setIsEducationVisible}
             />
             <Info
                 currentProfile={currentProfile}
