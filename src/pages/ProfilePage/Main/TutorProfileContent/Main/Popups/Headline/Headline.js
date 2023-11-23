@@ -112,10 +112,8 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                                 cursor: "pointer",
                             }}
                             onClick={() => {
-                                if (headline.trim()) {
-                                    setValue(headline.trim());
-                                    setIsVisible(false);
-                                }
+                                setValue(headline.trim());
+                                setIsVisible(false);
                             }}
                         >
                             Add

@@ -48,6 +48,13 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                     margin: "16px 0",
                     maxHeight: "60vh",
                 }}
+                onClick={() => {
+                    const updatedValue = isValue.filter(
+                        (_, index) => index !== n
+                    );
+                    if (updatedValue.length === 0) return;
+                    setValue(updatedValue);
+                }}
             >
                 {edu.school}{" "}
                 <span style={{ fontSize: "14px", fontWeight: "400" }}>
