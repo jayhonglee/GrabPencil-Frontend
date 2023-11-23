@@ -61,7 +61,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
                     `${process.env.REACT_APP_BASE_URL}/tutorProfiles/me?sortBy=createdAt:Newest&pageSize=1000&pageNumber=1&maxPageIndex=1`,
                     header
                 );
-                setCurrentProfile(responseTP.data.tutorProfiles[0] || "create");
+                setCurrentProfile("create");
                 setMyTutorProfiles(responseTP.data.tutorProfiles);
                 setIsLoading(false);
             } catch (e) {

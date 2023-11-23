@@ -1,0 +1,21 @@
+.txtarea:focus {
+outline: 1px solid black 
+}
+
+  /* Hide the scrollbar but enable scrolling */
+.scroll-content::-webkit-scrollbar {
+    width: 2px;
+    height: 0;
+  }
+
+.scroll-content::-webkit-scrollbar-thumb {
+    background: #f7f7f7; /* Color of the handle */
+    border-radius: 3px; /* Rounded corners for the handle */
+}
+
+/* Define styles for the container that holds scrollable content */
+.scroll-content {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+  

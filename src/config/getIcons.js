@@ -22,6 +22,7 @@ import {
     faCircleUser,
     faCirclePlus,
     faPen,
+    faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -49,5 +50,6 @@ export default function getIcons() {
         faCircleUser,
         faCirclePlus,
         faPen,
+        faArrowLeft,
     };
 }

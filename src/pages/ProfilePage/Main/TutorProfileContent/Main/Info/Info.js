@@ -55,7 +55,7 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
         textOverflow: "ellipsis",
     };
 
-    const isContentArray = Array.isArray(content) && content.length > 1;
+    const isContentArray = Array.isArray(content) && content.length > 0;
 
     const renderContent = isContentArray ? (
         content.map((item, n) => {
@@ -75,7 +75,7 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
                 </div>
             );
         })
-    ) : currentProfile === "create" ? (
+    ) : currentProfile === "create" && !content ? (
         <div
             style={{
                 ...wrapTextStyle,
@@ -90,7 +90,8 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
         <div style={wrapTextStyle}>{content}</div>
     );
 
-    return (currentProfile !== "create" && (!content || content.length == 0)) ||
+    return (currentProfile !== "create" &&
+        (!content || content.length === 0)) ||
         (currentProfile === "create" &&
             (label === "First name" ||
                 label === "Last name" ||
