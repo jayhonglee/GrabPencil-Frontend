@@ -101,7 +101,12 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
                         fontWeight: "normal",
                         color: "grey",
                     }}
-                >{`Add ${label}`}</span>
+                >
+                    Add{" "}
+                    {label.includes("(optional)")
+                        ? label.replace(" (optional)", "")
+                        : label}
+                </span>
             )}
         </div>
     );

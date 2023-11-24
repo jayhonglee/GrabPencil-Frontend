@@ -33,6 +33,10 @@ function Experience({ isVisible, setIsVisible, isValue, setValue }) {
         setCurrentlyWorking("");
     }, [isAddExperience]);
 
+    if (!Array.isArray(isValue)) {
+        isValue = [];
+    }
+
     const sortedExperience = isValue?.slice().sort((a, b) => {
         return b.startDateYear - a.startDateYear;
     });
@@ -54,7 +58,7 @@ function Experience({ isVisible, setIsVisible, isValue, setValue }) {
                     const updatedValue = sortedExperience.filter(
                         (_, index) => index !== n
                     );
-                    if (updatedValue.length === 0) return;
+                    if (updatedValue.length === 0) return setValue("");
                     setValue(updatedValue);
                 }}
             >
@@ -351,7 +355,7 @@ function Experience({ isVisible, setIsVisible, isValue, setValue }) {
                                 </span>
                             </div>
                             {renderExperience}
-                            {renderExperience?.length >= 2 && (
+                            {renderExperience?.length >= 1 && (
                                 <div
                                     style={{
                                         fontSize: "14px",

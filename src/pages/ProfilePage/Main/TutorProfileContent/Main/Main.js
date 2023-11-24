@@ -141,7 +141,11 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Experience (optional)"}
-                content={newExperienceValue?.map((exp) => exp.companyName)}
+                content={
+                    Array.isArray(newExperienceValue)
+                        ? newExperienceValue?.map((exp) => exp.companyName)
+                        : newExperienceValue
+                }
                 popup={
                     <Experience
                         isVisible={isExperienceVisible}
