@@ -246,6 +246,45 @@ function Main({ currentProfile }) {
                 }
                 setPopup={setIsHourlyRateVisible}
             />
+            <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ marginBottom: "32px" }}
+            >
+                <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{
+                        width: "180px",
+                        height: "54px",
+                        background:
+                            currentProfile === "create" ? "#4285f4" : "#F3F4F5",
+                        borderRadius: "16px",
+                        color: currentProfile === "create" ? "#fff" : "black",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                    }}
+                >
+                    {currentProfile === "create" ? "Create" : "Update"}
+                </div>
+                {currentProfile !== "create" && (
+                    <div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{
+                            marginLeft: "50px",
+                            width: "180px",
+                            height: "54px",
+                            background: "#ff6363",
+                            borderRadius: "16px",
+                            color: "#fff",
+                            fontSize: "16px",
+                            fontWeight: "600",
+                            cursor: "pointer",
+                        }}
+                    >
+                        Delete
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

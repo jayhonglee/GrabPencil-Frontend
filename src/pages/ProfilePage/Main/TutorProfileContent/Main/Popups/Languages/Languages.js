@@ -9,8 +9,6 @@ function Languages({ isVisible, setIsVisible, isValue, setValue }) {
     const [proficiency, setProficiency] = useState("");
     const shadeRef = useRef(null);
 
-    console.log(language, proficiency);
-
     useEffect(() => {
         setIsAddLanguage(false);
     }, [isValue]);
