@@ -295,6 +295,18 @@ function Subjects({ isVisible, setIsVisible, isValue, setValue }) {
                             </span>
                         </div>
                         {renderSubjects}
+                        {renderSubjects?.length >= 2 && (
+                            <div
+                                style={{
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                    margin: "16px 0",
+                                }}
+                            >
+                                <b>Tip: </b>Remove an item from the list by
+                                clicking on it.
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

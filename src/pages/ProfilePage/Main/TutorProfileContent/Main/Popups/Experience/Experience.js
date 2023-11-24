@@ -1,41 +1,43 @@
 import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./Education.css";
+import "./Experience.css";
 
-function Education({ isVisible, setIsVisible, isValue, setValue }) {
-    const [isAddEducation, setIsAddEducation] = useState(false);
-    const [school, setSchool] = useState("");
-    const [degree, setDegree] = useState("");
-    const [major, setMajor] = useState("");
-    const [GPA, setGPA] = useState("");
+function Experience({ isVisible, setIsVisible, isValue, setValue }) {
+    const [isAddExperience, setIsAddExperience] = useState(false);
+    const [title, setTitle] = useState("");
+    const [employmentType, setEmploymentType] = useState("");
+    const [companyName, setCompanyName] = useState("");
+    const [location, setLocation] = useState("");
+    const [locationType, setLocationType] = useState("");
     const [startMonth, setStartMonth] = useState("");
     const [startYear, setStartYear] = useState("");
     const [endMonth, setEndMonth] = useState("");
     const [endYear, setEndYear] = useState("");
-    const [currentlyAttending, setCurrentlyAttending] = useState("");
+    const [currentlyWorking, setCurrentlyWorking] = useState("");
     const shadeRef = useRef(null);
 
     useEffect(() => {
-        setIsAddEducation(false);
+        setIsAddExperience(false);
     }, [isValue]);
 
     useEffect(() => {
-        setSchool("");
-        setDegree("");
-        setMajor("");
-        setGPA("");
+        setTitle("");
+        setEmploymentType("");
+        setCompanyName("");
+        setLocation("");
+        setLocationType("");
         setStartMonth("");
         setStartYear("");
         setEndMonth("");
         setEndYear("");
-        setCurrentlyAttending("");
-    }, [isAddEducation]);
+        setCurrentlyWorking("");
+    }, [isAddExperience]);
 
-    const sortedEducation = isValue?.slice().sort((a, b) => {
+    const sortedExperience = isValue?.slice().sort((a, b) => {
         return b.startDateYear - a.startDateYear;
     });
 
-    const renderEducation = sortedEducation?.map((edu, n) => {
+    const renderExperience = sortedExperience?.map((exp, n) => {
         return (
             <div
                 key={n}
@@ -49,21 +51,21 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                     maxHeight: "60vh",
                 }}
                 onClick={() => {
-                    const updatedValue = sortedEducation.filter(
+                    const updatedValue = sortedExperience.filter(
                         (_, index) => index !== n
                     );
                     if (updatedValue.length === 0) return;
                     setValue(updatedValue);
                 }}
             >
-                {edu.school}{" "}
+                {exp.companyName}{" "}
                 <span style={{ fontSize: "14px", fontWeight: "400" }}>
-                    <i>{edu.currentlyAttending === "yes" && "(Attending)"}</i>
+                    <i>{exp.currentlyWorking === "yes" && "(Working)"}</i>
                 </span>
                 <br />
                 <div style={{ fontSize: "14px", fontWeight: "400" }}>
-                    {edu.degree ? `${edu.degree} - ` : ""}
-                    {edu.major} {edu.gpa && `(${edu.gpa})`}
+                    {exp.employmentType ? `${exp.employmentType} - ` : ""}
+                    {exp.title} {exp.location && `(${exp.location})`}
                     <br />
                 </div>
                 <div
@@ -72,29 +74,40 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                         fontWeight: "400",
                     }}
                 >
-                    {edu.startDateMonth} {edu.startDateYear} -{" "}
-                    {edu.endDateMonth} {edu.endDateYear}
+                    {exp.startDateMonth} {exp.startDateYear}{" "}
+                    {exp.endDateMonth || exp.endDateYear
+                        ? ` - ${exp.endDateMonth} ${exp.endDateYear}`
+                        : ""}
                 </div>
             </div>
         );
     });
 
-    const renderEducationInfo = [
+    const renderExperienceInfo = [
         {
-            label: "School",
-            placeholder: "ex) Simon Fraser University",
-            set: setSchool,
+            label: "Title",
+            placeholder: "ex) Teaching Assistant",
+            set: setTitle,
         },
         {
-            label: "Degree (optional)",
-            placeholder: "ex) Bachelor of Science - BSc",
-            set: setDegree,
+            label: "Employment type (optional)",
+            placeholder: "ex) Full-Time | Part-Time | Co-op",
+            set: setEmploymentType,
         },
-        { label: "Major", placeholder: "ex) Biology", set: setMajor },
         {
-            label: "GPA (optional)",
-            placeholder: "ex) 4.0/4.33 | A- average",
-            set: setGPA,
+            label: "Company name",
+            placeholder: "ex) University of British Columbia | Microsoft",
+            set: setCompanyName,
+        },
+        {
+            label: "Location (optional)",
+            placeholder: "ex) Vancouver, BC V6T 1Z4",
+            set: setLocation,
+        },
+        {
+            label: "Location type (optional)",
+            placeholder: "ex) On-Site | Remote | Hybrid",
+            set: setLocationType,
         },
     ].map((info, n) => {
         return (
@@ -133,7 +146,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
         );
     });
 
-    const renderEducationDuration = [
+    const renderExperienceDuration = [
         {
             labelOne: "Start month",
             placeholderOne: "ex) September",
@@ -143,10 +156,10 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
             setTwo: setStartYear,
         },
         {
-            labelOne: "End month (or expected)",
+            labelOne: "End month (optional)",
             placeholderOne: "ex) December",
             setOne: setEndMonth,
-            labelTwo: "End year (or expected)",
+            labelTwo: "End year (optional)",
             placeholderTwo: "ex) 2023",
             setTwo: setEndYear,
         },
@@ -231,7 +244,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
             onClick={(e) => {
                 if (e.target === shadeRef.current) {
                     setIsVisible(false);
-                    setIsAddEducation(false);
+                    setIsAddExperience(false);
                 }
             }}
             style={{
@@ -264,8 +277,8 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                         position: "relative",
                     }}
                 >
-                    Education
-                    {isAddEducation && (
+                    Experience
+                    {isAddExperience && (
                         <span
                             style={{
                                 position: "absolute",
@@ -273,7 +286,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                 height: "100%",
                                 cursor: "pointer",
                             }}
-                            onClick={() => setIsAddEducation(false)}
+                            onClick={() => setIsAddExperience(false)}
                         >
                             <FontAwesomeIcon
                                 icon="arrow-left"
@@ -293,7 +306,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                         padding: "0 16px",
                     }}
                 >
-                    {!isAddEducation ? (
+                    {!isAddExperience ? (
                         <>
                             <div
                                 className="text-start"
@@ -309,7 +322,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                     color: "#157dfe",
                                 }}
                             >
-                                Add an education
+                                Add an experience
                             </div>
                             <div
                                 className="d-flex justify-content-end align-items-center"
@@ -322,10 +335,10 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                     className="d-flex align-items-center"
                                     style={{ cursor: "pointer" }}
                                     onClick={() => {
-                                        setIsAddEducation(true);
+                                        setIsAddExperience(true);
                                     }}
                                 >
-                                    Add an education
+                                    Add an experience
                                     <FontAwesomeIcon
                                         icon="circle-plus"
                                         className="ms-2"
@@ -337,8 +350,8 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                     />
                                 </span>
                             </div>
-                            {renderEducation}
-                            {renderEducation?.length >= 2 && (
+                            {renderExperience}
+                            {renderExperience?.length >= 2 && (
                                 <div
                                     style={{
                                         fontSize: "14px",
@@ -353,8 +366,8 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                         </>
                     ) : (
                         <>
-                            {renderEducationInfo}
-                            {renderEducationDuration}
+                            {renderExperienceInfo}
+                            {renderExperienceDuration}
                             <div
                                 className="text-start"
                                 style={{
@@ -363,7 +376,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                     marginTop: "18px",
                                 }}
                             >
-                                Currently attending
+                                Currently working
                             </div>
                             <textarea
                                 placeholder="ex) yes | no"
@@ -384,9 +397,21 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                     const value = e.target.value
                                         .trim()
                                         .toLowerCase();
-                                    setCurrentlyAttending(value);
+                                    setCurrentlyWorking(value);
                                 }}
                             />
+                            <div
+                                className="text-start"
+                                style={{
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                    marginTop: "18px",
+                                }}
+                            >
+                                <b>Quick Tip: </b>If you're presently employed,
+                                there's no need to fill in the end month and
+                                year.
+                            </div>
                             <div style={{ padding: "0 16px" }}>
                                 <div
                                     className="d-flex justify-content-around align-items-center"
@@ -405,7 +430,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                         }}
                                         onClick={() => {
                                             setIsVisible(false);
-                                            setIsAddEducation(false);
+                                            setIsAddExperience(false);
                                         }}
                                     >
                                         Cancel
@@ -423,23 +448,23 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                         }}
                                         onClick={() => {
                                             if (
-                                                school &&
-                                                major &&
+                                                title &&
+                                                companyName &&
                                                 startMonth &&
                                                 !isNaN(startYear) &&
-                                                endMonth &&
-                                                !isNaN(endYear) &&
-                                                currentlyAttending &&
-                                                (currentlyAttending === "yes" ||
-                                                    currentlyAttending === "no")
+                                                currentlyWorking &&
+                                                (currentlyWorking === "yes" ||
+                                                    currentlyWorking === "no")
                                             ) {
                                                 if (isValue) {
                                                     setValue([
                                                         ...isValue,
                                                         {
-                                                            school,
-                                                            degree,
-                                                            major,
+                                                            title,
+                                                            employmentType,
+                                                            companyName,
+                                                            location,
+                                                            locationType,
                                                             startDateMonth:
                                                                 startMonth,
                                                             startDateYear:
@@ -448,16 +473,17 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                                                 endMonth,
                                                             endDateYear:
                                                                 endYear,
-                                                            gpa: GPA,
-                                                            currentlyAttending,
+                                                            currentlyWorking,
                                                         },
                                                     ]);
                                                 } else {
                                                     setValue([
                                                         {
-                                                            school,
-                                                            degree,
-                                                            major,
+                                                            title,
+                                                            employmentType,
+                                                            companyName,
+                                                            location,
+                                                            locationType,
                                                             startDateMonth:
                                                                 startMonth,
                                                             startDateYear:
@@ -466,8 +492,7 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
                                                                 endMonth,
                                                             endDateYear:
                                                                 endYear,
-                                                            gpa: GPA,
-                                                            currentlyAttending,
+                                                            currentlyWorking,
                                                         },
                                                     ]);
                                                 }
@@ -486,4 +511,4 @@ function Education({ isVisible, setIsVisible, isValue, setValue }) {
     );
 }
 
-export default Education;
+export default Experience;

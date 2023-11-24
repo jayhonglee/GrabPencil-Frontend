@@ -5,6 +5,7 @@ import Headline from "./Popups/Headline/Headline";
 import LessonMethod from "./Popups/LessonMethod/LessonMethod";
 import LessonLocation from "./Popups/LessonLocation/LessonLocation";
 import Education from "./Popups/Education/Education";
+import Experience from "./Popups/Experience/Experience";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -19,6 +20,7 @@ function Main({ currentProfile }) {
     const [newEducationValue, setNewEducationValue] = useState();
     const [isEducationVisible, setIsEducationVisible] = useState(false);
     const [newExperienceValue, setNewExperienceValue] = useState();
+    const [isExperienceVisible, setIsExperienceVisible] = useState(false);
     const [newSkillsValue, setNewSkillsValue] = useState();
     const [newLanguagesValue, setNewLanguagesValue] = useState();
     const [newAboutMeValue, setNewAboutMeValue] = useState();
@@ -36,9 +38,8 @@ function Main({ currentProfile }) {
         setNewLessonMethodValue(currentProfile?.lessonMethod);
         setNewLessonLocationValue(currentProfile?.lessonLocation);
         setNewEducationValue(currentProfile?.education);
+        setNewExperienceValue(currentProfile?.experiences);
     }, [currentProfile]);
-
-    console.log(newEducationValue);
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -140,9 +141,16 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Experience (optional)"}
-                content={currentProfile?.experiences?.map(
-                    (exp) => exp.companyName
-                )}
+                content={newExperienceValue?.map((exp) => exp.companyName)}
+                popup={
+                    <Experience
+                        isVisible={isExperienceVisible}
+                        setIsVisible={setIsExperienceVisible}
+                        isValue={newExperienceValue}
+                        setValue={setNewExperienceValue}
+                    />
+                }
+                setPopup={setIsExperienceVisible}
             />
             <Info
                 currentProfile={currentProfile}

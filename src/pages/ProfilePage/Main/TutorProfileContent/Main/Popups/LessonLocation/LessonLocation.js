@@ -75,7 +75,7 @@ function LessonLocation({ isVisible, setIsVisible, isValue, setValue }) {
                         className="text-start"
                         style={{ fontSize: "14px", fontWeight: "600" }}
                     >
-                        <b>Tips: </b>Boost your visibility by using broader
+                        <b>Tip: </b>Boost your visibility by using broader
                         location terms that encompass your area's general region
                         or popular landmarks.
                     </div>
