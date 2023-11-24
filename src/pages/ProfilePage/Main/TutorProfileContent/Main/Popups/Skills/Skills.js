@@ -40,7 +40,7 @@ function Skills({ isVisible, setIsVisible, isValue, setValue }) {
                     const updatedValue = isValue.filter(
                         (_, index) => index !== n
                     );
-                    if (updatedValue.length === 0) return setValue("");
+                    if (updatedValue.length === 0) return setValue([]);
                     setValue(updatedValue);
                 }}
             >

@@ -58,7 +58,7 @@ function Experience({ isVisible, setIsVisible, isValue, setValue }) {
                     const updatedValue = sortedExperience.filter(
                         (_, index) => index !== n
                     );
-                    if (updatedValue.length === 0) return setValue("");
+                    if (updatedValue.length === 0) return setValue([]);
                     setValue(updatedValue);
                 }}
             >

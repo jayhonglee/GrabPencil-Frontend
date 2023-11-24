@@ -75,7 +75,8 @@ function Info({ currentProfile, label, content, popup, setPopup }) {
                 </div>
             );
         })
-    ) : currentProfile === "create" && !content ? (
+    ) : (currentProfile === "create" && !content) ||
+      (Array.isArray(content) && content.length === 0) ? (
         <div
             style={{
                 ...wrapTextStyle,
