@@ -10,6 +10,7 @@ import Skills from "./Popups/Skills/Skills";
 import Languages from "./Popups/Languages/Languages";
 import AboutMe from "./Popups/AboutMe/AboutMe";
 import AboutLesson from "./Popups/AboutLesson/AboutLesson";
+import HourlyRate from "./Popups/HourlyRate/HourlyRate";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -34,6 +35,7 @@ function Main({ currentProfile }) {
     const [newAboutLessonValue, setNewAboutLessonValue] = useState();
     const [isAboutLessonVisible, setIsAboutLessonVisible] = useState(false);
     const [newHourlyRateValue, setNewHourlyRateValue] = useState();
+    const [isHourlyRateVisible, setIsHourlyRateVisible] = useState(false);
 
     const wrapperStyle = {
         width: "840px",
@@ -51,6 +53,7 @@ function Main({ currentProfile }) {
         setNewLanguagesValue(currentProfile?.languages);
         setNewAboutMeValue(currentProfile?.aboutMe);
         setNewAboutLessonValue(currentProfile?.aboutLesson);
+        setNewHourlyRateValue(currentProfile?.hourlyRate);
     }, [currentProfile]);
 
     return (
@@ -232,10 +235,16 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Hourly rate"}
-                content={
-                    currentProfile?.hourlyRate &&
-                    `$${currentProfile?.hourlyRate}`
+                content={newHourlyRateValue && `$${newHourlyRateValue}`}
+                popup={
+                    <HourlyRate
+                        isVisible={isHourlyRateVisible}
+                        setIsVisible={setIsHourlyRateVisible}
+                        isValue={newHourlyRateValue}
+                        setValue={setNewHourlyRateValue}
+                    />
                 }
+                setPopup={setIsHourlyRateVisible}
             />
         </div>
     );
