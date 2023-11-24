@@ -79,7 +79,7 @@ function Aside({
                 />
                 <div className="d-flex flex-column justify-content-center align-items-center">
                     <p className="m-0" style={textWrapStyle}>
-                        {profile.headline}
+                        {profile.headline ? profile.headline : "No headline"}
                     </p>
                     <p
                         className="m-0"

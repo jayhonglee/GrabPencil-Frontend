@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useCookie from "hooks/useCookie";
+import axios from "axios";
 import Info from "./Info/Info";
 import Subjects from "./Popups/Subjects/Subjects";
 import Headline from "./Popups/Headline/Headline";
@@ -36,6 +39,8 @@ function Main({ currentProfile }) {
     const [isAboutLessonVisible, setIsAboutLessonVisible] = useState(false);
     const [newHourlyRateValue, setNewHourlyRateValue] = useState();
     const [isHourlyRateVisible, setIsHourlyRateVisible] = useState(false);
+    const getCookie = useCookie;
+    const navigate = useNavigate();
 
     const wrapperStyle = {
         width: "840px",
@@ -55,6 +60,80 @@ function Main({ currentProfile }) {
         setNewAboutLessonValue(currentProfile?.aboutLesson);
         setNewHourlyRateValue(currentProfile?.hourlyRate);
     }, [currentProfile]);
+
+    async function handleSubmit(type) {
+        const token = getCookie("auth_token");
+        const profileId = currentProfile._id;
+
+        let requestBody = {
+            subjects: newSubjectsValue,
+            headline: newHeadlineValue,
+            lessonMethod: newLessonMethodValue,
+            lessonLocation: newLessonLocationValue,
+            education: newEducationValue,
+            experiences: newExperienceValue,
+            skills: newSkillsValue,
+            languages: newLanguagesValue,
+            aboutMe: newAboutMeValue,
+            aboutLesson: newAboutLessonValue,
+            hourlyRate: newHourlyRateValue,
+        };
+
+        if (type === "create") {
+            try {
+                const response = await axios.post(
+                    `${process.env.REACT_APP_BASE_URL}/tutorProfiles`,
+                    requestBody,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log("Created:", response.data);
+
+                navigate(0);
+            } catch (error) {
+                console.error("Error creating:", error);
+            }
+        } else if (type === "update") {
+            try {
+                const response = await axios.patch(
+                    `${process.env.REACT_APP_BASE_URL}/tutorProfiles/${profileId}`,
+                    requestBody,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log("Updated:", response.data);
+
+                navigate(0);
+            } catch (error) {
+                console.error("Error updating:", error);
+            }
+        } else if (type === "delete") {
+            try {
+                const response = await axios.delete(
+                    `${process.env.REACT_APP_BASE_URL}/tutorProfiles/${profileId}`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log("Deleted:", response.data);
+
+                navigate(0);
+            } catch (error) {
+                console.error("Error deleting:", error);
+            }
+        }
+    }
 
     return (
         <div style={wrapperStyle} className="d-flex flex-column">
@@ -263,6 +342,13 @@ function Main({ currentProfile }) {
                         fontWeight: "600",
                         cursor: "pointer",
                     }}
+                    onClick={() => {
+                        if (currentProfile === "create") {
+                            handleSubmit("create");
+                        } else if (currentProfile !== "create") {
+                            handleSubmit("update");
+                        }
+                    }}
                 >
                     {currentProfile === "create" ? "Create" : "Update"}
                 </div>
@@ -280,6 +366,7 @@ function Main({ currentProfile }) {
                             fontWeight: "600",
                             cursor: "pointer",
                         }}
+                        onClick={() => handleSubmit("delete")}
                     >
                         Delete
                     </div>
