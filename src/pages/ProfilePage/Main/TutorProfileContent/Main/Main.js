@@ -6,6 +6,8 @@ import LessonMethod from "./Popups/LessonMethod/LessonMethod";
 import LessonLocation from "./Popups/LessonLocation/LessonLocation";
 import Education from "./Popups/Education/Education";
 import Experience from "./Popups/Experience/Experience";
+import Skills from "./Popups/Skills/Skills";
+import Languages from "./Popups/Languages/Languages";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -22,7 +24,9 @@ function Main({ currentProfile }) {
     const [newExperienceValue, setNewExperienceValue] = useState();
     const [isExperienceVisible, setIsExperienceVisible] = useState(false);
     const [newSkillsValue, setNewSkillsValue] = useState();
+    const [isSkillsVisible, setIsSkillsVisible] = useState(false);
     const [newLanguagesValue, setNewLanguagesValue] = useState();
+    const [isLanguagesVisible, setIsLanguagesVisible] = useState(false);
     const [newAboutMeValue, setNewAboutMeValue] = useState();
     const [newAboutLessonValue, setNewAboutLessonValue] = useState();
     const [newHourlyRateValue, setNewHourlyRateValue] = useState();
@@ -39,6 +43,8 @@ function Main({ currentProfile }) {
         setNewLessonLocationValue(currentProfile?.lessonLocation);
         setNewEducationValue(currentProfile?.education);
         setNewExperienceValue(currentProfile?.experiences);
+        setNewSkillsValue(currentProfile?.skills);
+        setNewLanguagesValue(currentProfile?.languages);
     }, [currentProfile]);
 
     return (
@@ -159,14 +165,34 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"Skills (optional)"}
-                content={currentProfile?.skills?.map((s) => s.skill)}
+                content={
+                    Array.isArray(newSkillsValue)
+                        ? newSkillsValue?.map((s) => s.skill)
+                        : newSkillsValue
+                }
+                popup={
+                    <Skills
+                        isVisible={isSkillsVisible}
+                        setIsVisible={setIsSkillsVisible}
+                        isValue={newSkillsValue}
+                        setValue={setNewSkillsValue}
+                    />
+                }
+                setPopup={setIsSkillsVisible}
             />
             <Info
                 currentProfile={currentProfile}
                 label={"Languages"}
-                content={currentProfile?.languages?.map(
-                    (lang) => lang.language
-                )}
+                content={newLanguagesValue?.map((lang) => lang.language)}
+                popup={
+                    <Languages
+                        isVisible={isLanguagesVisible}
+                        setIsVisible={setIsLanguagesVisible}
+                        isValue={newLanguagesValue}
+                        setValue={setNewLanguagesValue}
+                    />
+                }
+                setPopup={setIsLanguagesVisible}
             />
             <Info
                 currentProfile={currentProfile}
