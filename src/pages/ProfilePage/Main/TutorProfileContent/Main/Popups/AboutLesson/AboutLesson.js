@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from "react";
-import "../AboutMe/AboutMe.css";
+import "./AboutLesson.css";
 
-function Headline({ isVisible, setIsVisible, isValue, setValue }) {
-    const [headline, setHeadline] = useState("");
+function AboutLesson({ isVisible, setIsVisible, isValue, setValue }) {
+    const [aboutLesson, setAboutLesson] = useState("");
     const shadeRef = useRef(null);
 
     useEffect(() => {
-        setHeadline(isValue ? isValue : "");
+        setAboutLesson(isValue ? isValue : "");
     }, [isValue]);
 
     return (
@@ -49,12 +49,12 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                         paddingBottom: "32px",
                     }}
                 >
-                    Headline
+                    About lesson
                 </h1>
                 <div style={{ padding: "0 16px" }}>
                     <textarea
-                        placeholder="ex) Experienced Math Tutor | Making Learning Fun & Effective for Students | Helping Achieve Confidence & Mastery in Mathematics"
-                        className="txtarea scroll-content"
+                        className="scroll-content"
+                        placeholder="ex) In my lessons, I focus on interactive learning, covering essential topics with engaging activities. I tailor each session to match your learning style for an effective and enjoyable experience."
                         style={{
                             width: "100%",
                             height: "120px",
@@ -67,17 +67,18 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                         }}
                         onChange={(e) => {
                             const value = e.target.value;
-                            setHeadline(value);
+                            setAboutLesson(value);
                         }}
-                        value={headline}
+                        value={aboutLesson}
                     />
                     <div
                         className="text-start"
                         style={{ fontSize: "14px", fontWeight: "600" }}
                     >
-                        <b>Tips: </b>Your profile header is your first
-                        impression. Make it count by summarizing who you are as
-                        a tutor in a few clear words.
+                        <b>Tip: </b>Outline your teaching style, lesson
+                        structure, and key topics succinctly. Highlight unique
+                        methods or resources to give students a preview of your
+                        engaging sessions.
                     </div>
                     <div
                         className="d-flex justify-content-around align-items-center"
@@ -112,8 +113,10 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                                 cursor: "pointer",
                             }}
                             onClick={() => {
-                                setValue(headline.trim());
-                                setIsVisible(false);
+                                if (aboutLesson.trim()) {
+                                    setValue(aboutLesson.trim());
+                                    setIsVisible(false);
+                                }
                             }}
                         >
                             Add
@@ -125,4 +128,4 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
     );
 }
 
-export default Headline;
+export default AboutLesson;

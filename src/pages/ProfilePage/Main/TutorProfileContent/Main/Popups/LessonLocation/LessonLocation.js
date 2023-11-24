@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import "../AboutMe/AboutMe.css";
 
 function LessonLocation({ isVisible, setIsVisible, isValue, setValue }) {
     const [lessonLocation, setLessonLocation] = useState("");
@@ -53,11 +54,10 @@ function LessonLocation({ isVisible, setIsVisible, isValue, setValue }) {
                 <div style={{ padding: "0 16px" }}>
                     <textarea
                         placeholder="ex) Burnaby North, North Burnaby, Coquitlam, Port Coquitlam, Port Moody around SFU, and West Point Grey, Kitsilano near UBC."
-                        className="txtarea"
+                        className="txtarea scroll-content"
                         style={{
                             width: "100%",
                             height: "120px",
-                            overflow: "hidden",
                             borderRadius: "20px",
                             padding: "16px",
                             resize: "none",

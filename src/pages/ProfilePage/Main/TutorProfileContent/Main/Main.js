@@ -8,6 +8,8 @@ import Education from "./Popups/Education/Education";
 import Experience from "./Popups/Experience/Experience";
 import Skills from "./Popups/Skills/Skills";
 import Languages from "./Popups/Languages/Languages";
+import AboutMe from "./Popups/AboutMe/AboutMe";
+import AboutLesson from "./Popups/AboutLesson/AboutLesson";
 
 function Main({ currentProfile }) {
     const [newSubjectsValue, setNewSubjectsValue] = useState();
@@ -28,7 +30,9 @@ function Main({ currentProfile }) {
     const [newLanguagesValue, setNewLanguagesValue] = useState();
     const [isLanguagesVisible, setIsLanguagesVisible] = useState(false);
     const [newAboutMeValue, setNewAboutMeValue] = useState();
+    const [isAboutMeVisible, setIsAboutMeVisible] = useState(false);
     const [newAboutLessonValue, setNewAboutLessonValue] = useState();
+    const [isAboutLessonVisible, setIsAboutLessonVisible] = useState(false);
     const [newHourlyRateValue, setNewHourlyRateValue] = useState();
 
     const wrapperStyle = {
@@ -45,6 +49,8 @@ function Main({ currentProfile }) {
         setNewExperienceValue(currentProfile?.experiences);
         setNewSkillsValue(currentProfile?.skills);
         setNewLanguagesValue(currentProfile?.languages);
+        setNewAboutMeValue(currentProfile?.aboutMe);
+        setNewAboutLessonValue(currentProfile?.aboutLesson);
     }, [currentProfile]);
 
     return (
@@ -197,13 +203,31 @@ function Main({ currentProfile }) {
             <Info
                 currentProfile={currentProfile}
                 label={"About me"}
-                content={currentProfile?.aboutMe}
+                content={newAboutMeValue}
+                popup={
+                    <AboutMe
+                        isVisible={isAboutMeVisible}
+                        setIsVisible={setIsAboutMeVisible}
+                        isValue={newAboutMeValue}
+                        setValue={setNewAboutMeValue}
+                    />
+                }
+                setPopup={setIsAboutMeVisible}
             />
 
             <Info
                 currentProfile={currentProfile}
                 label={"About lesson"}
-                content={currentProfile?.aboutLesson}
+                content={newAboutLessonValue}
+                popup={
+                    <AboutLesson
+                        isVisible={isAboutLessonVisible}
+                        setIsVisible={setIsAboutLessonVisible}
+                        isValue={newAboutLessonValue}
+                        setValue={setNewAboutLessonValue}
+                    />
+                }
+                setPopup={setIsAboutLessonVisible}
             />
             <Info
                 currentProfile={currentProfile}

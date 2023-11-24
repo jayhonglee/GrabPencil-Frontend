@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from "react";
-import "../AboutMe/AboutMe.css";
+import "./AboutMe.css";
 
-function Headline({ isVisible, setIsVisible, isValue, setValue }) {
-    const [headline, setHeadline] = useState("");
+function AboutMe({ isVisible, setIsVisible, isValue, setValue }) {
+    const [aboutMe, setAboutMe] = useState("");
     const shadeRef = useRef(null);
 
     useEffect(() => {
-        setHeadline(isValue ? isValue : "");
+        setAboutMe(isValue ? isValue : "");
     }, [isValue]);
 
     return (
@@ -49,12 +49,12 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                         paddingBottom: "32px",
                     }}
                 >
-                    Headline
+                    About me
                 </h1>
                 <div style={{ padding: "0 16px" }}>
                     <textarea
-                        placeholder="ex) Experienced Math Tutor | Making Learning Fun & Effective for Students | Helping Achieve Confidence & Mastery in Mathematics"
-                        className="txtarea scroll-content"
+                        className="scroll-content"
+                        placeholder="ex) Hi, I'm Sally! I studied Biology at the University of British Columbia and now I'm diving into Pharm.D. My vet experience helps me simplify science for high school and younger students. Let's explore biology together!"
                         style={{
                             width: "100%",
                             height: "120px",
@@ -67,17 +67,19 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                         }}
                         onChange={(e) => {
                             const value = e.target.value;
-                            setHeadline(value);
+                            setAboutMe(value);
                         }}
-                        value={headline}
+                        value={aboutMe}
                     />
                     <div
                         className="text-start"
                         style={{ fontSize: "14px", fontWeight: "600" }}
                     >
-                        <b>Tips: </b>Your profile header is your first
-                        impression. Make it count by summarizing who you are as
-                        a tutor in a few clear words.
+                        <b>Tip: </b>Share your teaching philosophy,
+                        qualifications, and what drives your passion for
+                        education. Keep the focus on presenting yourself as an
+                        engaging and qualified educator, leaving specific lesson
+                        information for the dedicated lesson section.
                     </div>
                     <div
                         className="d-flex justify-content-around align-items-center"
@@ -112,8 +114,10 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
                                 cursor: "pointer",
                             }}
                             onClick={() => {
-                                setValue(headline.trim());
-                                setIsVisible(false);
+                                if (aboutMe.trim()) {
+                                    setValue(aboutMe.trim());
+                                    setIsVisible(false);
+                                }
                             }}
                         >
                             Add
@@ -125,4 +129,4 @@ function Headline({ isVisible, setIsVisible, isValue, setValue }) {
     );
 }
 
-export default Headline;
+export default AboutMe;
