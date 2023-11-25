@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import useCookie from "hooks/useCookie";
 import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 
 function AccountContent({ setIsLoggedIn }) {
     const [isLoading, setIsLoading] = useState(true);
+    const [allowDelete, setAllowDelete] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [newGenderValue, setNewGenderValue] = useState();
     const [newFirstNameValue, setNewFirstNameValue] = useState();
     const [newLastNameValue, setNewLastNameValue] = useState();
+    const [newPasswordValue, setNewPasswordValue] = useState("");
     const getCookie = useCookie;
     const navigate = useNavigate();
     const header = {
@@ -56,6 +59,34 @@ function AccountContent({ setIsLoggedIn }) {
         };
         getAccountInfo();
     }, []);
+
+    async function handleUpdate(type) {
+        if (type === "update") {
+            try {
+                const userData = {
+                    firstName: newFirstNameValue,
+                    lastName: newLastNameValue,
+                    gender: newGenderValue,
+                };
+
+                // Check if newPasswordValue exists before adding it to the payload
+                if (newPasswordValue) {
+                    userData.password = newPasswordValue;
+                }
+
+                const response = await axios.patch(
+                    `${process.env.REACT_APP_BASE_URL}/users/me`,
+                    userData,
+                    header
+                );
+                console.log("Updated:", response.data);
+
+                navigate(0);
+            } catch (e) {
+                console.log("Error updating: ", e);
+            }
+        }
+    }
 
     const wrapperStyle = {
         width: "100%",
@@ -124,7 +155,7 @@ function AccountContent({ setIsLoggedIn }) {
         .map(([key, value]) => (
             <div style={inputStyle} key={key}>
                 <div className="text-start" style={labelStyle}>
-                    {key}
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
                 </div>
                 <input
                     style={genderSelectStyle}
@@ -145,7 +176,7 @@ function AccountContent({ setIsLoggedIn }) {
                             : ""
                     }
                     disabled={key === "email"}
-                ></input>
+                />
             </div>
         ));
 
@@ -153,7 +184,7 @@ function AccountContent({ setIsLoggedIn }) {
         <LoadingScreen />
     ) : (
         <div
-            className="d-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-start"
             style={wrapperStyle}
         >
             <div style={generalInfoStyle}>
@@ -173,19 +204,103 @@ function AccountContent({ setIsLoggedIn }) {
                     </select>
                 </div>
                 {renderInfo}
+                <div style={inputStyle}>
+                    <div className="text-start" style={labelStyle}>
+                        Password
+                    </div>
+                    <input
+                        type="password"
+                        style={genderSelectStyle}
+                        className="text-start"
+                        onChange={(e) => {
+                            setNewPasswordValue(e.target.value);
+                        }}
+                        value={newPasswordValue}
+                    />
+                </div>
                 <div
                     style={buttonStyle}
                     className={`btn d-flex justify-content-center align-items-center ${
                         userInfo.firstName !== newFirstNameValue ||
                         userInfo.lastName !== newLastNameValue ||
-                        userInfo.gender !== newGenderValue
+                        userInfo.gender !== newGenderValue ||
+                        newPasswordValue?.length >= 7
                             ? ""
                             : "disabled"
                     }`}
+                    onClick={() => handleUpdate("update")}
                 >
                     update
                 </div>
             </div>
+            <div style={{ ...generalInfoStyle, margin: "0 20px" }}>
+                <div
+                    style={{
+                        marginBottom: "30px",
+                        fontsize: "15px",
+                        fontWeight: "700",
+                    }}
+                >
+                    Delete Account 😭
+                </div>
+                <div
+                    className="text-start"
+                    style={{
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        marginBottom: "20px",
+                    }}
+                >
+                    Attention: Deleting your account will wipe out all your
+                    data. Proceeding means saying goodbye to your information
+                    forever.
+                </div>
+                <div
+                    className="text-start d-flex align-items-center"
+                    style={{
+                        width: "279.69px",
+                        height: "67.53px",
+                        background: allowDelete
+                            ? "#5bca8d"
+                            : "rgb(247, 247, 247)",
+                        padding: "20px",
+                        color: allowDelete ? "#fff" : "#999999",
+                        borderRadius: "5px",
+                        fontSize: "15px",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        marginBottom: "20px",
+                    }}
+                    onClick={() => setAllowDelete((prev) => !prev)}
+                >
+                    <FontAwesomeIcon
+                        icon="check-circle"
+                        style={{
+                            width: "27px",
+                            height: "27px",
+                            marginRight: "5px",
+                            color: allowDelete && "#fff",
+                        }}
+                    />
+                    Delete my account
+                </div>
+                <div
+                    className={`btn d-flex justify-content-center align-items-center ${
+                        !allowDelete && "disabled"
+                    }`}
+                    style={{
+                        width: "180px",
+                        height: "39px",
+                        borderRadius: "100px",
+                        background: "#35b234",
+                        color: "#fff",
+                        margin: "0 auto",
+                    }}
+                >
+                    Delete my account
+                </div>
+            </div>
+            <div style={generalInfoStyle}>hi</div>
         </div>
     );
 }
