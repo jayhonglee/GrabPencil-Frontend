@@ -31,12 +31,7 @@ function TutorProfileContent({ setIsLoggedIn }) {
                 const responseToken = await axios.post(
                     `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
                     {},
-                    {
-                        withCredentials: true,
-                        headers: {
-                            Authorization: `Bearer ${getCookie("auth_token")}`,
-                        },
-                    }
+                    header
                 );
 
                 // Get user profile (avatar) & user name

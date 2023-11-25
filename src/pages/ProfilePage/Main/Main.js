@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navigation from "./Navigation/Navigation";
 import TutorProfileContent from "./TutorProfileContent/TutorProfileContent";
+import AccountContent from "./AccountContent/AccountContent";
 
 function Main({ setIsLoggedIn }) {
     const [currentButton, setCurrentButton] = useState("My Tutor Profiles");
@@ -8,7 +9,7 @@ function Main({ setIsLoggedIn }) {
         padding: "16px",
         width: "100vw",
         height: "100%",
-        background: "#fff",
+        background: currentButton === "My Tutor Profiles" && "#fff",
     };
 
     return (
@@ -21,7 +22,7 @@ function Main({ setIsLoggedIn }) {
                 {currentButton === "My Tutor Profiles" ? (
                     <TutorProfileContent setIsLoggedIn={setIsLoggedIn} />
                 ) : (
-                    <div>My Account</div>
+                    <AccountContent setIsLoggedIn={setIsLoggedIn} />
                 )}
             </div>
         </>
