@@ -8,6 +8,8 @@ import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 function AccountContent({ setIsLoggedIn }) {
     const [isLoading, setIsLoading] = useState(true);
     const [allowDelete, setAllowDelete] = useState(false);
+    const [profileHover, setProfileHover] = useState(false);
+    const [avatarURL, setAvatarURL] = useState();
     const [userInfo, setUserInfo] = useState({});
     const [newGenderValue, setNewGenderValue] = useState();
     const [newFirstNameValue, setNewFirstNameValue] = useState();
@@ -28,7 +30,7 @@ function AccountContent({ setIsLoggedIn }) {
                 setIsLoading(true);
 
                 // Check valid token
-                await axios.post(
+                const responseToken = await axios.post(
                     `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
                     {},
                     header
@@ -45,6 +47,22 @@ function AccountContent({ setIsLoggedIn }) {
                 setNewFirstNameValue(userInfo.data.firstName);
                 setNewLastNameValue(userInfo.data.lastName);
                 setIsLoading(false);
+
+                // Get user profile (avatar) & user name
+                const userId = responseToken.data.user._id;
+
+                await axios
+                    .get(
+                        `${process.env.REACT_APP_BASE_URL}/users/${userId}/avatar`,
+                        { responseType: "arraybuffer" }
+                    )
+                    .then((response) => {
+                        const blob = new Blob([response.data], {
+                            type: "image/png",
+                        });
+                        const imageUrl = URL.createObjectURL(blob);
+                        setAvatarURL(imageUrl);
+                    });
             } catch (e) {
                 if (
                     e.request.url.includes("/checkAuthToken") &&
@@ -82,6 +100,21 @@ function AccountContent({ setIsLoggedIn }) {
                 console.log("Updated:", response.data);
 
                 navigate(0);
+            } catch (e) {
+                console.log("Error updating: ", e);
+            }
+        } else if (type === "delete") {
+            try {
+                const response = await axios.delete(
+                    `${process.env.REACT_APP_BASE_URL}/users/me`,
+                    header
+                );
+
+                console.log("Updated:", response.data);
+                document.cookie = `auth_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+                localStorage.setItem("isLoggedIn", "false");
+                window.dispatchEvent(new Event("storage"));
+                navigate("/");
             } catch (e) {
                 console.log("Error updating: ", e);
             }
@@ -296,11 +329,57 @@ function AccountContent({ setIsLoggedIn }) {
                         color: "#fff",
                         margin: "0 auto",
                     }}
+                    onClick={() => handleUpdate("delete")}
                 >
                     Delete my account
                 </div>
             </div>
-            <div style={generalInfoStyle}>hi</div>
+            <div style={{ ...generalInfoStyle, padding: "30px 40px 56px" }}>
+                <div
+                    style={{
+                        fontSize: "15px",
+                        fontWeight: "bold",
+                        marginBottom: "32px",
+                    }}
+                >
+                    Profile Picture ✨
+                </div>
+                <span
+                    style={{
+                        display: "inline-block",
+                        position: "relative",
+                        cursor: "pointer",
+                    }}
+                    onMouseEnter={() => setProfileHover(true)}
+                    onMouseLeave={() => setProfileHover(false)}
+                >
+                    <img
+                        src={
+                            avatarURL ? `${avatarURL}` : `/images/no_avatar.png`
+                        }
+                        style={{
+                            width: "200px",
+                            height: "200px",
+                            borderRadius: "48px",
+                            filter: profileHover && "brightness(90%)",
+                        }}
+                    />
+                    <div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{
+                            position: "absolute",
+                            bottom: "-6px",
+                            right: "-20px",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "18px",
+                            backgroundColor: profileHover ? "#222" : "#35b234",
+                        }}
+                    >
+                        <FontAwesomeIcon icon="camera" color="white" />
+                    </div>
+                </span>
+            </div>
         </div>
     );
 }

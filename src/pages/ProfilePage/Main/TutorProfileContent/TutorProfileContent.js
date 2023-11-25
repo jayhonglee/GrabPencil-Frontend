@@ -34,6 +34,15 @@ function TutorProfileContent({ setIsLoggedIn }) {
                     header
                 );
 
+                // Get my tutor profiles
+                const responseTP = await axios.get(
+                    `${process.env.REACT_APP_BASE_URL}/tutorProfiles/me?sortBy=createdAt:Newest&pageSize=1000&pageNumber=1&maxPageIndex=1`,
+                    header
+                );
+                setCurrentProfile("create");
+                setMyTutorProfiles(responseTP.data.tutorProfiles);
+                setIsLoading(false);
+
                 // Get user profile (avatar) & user name
                 const userId = responseToken.data.user._id;
                 setUserName(responseToken.data.user.firstName);
@@ -50,15 +59,6 @@ function TutorProfileContent({ setIsLoggedIn }) {
                         const imageUrl = URL.createObjectURL(blob);
                         setAvatarURL(imageUrl);
                     });
-
-                // Get my tutor profiles
-                const responseTP = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/tutorProfiles/me?sortBy=createdAt:Newest&pageSize=1000&pageNumber=1&maxPageIndex=1`,
-                    header
-                );
-                setCurrentProfile("create");
-                setMyTutorProfiles(responseTP.data.tutorProfiles);
-                setIsLoading(false);
             } catch (e) {
                 if (
                     e.request.url.includes("/checkAuthToken") &&
