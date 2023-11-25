@@ -26,7 +26,7 @@ function Right({ avatarURL, userName }) {
                     style={{
                         marginTop: "16px",
                         fontSize: "24px",
-                        fontWeight: "800",
+                        fontWeight: "bold",
                         lineHeight: "32px",
                     }}
                 >

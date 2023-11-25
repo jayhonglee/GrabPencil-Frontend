@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import useCookie from "hooks/useCookie";
 import LoadingScreen from "components/LoadingScreen/LoadingScreen";
+import "./AccountContent.css";
 
 function AccountContent({ setIsLoggedIn }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -220,7 +221,7 @@ function AccountContent({ setIsLoggedIn }) {
             className="d-flex justify-content-center align-items-start"
             style={wrapperStyle}
         >
-            <div style={generalInfoStyle}>
+            <div style={generalInfoStyle} className="account-card">
                 <h1 style={h1Style}>General Information ℹ️</h1>
                 <div style={inputStyle}>
                     <div className="text-start" style={labelStyle}>
@@ -266,7 +267,10 @@ function AccountContent({ setIsLoggedIn }) {
                     update
                 </div>
             </div>
-            <div style={{ ...generalInfoStyle, margin: "0 20px" }}>
+            <div
+                style={{ ...generalInfoStyle, margin: "0 20px" }}
+                className="account-card"
+            >
                 <div
                     style={{
                         marginBottom: "30px",
@@ -334,7 +338,10 @@ function AccountContent({ setIsLoggedIn }) {
                     Delete my account
                 </div>
             </div>
-            <div style={{ ...generalInfoStyle, padding: "30px 40px 56px" }}>
+            <div
+                style={{ ...generalInfoStyle, padding: "30px 40px 56px" }}
+                className="account-card"
+            >
                 <div
                     style={{
                         fontSize: "15px",
