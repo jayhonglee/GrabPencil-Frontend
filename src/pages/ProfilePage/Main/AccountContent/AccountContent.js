@@ -79,7 +79,7 @@ function AccountContent({ setIsLoggedIn }) {
         getAccountInfo();
     }, []);
 
-    async function handleUpdate(type) {
+    async function handleUpdate(type, e) {
         if (type === "update") {
             try {
                 const userData = {
@@ -117,7 +117,34 @@ function AccountContent({ setIsLoggedIn }) {
                 window.dispatchEvent(new Event("storage"));
                 navigate("/");
             } catch (e) {
-                console.log("Error updating: ", e);
+                console.log("Error deleting: ", e);
+            }
+        } else if (type === "upload") {
+            const file = e.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append("avatar", file);
+
+                try {
+                    const response = await axios.post(
+                        `${process.env.REACT_APP_BASE_URL}/users/me/avatar`,
+                        formData,
+                        {
+                            headers: {
+                                "Content-Type": "multipart/form-data",
+                                Authorization: `Bearer ${getCookie(
+                                    "auth_token"
+                                )}`,
+                            },
+                        }
+                    );
+
+                    console.log("Image uploaded:", response.data);
+
+                    navigate(0);
+                } catch (error) {
+                    console.error("Error uploading image:", error);
+                }
             }
         }
     }
@@ -359,6 +386,10 @@ function AccountContent({ setIsLoggedIn }) {
                     }}
                     onMouseEnter={() => setProfileHover(true)}
                     onMouseLeave={() => setProfileHover(false)}
+                    onClick={() => {
+                        const fileInput = document.getElementById("fileInput");
+                        fileInput.click();
+                    }}
                 >
                     <img
                         src={
@@ -385,6 +416,12 @@ function AccountContent({ setIsLoggedIn }) {
                     >
                         <FontAwesomeIcon icon="camera" color="white" />
                     </div>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        style={{ display: "none" }}
+                        onChange={(e) => handleUpdate("upload", e)}
+                    />
                 </span>
             </div>
         </div>
