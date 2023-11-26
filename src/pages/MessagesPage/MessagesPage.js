@@ -1,7 +1,7 @@
 import useFetchColorTheme from "hooks/useFetchColorTheme";
 import useFetch from "hooks/useFetch";
 import Navbar from "components/Navbar/Navbar";
-import Footer from "components/Footer/Footer";
+import Main from "./Main/Main";
 import MainLayout from "components/Layout/MainLayout";
 
 function MessagesPage({ isLoggedIn, setFromState }) {
@@ -19,8 +19,8 @@ function MessagesPage({ isLoggedIn, setFromState }) {
                     isLoggedIn={isLoggedIn}
                 />
             }
-            content={<h1>Messages Page</h1>}
-            footer={<Footer />}
+            content={<Main />}
+            footer={<div></div>}
         />
     );
 }

@@ -10,6 +10,7 @@ function Main({ setIsLoggedIn }) {
         width: "100vw",
         height: "100%",
         background: currentButton === "My Tutor Profiles" && "#fff",
+        position: "relative",
     };
 
     return (
