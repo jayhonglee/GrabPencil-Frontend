@@ -77,7 +77,9 @@ function Main() {
                                 padding: "8px 12px",
                             }}
                         >
-                            <div className="chatMessageInput" contentEditable />
+                            <div className="chatMessageInput" contentEditable>
+                                hi
+                            </div>
                         </div>
                         <FontAwesomeIcon
                             className="chatSubmitButton"
