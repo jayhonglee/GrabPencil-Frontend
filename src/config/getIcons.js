@@ -25,6 +25,7 @@ import {
     faArrowLeft,
     faCircleCheck,
     faCamera,
+    faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -55,5 +56,6 @@ export default function getIcons() {
         faArrowLeft,
         faCircleCheck,
         faCamera,
+        faPaperPlane,
     };
 }

@@ -1,5 +1,6 @@
-import Conversation from "components/Conversation/Conversation";
 import "./Main.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Conversation from "components/Conversation/Conversation";
 import Message from "components/Message/Message";
 import ChatOnline from "components/ChatOnline/ChatOnline";
 
@@ -65,11 +66,24 @@ function Main() {
                         <Message />
                     </div>
                     <div className="chatBoxBottom">
-                        <textarea
-                            className="chatMessageInput"
-                            placeholder="Aa"
-                        ></textarea>
-                        <button className="chatSubmitButton">Send</button>
+                        <div
+                            style={{
+                                backgroundColor: "#F0F2F5",
+                                borderRadius: "18px",
+                                width: "95%",
+                                minHeight: "36.09px",
+                                maxHeight: "140px",
+                                boxSizing: "border-box",
+                                padding: "8px 12px",
+                            }}
+                        >
+                            <div className="chatMessageInput" contentEditable />
+                        </div>
+                        <FontAwesomeIcon
+                            className="chatSubmitButton"
+                            icon={"paper-plane"}
+                            color={"#35b234"}
+                        />
                     </div>
                 </div>
             </div>
