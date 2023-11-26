@@ -19,7 +19,21 @@
 .messageText {
     padding: 10px;
     border-radius: 20px;
-    background-color: #35b234;
-    color: #fff;
+    background-color: #f0f0f0;
+    color: black;
     max-width: 300px;
+}
+
+.messageBottom {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.message.own {
+    align-items: flex-end;
+}
+
+.message.own .messageText {
+    background-color: #35b234;
+    color: #fff
 }
