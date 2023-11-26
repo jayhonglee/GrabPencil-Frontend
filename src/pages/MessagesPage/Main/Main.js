@@ -8,14 +8,36 @@ function Main() {
         <div className="messenger p-0 text-start">
             <div className="chatMenu">
                 <div className="chatMenuWrapper">
-                    <input
-                        placeholder="Search for friends"
-                        className="chatMenuInput"
-                    />
-                    <Conversation />
-                    <Conversation />
-                    <Conversation />
-                    <Conversation />
+                    <div className="chatMenuInputWrapper">
+                        <h1 className="m-0">Message</h1>
+                        <input
+                            placeholder="🔍 Conversation search"
+                            className="chatMenuInput"
+                        />
+                    </div>
+                    <div className="chatWrapper">
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        {/* <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation /> */}
+                    </div>
                 </div>
             </div>
             <div className="chatBox">
@@ -45,7 +67,7 @@ function Main() {
                     <div className="chatBoxBottom">
                         <textarea
                             className="chatMessageInput"
-                            placeholder="write something..."
+                            placeholder="Aa"
                         ></textarea>
                         <button className="chatSubmitButton">Send</button>
                     </div>
