@@ -8,24 +8,40 @@
 
 .chatOnlineImgContainer {
     position: relative;
-    margin-right: 10px;
+    margin-right: 12px;
 }
 
 .chatOnlineImg {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid #fff;
 }
 
-.chatOnlineBadge {
-    width: 10px;
-    height: 10px;
+.chatOnlineBadgeOut {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatOnlineBadgeIn {
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background-color: #31A24C;
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
+    bottom: 0.5px;
+    right: 0.5px;
+}
 
+.chatOnlineName {
+    font-size: 17px;
+    font-weight: 600;
 }

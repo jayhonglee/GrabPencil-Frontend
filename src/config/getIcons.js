@@ -26,6 +26,7 @@ import {
     faCircleCheck,
     faCamera,
     faPaperPlane,
+    faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function getIcons() {
@@ -57,5 +58,6 @@ export default function getIcons() {
         faCircleCheck,
         faCamera,
         faPaperPlane,
+        faCommentDots,
     };
 }

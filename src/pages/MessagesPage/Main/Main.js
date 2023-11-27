@@ -1,15 +1,84 @@
 import "./Main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import useCookie from "hooks/useCookie";
 import Conversation from "components/Conversation/Conversation";
 import Message from "components/Message/Message";
 import ChatOnline from "components/ChatOnline/ChatOnline";
 
-function Main() {
+function Main({ setIsLoggedIn }) {
+    const [conversations, setConversations] = useState([]);
+    const [currentChat, setCurrentChat] = useState(null);
+    const [messages, setMessages] = useState(null);
     const [message, setMessage] = useState("");
-
+    const [user, setUser] = useState();
     const isTyping = () => message !== "";
-    console.log(message.length, isTyping());
+
+    const getCookie = useCookie;
+    const navigate = useNavigate;
+
+    const header = {
+        withCredentials: true,
+        headers: {
+            Authorization: `Bearer ${getCookie("auth_token")}`,
+        },
+    };
+
+    useEffect(() => {
+        const getConversations = async () => {
+            try {
+                // setIsLoading(true);
+
+                // Check valid token
+                const responseToken = await axios.post(
+                    `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
+                    {},
+                    header
+                );
+
+                // Get user
+                setUser(responseToken.data.user);
+
+                // Get conversations
+                const response = await axios.get(
+                    `${process.env.REACT_APP_BASE_URL}/conversations/me`,
+                    header
+                );
+                setConversations(response.data);
+
+                // setIsLoading(false);
+            } catch (e) {
+                if (
+                    e.request.url.includes("/checkAuthToken") &&
+                    e.response !== 200
+                ) {
+                    localStorage.setItem("isLoggedIn", "false");
+                    setIsLoggedIn(false);
+                    navigate("/");
+                }
+                // setIsLoading(false);
+            }
+        };
+        getConversations();
+    }, []);
+
+    useEffect(() => {
+        const getMessages = async () => {
+            try {
+                // Get messages
+                const response = await axios.get(
+                    `${process.env.REACT_APP_BASE_URL}/messages/${currentChat?._id}`,
+                    header
+                );
+                setMessages(response.data);
+            } catch (e) {
+                console.log("Error fetching messages: ", e);
+            }
+        };
+        getMessages();
+    }, [currentChat]);
 
     return (
         <div className="messenger p-0 text-start">
@@ -23,98 +92,94 @@ function Main() {
                         />
                     </div>
                     <div className="chatWrapper">
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        {/* <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation /> */}
+                        {conversations.map((c, n) => (
+                            <div onClick={() => setCurrentChat(c)} key={n}>
+                                <Conversation
+                                    conversation={c}
+                                    currentUser={user}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
             <div className="chatBox">
                 <div className="chatBoxWrapper">
-                    <div className="chatBoxTop">
-                        <Message />
-                        <Message own={true} />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
-                    </div>
-                    <div className="chatBoxBottom">
-                        <div
-                            style={{
-                                backgroundColor: "#F0F2F5",
-                                borderRadius: "18px",
-                                width: "95%",
-                                minHeight: "36.09px",
-                                maxHeight: "140px",
-                                boxSizing: "border-box",
-                                padding: "8px 12px",
-                                position: "relative",
-                            }}
+                    {currentChat ? (
+                        <>
+                            <div className="chatBoxTop">
+                                {messages?.map((message, n) => (
+                                    <Message
+                                        message={message}
+                                        own={message.sender === user._id}
+                                        key={n}
+                                    />
+                                ))}
+                            </div>
+                            <div className="chatBoxBottom">
+                                <div
+                                    style={{
+                                        backgroundColor: "#F0F2F5",
+                                        borderRadius: "18px",
+                                        width: "95%",
+                                        minHeight: "36.09px",
+                                        maxHeight: "140px",
+                                        boxSizing: "border-box",
+                                        padding: "8px 12px",
+                                        position: "relative",
+                                    }}
+                                >
+                                    <div
+                                        className="chatMessageInput"
+                                        contentEditable
+                                        onInput={(e) => {
+                                            const content =
+                                                e.target.innerText.replace(
+                                                    /\n$/,
+                                                    ""
+                                                );
+                                            setMessage(content);
+                                        }}
+                                    />
+                                    <div
+                                        className="d-flex justify-content-center align-items-center"
+                                        style={{
+                                            position: "absolute",
+                                            left: "12px",
+                                            top: "8px",
+                                            lineHeight: "20.078px",
+                                            opacity: isTyping() ? "0" : "1",
+                                            pointerEvents: isTyping() && "none",
+                                            color: "#65676B",
+                                        }}
+                                    >
+                                        Aa
+                                    </div>
+                                </div>
+                                <FontAwesomeIcon
+                                    className="chatSubmitButton"
+                                    icon={"paper-plane"}
+                                    color={"#35b234"}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <span
+                            className="noConversationText d-flex flex-column"
+                            style={{ color: "#35b234" }}
                         >
-                            <div
-                                className="chatMessageInput"
-                                contentEditable
-                                onInput={(e) => {
-                                    const content = e.target.innerText.replace(
-                                        /\n$/,
-                                        ""
-                                    );
-                                    setMessage(content);
+                            <FontAwesomeIcon
+                                icon={"comment-dots"}
+                                style={{
+                                    width: "150px",
+                                    height: "110px",
+                                    color: "#35b234",
+                                    marginBottom: "10px",
                                 }}
                             />
-                            <div
-                                className="d-flex justify-content-center align-items-center"
-                                style={{
-                                    position: "absolute",
-                                    left: "12px",
-                                    top: "8px",
-                                    lineHeight: "20.078px",
-                                    opacity: isTyping() ? "0" : "1",
-                                    pointerEvents: isTyping() && "none",
-                                }}
-                            >
-                                Aa
-                            </div>
-                        </div>
-                        <FontAwesomeIcon
-                            className="chatSubmitButton"
-                            icon={"paper-plane"}
-                            color={"#35b234"}
-                        />
-                    </div>
+                            No Conversation Selected
+                        </span>
+                    )}
                 </div>
             </div>
             <div className="chatOnline">
