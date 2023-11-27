@@ -1,6 +1,6 @@
 import "./Main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useCookie from "hooks/useCookie";
@@ -14,6 +14,8 @@ function Main({ setIsLoggedIn }) {
     const [messages, setMessages] = useState(null);
     const [message, setMessage] = useState("");
     const [user, setUser] = useState();
+    const contentEditableRef = useRef(null);
+    const scrollRef = useRef(null);
     const isTyping = () => message !== "";
 
     const getCookie = useCookie;
@@ -80,6 +82,36 @@ function Main({ setIsLoggedIn }) {
         getMessages();
     }, [currentChat]);
 
+    useEffect(() => {
+        scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
+    const handleSubmit = async () => {
+        if (!message.trim()) return;
+
+        const newMessage = {
+            conversation: currentChat._id,
+            sender: user._id,
+            text: message.trim(),
+        };
+
+        try {
+            // Store new message
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/messages`,
+                newMessage,
+                header
+            );
+            setMessages([...messages, response.data]);
+
+            // Clear contentEditable div's innerText
+            contentEditableRef.current.innerText = "";
+            setMessage("");
+        } catch (e) {
+            console.log("Error sending message: ", e);
+        }
+    };
+
     return (
         <div className="messenger p-0 text-start">
             <div className="chatMenu">
@@ -109,11 +141,12 @@ function Main({ setIsLoggedIn }) {
                         <>
                             <div className="chatBoxTop">
                                 {messages?.map((message, n) => (
-                                    <Message
-                                        message={message}
-                                        own={message.sender === user._id}
-                                        key={n}
-                                    />
+                                    <div ref={scrollRef} key={n}>
+                                        <Message
+                                            message={message}
+                                            own={message.sender === user._id}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                             <div className="chatBoxBottom">
@@ -132,6 +165,7 @@ function Main({ setIsLoggedIn }) {
                                     <div
                                         className="chatMessageInput"
                                         contentEditable
+                                        ref={contentEditableRef}
                                         onInput={(e) => {
                                             const content =
                                                 e.target.innerText.replace(
@@ -139,6 +173,15 @@ function Main({ setIsLoggedIn }) {
                                                     ""
                                                 );
                                             setMessage(content);
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (
+                                                e.key === "Enter" &&
+                                                !e.shiftKey
+                                            ) {
+                                                e.preventDefault();
+                                                handleSubmit();
+                                            }
                                         }}
                                     />
                                     <div
@@ -160,6 +203,7 @@ function Main({ setIsLoggedIn }) {
                                     className="chatSubmitButton"
                                     icon={"paper-plane"}
                                     color={"#35b234"}
+                                    onClick={handleSubmit}
                                 />
                             </div>
                         </>
