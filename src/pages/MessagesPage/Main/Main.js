@@ -12,9 +12,11 @@ import { io } from "socket.io-client";
 function Main({ setIsLoggedIn }) {
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
+    const [currentChatAvatarURLs, setCurrentChatAvatarURLS] = useState();
     const [messages, setMessages] = useState(null);
     const [message, setMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef();
     const [user, setUser] = useState();
     const contentEditableRef = useRef(null);
@@ -53,7 +55,7 @@ function Main({ setIsLoggedIn }) {
 
         socket.current.emit("addUser", user?._id);
         socket.current.on("getUsers", (users) => {
-            console.log(users);
+            setOnlineUsers(users);
         });
     }, [user]);
 
@@ -108,7 +110,42 @@ function Main({ setIsLoggedIn }) {
                 console.log("Error fetching messages: ", e);
             }
         };
+
+        const getAvatar = async () => {
+            if (!currentChat || !currentChat.members) return;
+
+            try {
+                const avatarURLs = {};
+
+                for (const m of currentChat.members) {
+                    try {
+                        const avatarRes = await axios.get(
+                            `${process.env.REACT_APP_BASE_URL}/users/${m}/avatar`,
+                            {
+                                responseType: "arraybuffer",
+                            }
+                        );
+
+                        const avatarBlob = new Blob([avatarRes.data], {
+                            type: "image/png",
+                        });
+                        const avatarURL = URL.createObjectURL(avatarBlob);
+
+                        avatarURLs[m] = avatarURL;
+                    } catch (e) {
+                        console.log(`Error fetching avatar for user ${m}: `, e);
+                        avatarURLs[m] = null;
+                    }
+                }
+
+                setCurrentChatAvatarURLS(avatarURLs);
+            } catch (e) {
+                console.log("Error fetching avatar:", e);
+            }
+        };
+
         getMessages();
+        getAvatar();
     }, [currentChat]);
 
     useEffect(() => {
@@ -184,6 +221,9 @@ function Main({ setIsLoggedIn }) {
                                         <Message
                                             message={message}
                                             own={message.sender === user._id}
+                                            currentChatAvatarURLs={
+                                                currentChatAvatarURLs
+                                            }
                                         />
                                     </div>
                                 ))}
@@ -267,7 +307,11 @@ function Main({ setIsLoggedIn }) {
             </div>
             <div className="chatOnline">
                 <div className="chatOnlineWrapper">
-                    <ChatOnline />
+                    <ChatOnline
+                        onlineUsers={onlineUsers}
+                        currentId={user?._id}
+                        currentChat={currentChat}
+                    />
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@
     border: 1px solid #fff;
 }
 
-.chatOnlineBadgeOut {
+.chatOnlineBadgeOutOnline {
     width: 11px;
     height: 11px;
     border-radius: 50%;
@@ -32,11 +32,33 @@
     align-items: center;
 }
 
-.chatOnlineBadgeIn {
+.chatOnlineBadgeOutOffline {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: none;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatOnlineBadgeInOnline {
     width: 9px;
     height: 9px;
     border-radius: 50%;
     background-color: #31A24C;
+    bottom: 0.5px;
+    right: 0.5px;
+}
+
+.chatOnlineBadgeInOffline {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: none;
     bottom: 0.5px;
     right: 0.5px;
 }
