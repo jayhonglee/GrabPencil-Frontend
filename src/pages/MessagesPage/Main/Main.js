@@ -7,12 +7,15 @@ import useCookie from "hooks/useCookie";
 import Conversation from "components/Conversation/Conversation";
 import Message from "components/Message/Message";
 import ChatOnline from "components/ChatOnline/ChatOnline";
+import { io } from "socket.io-client";
 
 function Main({ setIsLoggedIn }) {
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState(null);
     const [message, setMessage] = useState("");
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+    const socket = useRef();
     const [user, setUser] = useState();
     const contentEditableRef = useRef(null);
     const scrollRef = useRef(null);
@@ -27,6 +30,32 @@ function Main({ setIsLoggedIn }) {
             Authorization: `Bearer ${getCookie("auth_token")}`,
         },
     };
+
+    useEffect(() => {
+        socket.current = io(process.env.REACT_APP_SOCKET_ADDRESS);
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+            currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
+
+    useEffect(() => {
+        if (!user?._id) return;
+
+        socket.current.emit("addUser", user?._id);
+        socket.current.on("getUsers", (users) => {
+            console.log(users);
+        });
+    }, [user]);
 
     useEffect(() => {
         const getConversations = async () => {
@@ -94,6 +123,16 @@ function Main({ setIsLoggedIn }) {
             sender: user._id,
             text: message.trim(),
         };
+
+        const receiverId = currentChat.members.find(
+            (member) => member !== user._id
+        );
+
+        socket.current.emit("sendMessage", {
+            senderId: user._id,
+            receiverId,
+            text: message,
+        });
 
         try {
             // Store new message
