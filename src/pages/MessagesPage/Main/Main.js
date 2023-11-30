@@ -8,6 +8,7 @@ import Conversation from "components/Conversation/Conversation";
 import Message from "components/Message/Message";
 import ChatOnline from "components/ChatOnline/ChatOnline";
 import { io } from "socket.io-client";
+import { useLocation } from "react-router-dom";
 
 function Main({ setIsLoggedIn }) {
     const [conversations, setConversations] = useState([]);
@@ -32,6 +33,18 @@ function Main({ setIsLoggedIn }) {
             Authorization: `Bearer ${getCookie("auth_token")}`,
         },
     };
+
+    const location = useLocation();
+    useEffect(() => {
+        const receiverId = location?.state?.receiverId;
+
+        if (!receiverId || conversations.length === 0) return;
+
+        const newConversation = conversations?.filter((c) => {
+            return c.members.includes(receiverId);
+        });
+        setCurrentChat(newConversation[0]);
+    }, [conversations]);
 
     useEffect(() => {
         socket.current = io(process.env.REACT_APP_SOCKET_ADDRESS);
@@ -201,10 +214,17 @@ function Main({ setIsLoggedIn }) {
                     </div>
                     <div className="chatWrapper">
                         {conversations.map((c, n) => (
-                            <div onClick={() => setCurrentChat(c)} key={n}>
+                            <div
+                                onClick={() => {
+                                    setCurrentChat(c);
+                                    console.log(c);
+                                }}
+                                key={n}
+                            >
                                 <Conversation
                                     conversation={c}
                                     currentUser={user}
+                                    currentChat={currentChat}
                                 />
                             </div>
                         ))}

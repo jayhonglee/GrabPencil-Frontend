@@ -3,7 +3,7 @@ import useCookie from "hooks/useCookie";
 import "./Conversation.css";
 import axios from "axios";
 
-function Conversation({ conversation, currentUser }) {
+function Conversation({ conversation, currentUser, currentChat }) {
     const [user, setUser] = useState(null);
     const [avatarURL, setAvatarURL] = useState();
     const getCookie = useCookie;
@@ -50,7 +50,13 @@ function Conversation({ conversation, currentUser }) {
     }, [currentUser, conversation]);
 
     return (
-        <div className="conversation">
+        <div
+            className="conversation"
+            style={{
+                backgroundColor:
+                    currentChat?._id === conversation?._id && "#EBF5FF",
+            }}
+        >
             <img
                 className="conversationImg"
                 src={avatarURL ? `${avatarURL}` : `/images/no_avatar.png`}

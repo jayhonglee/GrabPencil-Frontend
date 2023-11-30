@@ -1,6 +1,12 @@
 import SFULogo from "../SliderItem/sampleData/SFULogo.png";
+import { useNavigate } from "react-router-dom";
+import useCookie from "hooks/useCookie";
+import axios from "axios";
 
 function MainItem({ currentTutorProfile, avatarURLs }) {
+    const navigate = useNavigate();
+    const getCookie = useCookie;
+
     const sortArray = (array) => {
         const sortedArray = array?.sort((a, b) => {
             // Compare start date years in reverse order (latest first)
@@ -87,6 +93,40 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
         background: "#FBFBFB",
     };
 
+    const header = {
+        withCredentials: true,
+        headers: {
+            Authorization: `Bearer ${getCookie("auth_token")}`,
+        },
+    };
+
+    const messageBtnHandler = async () => {
+        if (!currentTutorProfile) return;
+
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/conversations`,
+                {
+                    receiverId: currentTutorProfile.owner,
+                    tutorProfile: currentTutorProfile._id,
+                },
+                header
+            );
+            navigate("/messagesPage", {
+                state: { receiverId: currentTutorProfile.owner },
+            });
+        } catch (e) {
+            console.log("Error creating a new conversation: ", e);
+            if (
+                e.response.data ===
+                "A conversation with these members already exists."
+            )
+                navigate("/messagesPage", {
+                    state: { receiverId: currentTutorProfile.owner },
+                });
+        }
+    };
+
     return (
         currentTutorProfile && (
             <div
@@ -105,6 +145,7 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
                                     background: "#35b234",
                                     border: "none",
                                 }}
+                                onClick={messageBtnHandler}
                             >
                                 Message
                             </button>
