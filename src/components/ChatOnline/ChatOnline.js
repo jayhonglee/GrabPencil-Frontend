@@ -3,7 +3,12 @@ import "./ChatOnline.css";
 import axios from "axios";
 import useCookie from "hooks/useCookie";
 
-export default function ChatOnline({ onlineUsers, currentId, currentChat }) {
+export default function ChatOnline({
+    onlineUsers,
+    currentId,
+    currentChat,
+    setChatOnlineIsLoading,
+}) {
     const [members, setMembers] = useState([]);
     const getCookie = useCookie;
 
@@ -73,6 +78,7 @@ export default function ChatOnline({ onlineUsers, currentId, currentChat }) {
             }
 
             setMembers(memberInfoResults);
+            setChatOnlineIsLoading(false);
         };
         getUsers();
     }, [currentChat, onlineUsers]);

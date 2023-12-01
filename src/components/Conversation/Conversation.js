@@ -3,7 +3,12 @@ import useCookie from "hooks/useCookie";
 import "./Conversation.css";
 import axios from "axios";
 
-function Conversation({ conversation, currentUser, currentChat }) {
+function Conversation({
+    conversation,
+    currentUser,
+    currentChat,
+    setChatMenuIsLoading,
+}) {
     const [user, setUser] = useState(null);
     const [avatarURL, setAvatarURL] = useState();
     const getCookie = useCookie;
@@ -42,8 +47,11 @@ function Conversation({ conversation, currentUser, currentChat }) {
                         const imageUrl = URL.createObjectURL(blob);
                         setAvatarURL(imageUrl);
                     });
+
+                setChatMenuIsLoading(false);
             } catch (e) {
                 console.log("Error fetching conversation user: ", e);
+                setChatMenuIsLoading(false);
             }
         };
         getUser();

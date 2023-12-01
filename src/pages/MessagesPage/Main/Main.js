@@ -2,15 +2,19 @@ import "./Main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+import { useLocation } from "react-router-dom";
+import Loading from "./Loading/Loading";
 import axios from "axios";
 import useCookie from "hooks/useCookie";
 import Conversation from "components/Conversation/Conversation";
 import Message from "components/Message/Message";
 import ChatOnline from "components/ChatOnline/ChatOnline";
-import { io } from "socket.io-client";
-import { useLocation } from "react-router-dom";
 
 function Main({ setIsLoggedIn }) {
+    const [isLoading, setIsLoading] = useState(true);
+    const [chatOnlineIsLoading, setChatOnlineIsLoading] = useState(true);
+    const [chatMenuIsLoading, setChatMenuIsLoading] = useState(true);
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [currentChatAvatarURLs, setCurrentChatAvatarURLS] = useState();
@@ -26,6 +30,7 @@ function Main({ setIsLoggedIn }) {
 
     const getCookie = useCookie;
     const navigate = useNavigate;
+    const location = useLocation();
 
     const header = {
         withCredentials: true,
@@ -34,7 +39,18 @@ function Main({ setIsLoggedIn }) {
         },
     };
 
-    const location = useLocation();
+    useEffect(() => {
+        // set loading to false (when conversations are loaded and current users are loaded)
+        if (!chatMenuIsLoading && !chatOnlineIsLoading) setIsLoading(false);
+
+        // set current users loading to fasle when conversations are loaded and there are no conversations
+        if (!chatMenuIsLoading && !currentChat) setChatOnlineIsLoading(false);
+
+        // // set chatMenuIsLoading to false (when chat online is done loading after there are is no chat menu)
+        // if (!chatOnlineIsLoading && conversations.length === 0)
+        //     setChatMenuIsLoading(false);
+    }, [chatOnlineIsLoading, chatMenuIsLoading]);
+
     useEffect(() => {
         const receiverId = location?.state?.receiverId;
 
@@ -43,6 +59,7 @@ function Main({ setIsLoggedIn }) {
         const newConversation = conversations?.filter((c) => {
             return c.members.includes(receiverId);
         });
+
         setCurrentChat(newConversation[0]);
     }, [conversations]);
 
@@ -75,8 +92,6 @@ function Main({ setIsLoggedIn }) {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                // setIsLoading(true);
-
                 // Check valid token
                 const responseToken = await axios.post(
                     `${process.env.REACT_APP_BASE_URL}/checkAuthToken`,
@@ -93,8 +108,7 @@ function Main({ setIsLoggedIn }) {
                     header
                 );
                 setConversations(response.data);
-
-                // setIsLoading(false);
+                if (response.data.length === 0) setChatMenuIsLoading(false);
             } catch (e) {
                 if (
                     e.request.url.includes("/checkAuthToken") &&
@@ -104,7 +118,6 @@ function Main({ setIsLoggedIn }) {
                     setIsLoggedIn(false);
                     navigate("/");
                 }
-                // setIsLoading(false);
             }
         };
         getConversations();
@@ -202,136 +215,161 @@ function Main({ setIsLoggedIn }) {
     };
 
     return (
-        <div className="messenger p-0 text-start">
-            <div className="chatMenu">
-                <div className="chatMenuWrapper">
-                    <div className="chatMenuInputWrapper">
-                        <h1 className="m-0">Message</h1>
-                        <input
-                            placeholder="🔍 Conversation search"
-                            className="chatMenuInput"
-                        />
-                    </div>
-                    <div className="chatWrapper">
-                        {conversations.map((c, n) => (
-                            <div
-                                onClick={() => {
-                                    setCurrentChat(c);
-                                    console.log(c);
-                                }}
-                                key={n}
-                            >
-                                <Conversation
-                                    conversation={c}
-                                    currentUser={user}
-                                    currentChat={currentChat}
-                                />
-                            </div>
-                        ))}
+        <div className="m-0 p-0">
+            {isLoading && <Loading isLoading={isLoading} />}
+            <div
+                className="messenger p-0 text-start"
+                style={{
+                    width: "100%",
+                    opacity: isLoading ? "0" : "1",
+                    pointerEvents: isLoading && "none",
+                    visibility: isLoading ? "hidden" : "visible",
+                    overflow: isLoading ? "hidden" : "auto",
+                    height: isLoading && "0",
+                }}
+            >
+                <div className="chatMenu">
+                    <div className="chatMenuWrapper">
+                        <div className="chatMenuInputWrapper">
+                            <h1 className="m-0">Message</h1>
+                            <input
+                                placeholder="🔍 Conversation search"
+                                className="chatMenuInput"
+                            />
+                        </div>
+                        <div className="chatWrapper">
+                            {conversations.length !== 0
+                                ? conversations.map((c, n) => (
+                                      <div
+                                          onClick={() => {
+                                              setCurrentChat(c);
+                                              console.log(c);
+                                          }}
+                                          key={n}
+                                      >
+                                          <Conversation
+                                              conversation={c}
+                                              currentUser={user}
+                                              currentChat={currentChat}
+                                              setChatMenuIsLoading={
+                                                  n ===
+                                                      conversations.length -
+                                                          1 &&
+                                                  setChatMenuIsLoading
+                                              }
+                                          />
+                                      </div>
+                                  ))
+                                : null}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="chatBox">
-                <div className="chatBoxWrapper">
-                    {currentChat ? (
-                        <>
-                            <div className="chatBoxTop">
-                                {messages?.map((message, n) => (
-                                    <div ref={scrollRef} key={n}>
-                                        <Message
-                                            message={message}
-                                            own={message.sender === user._id}
-                                            currentChatAvatarURLs={
-                                                currentChatAvatarURLs
-                                            }
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="chatBoxBottom">
-                                <div
-                                    style={{
-                                        backgroundColor: "#F0F2F5",
-                                        borderRadius: "18px",
-                                        width: "95%",
-                                        minHeight: "36.09px",
-                                        maxHeight: "140px",
-                                        boxSizing: "border-box",
-                                        padding: "8px 12px",
-                                        position: "relative",
-                                    }}
-                                >
+                <div className="chatBox">
+                    <div className="chatBoxWrapper">
+                        {currentChat ? (
+                            <>
+                                <div className="chatBoxTop">
+                                    {messages?.map((message, n) => (
+                                        <div ref={scrollRef} key={n}>
+                                            <Message
+                                                message={message}
+                                                own={
+                                                    message.sender === user._id
+                                                }
+                                                currentChatAvatarURLs={
+                                                    currentChatAvatarURLs
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="chatBoxBottom">
                                     <div
-                                        className="chatMessageInput"
-                                        contentEditable
-                                        ref={contentEditableRef}
-                                        onInput={(e) => {
-                                            const content =
-                                                e.target.innerText.replace(
-                                                    /\n$/,
-                                                    ""
-                                                );
-                                            setMessage(content);
-                                        }}
-                                        onKeyDown={(e) => {
-                                            if (
-                                                e.key === "Enter" &&
-                                                !e.shiftKey
-                                            ) {
-                                                e.preventDefault();
-                                                handleSubmit();
-                                            }
-                                        }}
-                                    />
-                                    <div
-                                        className="d-flex justify-content-center align-items-center"
                                         style={{
-                                            position: "absolute",
-                                            left: "12px",
-                                            top: "8px",
-                                            lineHeight: "20.078px",
-                                            opacity: isTyping() ? "0" : "1",
-                                            pointerEvents: isTyping() && "none",
-                                            color: "#65676B",
+                                            backgroundColor: "#F0F2F5",
+                                            borderRadius: "18px",
+                                            width: "95%",
+                                            minHeight: "36.09px",
+                                            maxHeight: "140px",
+                                            boxSizing: "border-box",
+                                            padding: "8px 12px",
+                                            position: "relative",
                                         }}
                                     >
-                                        Aa
+                                        <div
+                                            className="chatMessageInput"
+                                            contentEditable
+                                            ref={contentEditableRef}
+                                            onInput={(e) => {
+                                                const content =
+                                                    e.target.innerText.replace(
+                                                        /\n$/,
+                                                        ""
+                                                    );
+                                                setMessage(content);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (
+                                                    e.key === "Enter" &&
+                                                    !e.shiftKey
+                                                ) {
+                                                    e.preventDefault();
+                                                    handleSubmit();
+                                                }
+                                            }}
+                                        />
+                                        <div
+                                            className="d-flex justify-content-center align-items-center"
+                                            style={{
+                                                position: "absolute",
+                                                left: "12px",
+                                                top: "8px",
+                                                lineHeight: "20.078px",
+                                                opacity: isTyping() ? "0" : "1",
+                                                pointerEvents:
+                                                    isTyping() && "none",
+                                                color: "#65676B",
+                                            }}
+                                        >
+                                            Aa
+                                        </div>
                                     </div>
+                                    <FontAwesomeIcon
+                                        className="chatSubmitButton"
+                                        icon={"paper-plane"}
+                                        color={"#35b234"}
+                                        onClick={handleSubmit}
+                                    />
                                 </div>
+                            </>
+                        ) : (
+                            <span
+                                className="noConversationText d-flex flex-column"
+                                style={{ color: "#35b234" }}
+                            >
                                 <FontAwesomeIcon
-                                    className="chatSubmitButton"
-                                    icon={"paper-plane"}
-                                    color={"#35b234"}
-                                    onClick={handleSubmit}
+                                    icon={"comment-dots"}
+                                    style={{
+                                        width: "150px",
+                                        height: "110px",
+                                        color: "#35b234",
+                                        marginBottom: "10px",
+                                    }}
                                 />
-                            </div>
-                        </>
-                    ) : (
-                        <span
-                            className="noConversationText d-flex flex-column"
-                            style={{ color: "#35b234" }}
-                        >
-                            <FontAwesomeIcon
-                                icon={"comment-dots"}
-                                style={{
-                                    width: "150px",
-                                    height: "110px",
-                                    color: "#35b234",
-                                    marginBottom: "10px",
-                                }}
-                            />
-                            No Conversation Selected
-                        </span>
-                    )}
+                                No Conversation Selected
+                            </span>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="chatOnline">
-                <div className="chatOnlineWrapper">
-                    <ChatOnline
-                        onlineUsers={onlineUsers}
-                        currentId={user?._id}
-                        currentChat={currentChat}
-                    />
+                <div className="chatOnline">
+                    <div className="chatOnlineWrapper">
+                        <ChatOnline
+                            onlineUsers={onlineUsers}
+                            currentId={user?._id}
+                            currentChat={currentChat}
+                            setChatOnlineIsLoading={setChatOnlineIsLoading}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
