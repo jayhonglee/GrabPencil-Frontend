@@ -48,6 +48,7 @@ function CardLoading() {
                                         ...shimmerStyle,
                                         width: "35%",
                                         height: "15px",
+                                        borderRadius: "10px",
                                     }}
                                 />
                             </div>
@@ -57,6 +58,7 @@ function CardLoading() {
                                     ...shimmerStyle,
                                     width: "20%",
                                     height: "15px",
+                                    borderRadius: "10px",
                                 }}
                             />
                             <div
@@ -65,6 +67,7 @@ function CardLoading() {
                                     ...shimmerStyle,
                                     width: "65%",
                                     height: "15px",
+                                    borderRadius: "10px",
                                 }}
                             />
                             <div
@@ -73,6 +76,7 @@ function CardLoading() {
                                     ...shimmerStyle,
                                     width: "75%",
                                     height: "15px",
+                                    borderRadius: "10px",
                                 }}
                             />
                             <div
@@ -81,24 +85,7 @@ function CardLoading() {
                                     ...shimmerStyle,
                                     width: "55%",
                                     height: "15px",
-                                }}
-                            />
-                            <div
-                                className="mb-2"
-                                style={{
-                                    ...shimmerStyle,
-                                    width: "55%",
-                                    height: "15px",
-                                    background: "#fff",
-                                }}
-                            />
-                            <div
-                                className="mb-2"
-                                style={{
-                                    ...shimmerStyle,
-                                    width: "55%",
-                                    height: "15px",
-                                    background: "#fff",
+                                    borderRadius: "10px",
                                 }}
                             />
                             <div
@@ -108,6 +95,27 @@ function CardLoading() {
                                     width: "55%",
                                     height: "15px",
                                     background: "#fff",
+                                    borderRadius: "10px",
+                                }}
+                            />
+                            <div
+                                className="mb-2"
+                                style={{
+                                    ...shimmerStyle,
+                                    width: "55%",
+                                    height: "15px",
+                                    background: "#fff",
+                                    borderRadius: "10px",
+                                }}
+                            />
+                            <div
+                                className="mb-2"
+                                style={{
+                                    ...shimmerStyle,
+                                    width: "55%",
+                                    height: "15px",
+                                    background: "#fff",
+                                    borderRadius: "10px",
                                 }}
                             />
                         </div>

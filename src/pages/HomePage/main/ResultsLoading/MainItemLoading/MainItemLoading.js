@@ -75,6 +75,7 @@ function MainItemLoading() {
                                 ...shimmerStyle,
                                 width: "86.25px",
                                 height: "36px",
+                                borderRadius: "10px",
                             }}
                         />
                     </div>
@@ -85,6 +86,7 @@ function MainItemLoading() {
                                     width: "102.53px",
                                     height: "15px",
                                     ...shimmerStyle,
+                                    borderRadius: "10px",
                                 }}
                             />
                             <div
@@ -93,6 +95,7 @@ function MainItemLoading() {
                                     width: "58.59px",
                                     height: "15px",
                                     ...shimmerStyle,
+                                    borderRadius: "10px",
                                 }}
                             />
                         </div>
@@ -101,6 +104,7 @@ function MainItemLoading() {
                                 width: "102.53px",
                                 height: "15px",
                                 ...shimmerStyle,
+                                borderRadius: "10px",
                             }}
                         />
                     </div>

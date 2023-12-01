@@ -31,6 +31,7 @@ function MainItemCardLoading() {
                         ...shimmerStyle,
                         width: "102.53px",
                         height: "15px",
+                        borderRadius: "10px",
                     }}
                 />
                 <div
@@ -39,6 +40,7 @@ function MainItemCardLoading() {
                         ...shimmerStyle,
                         width: "58.59px",
                         height: "15px",
+                        borderRadius: "10px",
                     }}
                 />
                 <div
@@ -47,6 +49,7 @@ function MainItemCardLoading() {
                         ...shimmerStyle,
                         width: "190.44px",
                         height: "15px",
+                        borderRadius: "10px",
                     }}
                 />
                 <div
@@ -55,6 +58,7 @@ function MainItemCardLoading() {
                         ...shimmerStyle,
                         width: "219.73px",
                         height: "15px",
+                        borderRadius: "10px",
                     }}
                 />
                 <div
@@ -63,6 +67,7 @@ function MainItemCardLoading() {
                         ...shimmerStyle,
                         width: "161.14px",
                         height: "15px",
+                        borderRadius: "10px",
                     }}
                 />
             </div>
