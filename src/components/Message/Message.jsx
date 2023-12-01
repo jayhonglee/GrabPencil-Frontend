@@ -2,12 +2,12 @@ import "./Message.css";
 import { format } from "timeago.js";
 import { useEffect, useState } from "react";
 
-export default function Message({message, own, currentChatAvatarURLs}) {
+export default function Message({message, own, allMembersAvatarURLs}) {
     const [avatarURL, setAvatarURL] = useState();
 
     useEffect(()=> {
-            setAvatarURL(currentChatAvatarURLs?.[message.sender])
-    }, [message, currentChatAvatarURLs, own])
+            setAvatarURL(allMembersAvatarURLs?.[message.sender])
+    }, [message, allMembersAvatarURLs, own])
 
     return (
         <div className={own ? "message own" : "message"}>

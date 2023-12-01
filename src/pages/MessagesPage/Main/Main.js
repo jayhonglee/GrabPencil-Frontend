@@ -17,8 +17,9 @@ function Main({ setIsLoggedIn }) {
     const [chatMenuIsLoading, setChatMenuIsLoading] = useState(true);
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
-    const [currentChatAvatarURLs, setCurrentChatAvatarURLS] = useState();
-    const [messages, setMessages] = useState(null);
+    const [allMembersAvatarURLs, setAllMembersAvatarURLS] = useState();
+    const [allMembersNames, setAllMembersNames] = useState([]);
+    const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
@@ -72,11 +73,16 @@ function Main({ setIsLoggedIn }) {
                 createdAt: Date.now(),
             });
         });
+
+        return () => {
+            // Disconnect the socket
+            socket.current.disconnect();
+        };
     }, []);
 
     useEffect(() => {
         arrivalMessage &&
-            currentChat?.members.includes(arrivalMessage.sender) &&
+            currentChat?.members?.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage, currentChat]);
 
@@ -137,13 +143,23 @@ function Main({ setIsLoggedIn }) {
             }
         };
 
-        const getAvatar = async () => {
-            if (!currentChat || !currentChat.members) return;
+        getMessages();
+    }, [currentChat]);
 
+    useEffect(() => {
+        const getAvatar = async () => {
             try {
+                const allMembersFromConversations = [
+                    ...new Set(
+                        [].concat(...conversations.map((m) => m.members))
+                    ),
+                ];
+
+                if (allMembersFromConversations.length === 0) return;
+
                 const avatarURLs = {};
 
-                for (const m of currentChat.members) {
+                for (const m of allMembersFromConversations) {
                     try {
                         const avatarRes = await axios.get(
                             `${process.env.REACT_APP_BASE_URL}/users/${m}/avatar`,
@@ -164,15 +180,52 @@ function Main({ setIsLoggedIn }) {
                     }
                 }
 
-                setCurrentChatAvatarURLS(avatarURLs);
+                setAllMembersAvatarURLS(avatarURLs);
             } catch (e) {
                 console.log("Error fetching avatar:", e);
             }
         };
 
-        getMessages();
+        const getNames = async () => {
+            try {
+                const allMembersFromConversations = [
+                    ...new Set(
+                        [].concat(...conversations.map((m) => m.members))
+                    ),
+                ];
+
+                if (allMembersFromConversations.length === 0) return;
+
+                const memberInfoArray = allMembersFromConversations?.map(
+                    async (member) => {
+                        try {
+                            const userRes = await axios.get(
+                                `${process.env.REACT_APP_BASE_URL}/users/${member}`,
+                                header
+                            );
+
+                            const online = onlineUsers
+                                ?.map((user) => user.userId)
+                                .includes(member);
+
+                            return { user: userRes.data, online };
+                        } catch (e) {
+                            console.log("Error fetching user:", e);
+                        }
+                    }
+                );
+
+                const memberInfoResults = await Promise.all(memberInfoArray);
+                setAllMembersNames(memberInfoResults);
+                setChatOnlineIsLoading(false);
+            } catch (e) {
+                console.log("Error user info:", e);
+            }
+        };
+
         getAvatar();
-    }, [currentChat]);
+        getNames();
+    }, [conversations, onlineUsers]);
 
     useEffect(() => {
         scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
@@ -243,7 +296,6 @@ function Main({ setIsLoggedIn }) {
                                       <div
                                           onClick={() => {
                                               setCurrentChat(c);
-                                              console.log(c);
                                           }}
                                           key={n}
                                       >
@@ -275,8 +327,8 @@ function Main({ setIsLoggedIn }) {
                                                 own={
                                                     message.sender === user._id
                                                 }
-                                                currentChatAvatarURLs={
-                                                    currentChatAvatarURLs
+                                                allMembersAvatarURLs={
+                                                    allMembersAvatarURLs
                                                 }
                                             />
                                         </div>
@@ -363,10 +415,9 @@ function Main({ setIsLoggedIn }) {
                 <div className="chatOnline">
                     <div className="chatOnlineWrapper">
                         <ChatOnline
-                            onlineUsers={onlineUsers}
-                            currentId={user?._id}
                             currentChat={currentChat}
-                            setChatOnlineIsLoading={setChatOnlineIsLoading}
+                            allMembersAvatarURLs={allMembersAvatarURLs}
+                            allMembersNames={allMembersNames}
                         />
                     </div>
                 </div>

@@ -81,7 +81,7 @@ function Main() {
                 <hr className="m-0" />
             </div>
             <div className="" style={divStyle}>
-                {!tutorProfilesIsLoading ? (
+                {tutorProfilesIsLoading ? (
                     <ResultsLoading />
                 ) : (
                     <Results
