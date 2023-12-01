@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useCookie from "hooks/useCookie";
 import "./Conversation.css";
 import axios from "axios";
+import { format } from "timeago.js";
 
 function Conversation({
     conversation,
@@ -12,6 +13,16 @@ function Conversation({
     const [user, setUser] = useState(null);
     const [avatarURL, setAvatarURL] = useState();
     const getCookie = useCookie;
+
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+
+    useEffect(() => {
+        // Check if both image and user data have loaded
+        if (isImageLoaded && isUserDataLoaded && setChatMenuIsLoading) {
+            setChatMenuIsLoading(false);
+        }
+    }, [isImageLoaded, isUserDataLoaded, setChatMenuIsLoading]);
 
     const header = {
         withCredentials: true,
@@ -34,27 +45,34 @@ function Conversation({
                     header
                 );
                 setUser(response.data);
-
-                await axios
-                    .get(
-                        `${process.env.REACT_APP_BASE_URL}/users/${friendId}/avatar`,
-                        { responseType: "arraybuffer" }
-                    )
-                    .then((response) => {
-                        const blob = new Blob([response.data], {
-                            type: "image/png",
-                        });
-                        const imageUrl = URL.createObjectURL(blob);
-                        setAvatarURL(imageUrl);
-                    });
-
-                setChatMenuIsLoading(false);
+                setIsUserDataLoaded(true);
             } catch (e) {
                 console.log("Error fetching conversation user: ", e);
-                setChatMenuIsLoading(false);
+                setIsUserDataLoaded(true);
             }
         };
+
+        const getAvatar = async () => {
+            try {
+                const avatarResponse = await axios.get(
+                    `${process.env.REACT_APP_BASE_URL}/users/${friendId}/avatar`,
+                    { responseType: "arraybuffer" }
+                );
+
+                const blob = new Blob([avatarResponse.data], {
+                    type: "image/png",
+                });
+                const imageUrl = URL.createObjectURL(blob);
+                setAvatarURL(imageUrl);
+                setIsImageLoaded(true);
+            } catch (e) {
+                console.log("Error fetching avatar: ", e);
+                setIsImageLoaded(true);
+            }
+        };
+
         getUser();
+        getAvatar();
     }, [currentUser, conversation]);
 
     return (
@@ -71,8 +89,12 @@ function Conversation({
                 alt=""
             />
             <div className="conversationName d-flex flex-column">
-                <span className="conversationUser">{`${user?.firstName} ${user?.lastName}`}</span>
-                <span className="conversationCreated">Created 1 month ago</span>
+                <span className="conversationUser">{`${
+                    user?.firstName === undefined ? "" : user?.firstName
+                } ${user?.lastName === undefined ? "" : user?.lastName}`}</span>
+                <span className="conversationCreated">{`Created ${format(
+                    conversation.createdAt
+                )}`}</span>
             </div>
         </div>
     );

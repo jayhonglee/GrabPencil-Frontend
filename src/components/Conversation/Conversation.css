@@ -22,12 +22,13 @@
 .conversationName {
     padding: 6px;
     font-weight: 500;
+    max-width: 215px;
 }
 
 .conversationUser {
+    display: inline-block;
     font-size: 15px;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 1.3333;

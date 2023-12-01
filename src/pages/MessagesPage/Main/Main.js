@@ -252,10 +252,9 @@ function Main({ setIsLoggedIn }) {
                                               currentUser={user}
                                               currentChat={currentChat}
                                               setChatMenuIsLoading={
-                                                  n ===
-                                                      conversations.length -
-                                                          1 &&
-                                                  setChatMenuIsLoading
+                                                  n === conversations.length - 1
+                                                      ? setChatMenuIsLoading
+                                                      : undefined
                                               }
                                           />
                                       </div>
