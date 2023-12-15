@@ -33,6 +33,7 @@ function App() {
                         },
                     }
                 );
+                console.log(response);
 
                 if (response.status === 200) {
                     localStorage.setItem("isLoggedIn", "true");
