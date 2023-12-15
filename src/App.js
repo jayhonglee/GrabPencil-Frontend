@@ -44,7 +44,7 @@ function App() {
                     setIsLoggedIn(false);
                 }
             } catch (e) {
-                console.log(response);
+                console.log(e);
                 localStorage.setItem("isLoggedIn", "false");
                 setIsLoggedIn(false);
             }
