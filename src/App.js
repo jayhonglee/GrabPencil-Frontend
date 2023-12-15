@@ -33,7 +33,6 @@ function App() {
                         },
                     }
                 );
-                console.log(response);
 
                 if (response.status === 200) {
                     localStorage.setItem("isLoggedIn", "true");
@@ -45,6 +44,7 @@ function App() {
                     setIsLoggedIn(false);
                 }
             } catch (e) {
+                console.log(response);
                 localStorage.setItem("isLoggedIn", "false");
                 setIsLoggedIn(false);
             }
