@@ -16,6 +16,8 @@ import AboutLesson from "./Popups/AboutLesson/AboutLesson";
 import HourlyRate from "./Popups/HourlyRate/HourlyRate";
 
 function Main({ currentProfile }) {
+    const [errorMessage, setErrorMessage] = useState("");
+
     const [newSubjectsValue, setNewSubjectsValue] = useState();
     const [isSubjectsVisible, setIsSubjectsVisible] = useState(false);
     const [newHeadlineValue, setNewHeadlineValue] = useState();
@@ -96,6 +98,7 @@ function Main({ currentProfile }) {
                 navigate(0);
             } catch (error) {
                 console.error("Error creating:", error);
+                setErrorMessage(error.response.data);
             }
         } else if (type === "update") {
             try {
@@ -114,6 +117,7 @@ function Main({ currentProfile }) {
                 navigate(0);
             } catch (error) {
                 console.error("Error updating:", error);
+                setErrorMessage(error.response.data);
             }
         } else if (type === "delete") {
             try {
@@ -131,6 +135,7 @@ function Main({ currentProfile }) {
                 navigate(0);
             } catch (error) {
                 console.error("Error deleting:", error);
+                setErrorMessage(error.response.data);
             }
         }
     }
@@ -325,6 +330,15 @@ function Main({ currentProfile }) {
                 }
                 setPopup={setIsHourlyRateVisible}
             />
+            <div
+                style={{
+                    width: "100%",
+                    margin: "0 auto 16px",
+                    color: "red",
+                }}
+            >
+                {errorMessage}
+            </div>
             <div
                 className="d-flex justify-content-center align-items-center"
                 style={{ marginBottom: "32px" }}

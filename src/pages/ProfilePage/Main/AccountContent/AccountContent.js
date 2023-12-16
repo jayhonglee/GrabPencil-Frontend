@@ -7,6 +7,7 @@ import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import "./AccountContent.css";
 
 function AccountContent({ setIsLoggedIn }) {
+    const [forceRender, setForceRender] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [allowDelete, setAllowDelete] = useState(false);
     const [profileHover, setProfileHover] = useState(false);
@@ -77,7 +78,7 @@ function AccountContent({ setIsLoggedIn }) {
             }
         };
         getAccountInfo();
-    }, []);
+    }, [forceRender]);
 
     async function handleUpdate(type, e) {
         if (type === "update") {
@@ -99,8 +100,7 @@ function AccountContent({ setIsLoggedIn }) {
                     header
                 );
                 console.log("Updated:", response.data);
-
-                navigate(0);
+                setForceRender((prev) => prev + 1);
             } catch (e) {
                 console.log("Error updating: ", e);
             }
@@ -140,11 +140,26 @@ function AccountContent({ setIsLoggedIn }) {
                     );
 
                     console.log("Image uploaded:", response.data);
-
-                    navigate(0);
+                    setForceRender((prev) => prev + 1);
                 } catch (error) {
                     console.error("Error uploading image:", error);
                 }
+            }
+        } else if (type === "logout") {
+            try {
+                const response = await axios.post(
+                    `${process.env.REACT_APP_BASE_URL}/users/logout`,
+                    {},
+                    header
+                );
+
+                console.log("Successfully logged out:", response.data);
+
+                localStorage.setItem("isLoggedIn", "false");
+                window.dispatchEvent(new Event("storage"));
+                navigate("/");
+            } catch (error) {
+                console.error("Error logging out:", error);
             }
         }
     }
@@ -291,78 +306,118 @@ function AccountContent({ setIsLoggedIn }) {
                     }`}
                     onClick={() => handleUpdate("update")}
                 >
-                    update
+                    Update
                 </div>
             </div>
-            <div
-                style={{ ...generalInfoStyle, margin: "0 20px" }}
-                className="account-card"
-            >
+            <div className="d-flex flex-column">
                 <div
-                    style={{
-                        marginBottom: "30px",
-                        fontsize: "15px",
-                        fontWeight: "700",
-                    }}
+                    style={{ ...generalInfoStyle, margin: "0 20px 20px 20px" }}
+                    className="account-card"
                 >
-                    Delete Account 😭
-                </div>
-                <div
-                    className="text-start"
-                    style={{
-                        fontSize: "15px",
-                        fontWeight: "400",
-                        marginBottom: "20px",
-                    }}
-                >
-                    Attention: Deleting your account will wipe out all your
-                    data. Proceeding means saying goodbye to your information
-                    forever.
-                </div>
-                <div
-                    className="text-start d-flex align-items-center"
-                    style={{
-                        width: "279.69px",
-                        height: "67.53px",
-                        background: allowDelete
-                            ? "#5bca8d"
-                            : "rgb(247, 247, 247)",
-                        padding: "20px",
-                        color: allowDelete ? "#fff" : "#999999",
-                        borderRadius: "5px",
-                        fontSize: "15px",
-                        fontWeight: "600",
-                        cursor: "pointer",
-                        marginBottom: "20px",
-                    }}
-                    onClick={() => setAllowDelete((prev) => !prev)}
-                >
-                    <FontAwesomeIcon
-                        icon="check-circle"
+                    <div
                         style={{
-                            width: "27px",
-                            height: "27px",
-                            marginRight: "5px",
-                            color: allowDelete && "#fff",
+                            marginBottom: "30px",
+                            fontsize: "15px",
+                            fontWeight: "700",
                         }}
-                    />
-                    Delete my account
+                    >
+                        Logout 👋
+                    </div>
+                    <div
+                        className="text-start"
+                        style={{
+                            fontSize: "15px",
+                            fontWeight: "400",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        Click here to securely log out, see you again soon!
+                    </div>
+                    <div
+                        className={`btn d-flex justify-content-center align-items-center`}
+                        style={{
+                            width: "180px",
+                            height: "39px",
+                            borderRadius: "100px",
+                            background: "#35b234",
+                            color: "#fff",
+                            margin: "0 auto",
+                        }}
+                        onClick={() => handleUpdate("logout")}
+                    >
+                        Logout
+                    </div>
                 </div>
                 <div
-                    className={`btn d-flex justify-content-center align-items-center ${
-                        !allowDelete && "disabled"
-                    }`}
-                    style={{
-                        width: "180px",
-                        height: "39px",
-                        borderRadius: "100px",
-                        background: "#35b234",
-                        color: "#fff",
-                        margin: "0 auto",
-                    }}
-                    onClick={() => handleUpdate("delete")}
+                    style={{ ...generalInfoStyle, margin: "0 20px" }}
+                    className="account-card"
                 >
-                    Delete my account
+                    <div
+                        style={{
+                            marginBottom: "30px",
+                            fontsize: "15px",
+                            fontWeight: "700",
+                        }}
+                    >
+                        Delete Account 😭
+                    </div>
+                    <div
+                        className="text-start"
+                        style={{
+                            fontSize: "15px",
+                            fontWeight: "400",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        Attention: Deleting your account will wipe out all your
+                        data. Proceeding means saying goodbye to your
+                        information forever.
+                    </div>
+                    <div
+                        className="text-start d-flex align-items-center"
+                        style={{
+                            width: "279.69px",
+                            height: "67.53px",
+                            background: allowDelete
+                                ? "#5bca8d"
+                                : "rgb(247, 247, 247)",
+                            padding: "20px",
+                            color: allowDelete ? "#fff" : "#999999",
+                            borderRadius: "5px",
+                            fontSize: "15px",
+                            fontWeight: "600",
+                            cursor: "pointer",
+                            marginBottom: "20px",
+                        }}
+                        onClick={() => setAllowDelete((prev) => !prev)}
+                    >
+                        <FontAwesomeIcon
+                            icon="check-circle"
+                            style={{
+                                width: "27px",
+                                height: "27px",
+                                marginRight: "5px",
+                                color: allowDelete && "#fff",
+                            }}
+                        />
+                        Delete my account
+                    </div>
+                    <div
+                        className={`btn d-flex justify-content-center align-items-center ${
+                            !allowDelete && "disabled"
+                        }`}
+                        style={{
+                            width: "180px",
+                            height: "39px",
+                            borderRadius: "100px",
+                            background: "#35b234",
+                            color: "#fff",
+                            margin: "0 auto",
+                        }}
+                        onClick={() => handleUpdate("delete")}
+                    >
+                        Delete my account
+                    </div>
                 </div>
             </div>
             <div

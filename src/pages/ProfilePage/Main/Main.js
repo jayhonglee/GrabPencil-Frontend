@@ -23,7 +23,10 @@ function Main({ setIsLoggedIn }) {
                 {currentButton === "My Tutor Profiles" ? (
                     <TutorProfileContent setIsLoggedIn={setIsLoggedIn} />
                 ) : (
-                    <AccountContent setIsLoggedIn={setIsLoggedIn} />
+                    <AccountContent
+                        setIsLoggedIn={setIsLoggedIn}
+                        setCurrentButton={setCurrentButton}
+                    />
                 )}
             </div>
         </>
