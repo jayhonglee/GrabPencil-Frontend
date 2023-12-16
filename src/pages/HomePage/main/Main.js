@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ResultsLoading from "./ResultsLoading/ResultsLoading";
 
-function Main() {
+function Main({ setIsLoginVisible, setFromState }) {
     const [tutorProfilesIsLoading, setTutorProfilesIsLoading] = useState(true);
     const [tutorProfilesArray, setTutorProfilesArray] = useState([]);
     const [paginationObject, setPaginationObject] = useState({});
@@ -85,6 +85,8 @@ function Main() {
                     <ResultsLoading />
                 ) : (
                     <Results
+                        setIsLoginVisible={setIsLoginVisible}
+                        setFromState={setFromState}
                         tutorProfilesArray={tutorProfilesArray}
                         paginationObject={paginationObject}
                         currentTutorProfile={currentTutorProfile}

@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useCookie from "hooks/useCookie";
 import axios from "axios";
 
-function MainItem({ currentTutorProfile, avatarURLs }) {
+function MainItem({
+    setIsLoginVisible,
+    setFromState,
+    currentTutorProfile,
+    avatarURLs,
+}) {
     const navigate = useNavigate();
     const getCookie = useCookie;
 
@@ -120,10 +125,14 @@ function MainItem({ currentTutorProfile, avatarURLs }) {
             if (
                 e.response.data ===
                 "A conversation with these members already exists."
-            )
+            ) {
                 navigate("/messagesPage", {
                     state: { receiverId: currentTutorProfile.owner },
                 });
+            } else if (e.response.data.error === "Please authenticate.") {
+                setIsLoginVisible(true);
+                setFromState(null);
+            }
         }
     };
 

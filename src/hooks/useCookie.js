@@ -1,5 +1,4 @@
 function useCookie(cookieName) {
-    console.log(document.cookie);
     const cookies = document.cookie.split(";");
 
     for (let i = 0; i < cookies.length; i++) {

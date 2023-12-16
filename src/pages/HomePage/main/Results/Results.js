@@ -5,6 +5,8 @@ import { format } from "timeago.js";
 import { useEffect, useState } from "react";
 
 function Results({
+    setIsLoginVisible,
+    setFromState,
     tutorProfilesArray,
     paginationObject,
     currentTutorProfile,
@@ -108,6 +110,8 @@ function Results({
                 </div>
                 <div className="col-7">
                     <MainItem
+                        setIsLoginVisible={setIsLoginVisible}
+                        setFromState={setFromState}
                         currentTutorProfile={currentTutorProfile}
                         avatarURLs={avatarURLs}
                     />

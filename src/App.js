@@ -18,6 +18,7 @@ function App() {
         () => localStorage.getItem("isLoggedIn") === "true"
     );
     const [fromState, setFromState] = useState(location.state);
+    const [isLoginVisible, setIsLoginVisible] = useState(false);
     const getCookie = useCookie;
 
     useEffect(() => {
@@ -37,7 +38,11 @@ function App() {
                 if (response.status === 200) {
                     localStorage.setItem("isLoggedIn", "true");
                     setIsLoggedIn(true);
-                    if (fromState) navigate(`/${fromState}`);
+                    if (fromState) {
+                        navigate(`/${fromState}`);
+                    } else {
+                        setIsLoginVisible(false);
+                    }
                     setFromState(null);
                 } else {
                     localStorage.setItem("isLoggedIn", "false");
@@ -73,6 +78,8 @@ function App() {
                         isLoggedIn={isLoggedIn}
                         fromState={fromState}
                         setFromState={setFromState}
+                        isLoginVisible={isLoginVisible}
+                        setIsLoginVisible={setIsLoginVisible}
                     />
                 }
             />
