@@ -20,7 +20,7 @@ function MessagesPage({ isLoggedIn, setFromState }) {
                 />
             }
             content={<Main />}
-            footer={<div></div>}
+            // footer={<div></div>}
         />
     );
 }

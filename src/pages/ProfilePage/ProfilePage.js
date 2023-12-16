@@ -20,7 +20,7 @@ function ProfilePage({ isLoggedIn, setFromState, setIsLoggedIn }) {
                 />
             }
             content={<Main setIsLoggedIn={setIsLoggedIn} />}
-            footer={<div></div>}
+            // footer={<div></div>}
         />
     );
 }

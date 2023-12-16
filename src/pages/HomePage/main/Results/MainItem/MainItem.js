@@ -2,6 +2,7 @@ import SFULogo from "../SliderItem/sampleData/SFULogo.png";
 import { useNavigate } from "react-router-dom";
 import useCookie from "hooks/useCookie";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function MainItem({
     setIsLoginVisible,
@@ -132,6 +133,10 @@ function MainItem({
             } else if (e.response.data.error === "Please authenticate.") {
                 setIsLoginVisible(true);
                 setFromState(null);
+            } else if (
+                e.response.data === "Cannot start a conversation with yourself."
+            ) {
+                navigate("/messagesPage");
             }
         }
     };
@@ -184,12 +189,16 @@ function MainItem({
                                 </p>
                             </div>
                             <p style={{ color: "grey" }}>
-                                <img
+                                {/* <img
                                     className="me-2"
                                     src={SFULogo} //needs to be updated
                                     alt="profile"
                                     width="48px"
                                     height="auto"
+                                /> */}
+                                <FontAwesomeIcon
+                                    icon={"building-columns"}
+                                    className="me-2"
                                 />
                                 {currentEducation?.school}
                             </p>
@@ -361,12 +370,24 @@ function MainItem({
                                     key={n}
                                 >
                                     <div className="me-2">
-                                        <img
+                                        {/* <img
                                             src={SFULogo} // needs to be updated
                                             alt="profile"
                                             width="48px"
                                             height="48px"
-                                        />
+                                        /> */}
+                                        <div
+                                            style={{
+                                                width: "48px",
+                                                height: "48px",
+                                                background: "#f1f2f6",
+                                            }}
+                                            className="d-flex justify-content-center align-items-center"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={"building-columns"}
+                                            />
+                                        </div>
                                     </div>
                                     <div className="d-flex flex-column">
                                         <div>

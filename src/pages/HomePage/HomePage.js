@@ -47,7 +47,7 @@ function HomePage({
                         setFromState={setFromState}
                     />
                 }
-                footer={<Footer />}
+                // footer={<Footer />}
             />
             <LoginPopUp
                 isLoginVisible={isLoginVisible}
