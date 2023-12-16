@@ -83,7 +83,15 @@ function App() {
                     />
                 }
             />
-            <Route path="/aboutPage" element={<AboutPage />} />
+            <Route
+                path="/aboutPage"
+                element={
+                    <AboutPage
+                        isLoggedIn={isLoggedIn}
+                        setFromState={setFromState}
+                    />
+                }
+            />
             <Route
                 path="/messagesPage"
                 element={

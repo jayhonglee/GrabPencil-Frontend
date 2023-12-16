@@ -33,7 +33,7 @@ function HomePage({
             <MainLayout
                 header={
                     <Navbar
-                        name={"StudentTutor"}
+                        name={"GrabPencil ✏️"}
                         colorTheme={colorTheme}
                         buttonsConfig={buttonsConfig}
                         setIsLoginVisible={setIsLoginVisible}

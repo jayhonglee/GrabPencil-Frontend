@@ -12,7 +12,7 @@ function ProfilePage({ isLoggedIn, setFromState, setIsLoggedIn }) {
         <MainLayout
             header={
                 <Navbar
-                    name={"StudentTutor"}
+                    name={"GrabPencil ✏️"}
                     colorTheme={colorTheme}
                     buttonsConfig={buttonsConfig}
                     setFromState={setFromState}

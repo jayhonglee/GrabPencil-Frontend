@@ -12,7 +12,7 @@ function MessagesPage({ isLoggedIn, setFromState }) {
         <MainLayout
             header={
                 <Navbar
-                    name={"StudentTutor"}
+                    name={"GrabPencil ✏️"}
                     colorTheme={colorTheme}
                     buttonsConfig={buttonsConfig}
                     setFromState={setFromState}
