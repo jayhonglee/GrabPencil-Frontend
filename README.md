@@ -2,10 +2,10 @@
 
 <img src="./assets/animations/pencil.gif" alt="Pencil_GIF" width="250" height="250">
 
-![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
-![GitHub license](https://img.shields.io/github/license/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Frontend.svg?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Frontend.svg?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jayhonglee/GrabPencil-Frontend.svg?style=for-the-badge)
+![GitHub license](https://img.shields.io/github/license/jayhonglee/GrabPencil-Frontend.svg?style=for-the-badge)
 
 </div>
 
